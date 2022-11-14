@@ -1,40 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 10:21:50 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/14 17:04:33 by eorer            ###   ########.fr       */
+/*   Created: 2022/11/14 18:34:13 by eorer             #+#    #+#             */
+/*   Updated: 2022/11/14 18:53:19 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
-#include <stddef.h>
-#include <stdint.h>
+#include "../libft.h"
+#include "libftprintf.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+int	main(void)
 {
-	void	*ptr;
-	size_t	a;
-
-	a = nmemb * size;
-	if (size != 0 && a / size != nmemb)
-		return (0);
-	ptr = malloc(size * nmemb);
-	if (!ptr)
-		return (0);
-	ft_bzero(ptr, nmemb * size);
-	return (ptr);
-}
-
-/*int main(void)
-{
-	void	*p = ft_calloc(4, 0);
-
-	printf("--> %p\n", p);
-	free(p);
+	ft_putstr_fd("Tout est good !", 1);
 	return (0);
-}*/
+}
