@@ -6,12 +6,21 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:00:37 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/11 14:26:49 by eorer            ###   ########.fr       */
+/*   Updated: 2022/11/15 18:29:48 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
+
+void	free_tab(char **tableau)
+{
+	while (tableau)
+	{
+		free(*tableau);
+		tableau++;
+	}
+}
 
 static int	size_tab(char *str, char c)
 {
@@ -49,9 +58,9 @@ static char	**ft_alloc(char *str, char c, char **tableau)
 				str++;
 			}
 			tableau[count] = malloc(i + 1);
-			if (tableau[count] == 0)
-				return (0);
-			count = count + 1;
+			if (!tableau[count])
+				return (NULL);
+			count++;
 		}
 		else
 			str++;
@@ -96,7 +105,11 @@ char	**ft_split(const char *s, char c)
 	tableau = malloc(sizeof(tableau) * (size + 1));
 	if (tableau == 0)
 		return (0);
-	tableau = ft_alloc((char *)s, c, tableau);
+	if (ft_alloc((char *)s, c, tableau) == NULL)
+	{
+		free_tab(tableau);
+		return (NULL);
+	}
 	ft_implementation((char *)s, c, tableau);
 	tableau[size] = NULL;
 	return (tableau);
@@ -116,12 +129,7 @@ char	**ft_split(const char *s, char c)
 		printf("--> %s\n", tableau[i]);
 		i++;
 	}
-	i = 0;
-	while (i < size_tab(argv[2], argv[1][0]))
-	{
-		free(tableau[i]);
-		i++;
-	}
+	free_tab(tableau,size_tab(argv[2], argv[1][0]));
 	free(tableau);
 	return (0);
 }*/

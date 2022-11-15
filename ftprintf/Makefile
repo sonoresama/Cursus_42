@@ -6,7 +6,7 @@
 #    By: eorer <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/14 18:28:44 by eorer             #+#    #+#              #
-#    Updated: 2022/11/14 18:53:50 by eorer            ###   ########.fr        #
+#    Updated: 2022/11/15 12:59:16 by eorer            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,10 +31,13 @@ all : $(NAME)
 $(NAME) :
 	$(CC) $(CFLAGS) $(SRC) -L$(LIBFT_PATH) -lft $(INCLUDE)
 
+c :
+	rm -f a.out
+
 fclean : clean
 	make fclean -C libft
 
 clean :
 	make clean -C libft
 
-re : fclean all
+re : c all

@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 17:25:43 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/10 16:43:24 by eorer            ###   ########.fr       */
+/*   Updated: 2022/11/15 11:56:26 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	ft_strncmp(const char *s1, const char *s2, unsigned int n)
 		return (0);
 	return (*s1 - *s2);
 }
-
 /*int	main(void)
 {
 	printf("--> %i\n", ft_strncmp("strong", "strong", 3));
