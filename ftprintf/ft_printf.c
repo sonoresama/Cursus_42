@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 18:34:13 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/15 17:53:13 by eorer            ###   ########.fr       */
+/*   Updated: 2022/11/16 15:47:09 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,8 @@ int	ft_printf(const char *str, ...)
 			sub_str = ft_substr(str, j, i - j - 1);
 			ft_putstr_fd(sub_str, 1);
 			free(sub_str);
-			function = 
-			/*if (str[i] == 'i')
-				ft_putnbr_fd(va_arg(arg, int), 1);*/
+			if (str[i] == 'i')
+				ft_putnbr_fd(va_arg(arg, typeof(i)), 1);
 			j = i + 1;
 		}
 		i++;
