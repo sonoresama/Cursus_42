@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:40:51 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/16 16:11:56 by eorer            ###   ########.fr       */
+/*   Updated: 2022/11/17 11:25:55 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	ft_unsigned_putnbr_fd(unsigned int nbr, int fd)
 	ft_putchar_fd(n % 10 + '0', fd);
 }
 
-void	ft_puthexamin_fd()
 /*void	ft_printf_functions(char c, va_list arg)
 {
 	if (c == 'c')
