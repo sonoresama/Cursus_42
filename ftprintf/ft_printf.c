@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 18:34:13 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/16 15:47:09 by eorer            ###   ########.fr       */
+/*   Updated: 2022/11/17 17:44:25 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,9 @@ int	ft_printf(const char *str, ...)
 		if (str[i] == '%')
 		{
 			i++;
-			sub_str = ft_substr(str, j, i - j - 1);
-			ft_putstr_fd(sub_str, 1);
-			free(sub_str);
-			if (str[i] == 'i')
-				ft_putnbr_fd(va_arg(arg, typeof(i)), 1);
+			ft_putstr_fd(ft_substr(str, j, i - j - 1), 1);
+			free(ft_substr(str, j, i - j - 1));
+			ft_format(arg, str[i]);
 			j = i + 1;
 		}
 		i++;
@@ -47,6 +45,13 @@ int	ft_printf(const char *str, ...)
 
 int	main(void)
 {
-	ft_printf("J'ai %i ans !", 24);
+	void	*ptr;
+	int	a;
+
+	ptr = &a;
+	ft_printf("J'ai %i ans ! En hexa ca fait %x ans! Et je m'appelle %s\n", 24, 24, "Tito");
+	printf-O("J'ai %i ans ! En hexa ca fait %x ans! Et je m'appelle %s\n", 24, 24, "Tito");
+	//ft_printf("\nTest : %p\n", ptr);
+	printf("\nTest : %p\n", ptr);
 	return (0);
 }

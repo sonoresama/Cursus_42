@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 11:29:19 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/16 15:23:54 by eorer            ###   ########.fr       */
+/*   Updated: 2022/11/17 15:45:10 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_lstadd_front(t_list **lst, t_list *new)
 {
 	t_list	*ptr_lst;
 
+	if (!new)
+		return ;
 	if (*lst)
 	{
 		ptr_lst = *lst;

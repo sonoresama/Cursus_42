@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:00:37 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/15 18:29:48 by eorer            ###   ########.fr       */
+/*   Updated: 2022/11/17 15:44:20 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	free_tab(char **tableau)
 {
-	while (tableau)
+	while (*tableau)
 	{
 		free(*tableau);
 		tableau++;

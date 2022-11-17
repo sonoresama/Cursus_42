@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 18:27:51 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/15 17:24:55 by eorer            ###   ########.fr       */
+/*   Updated: 2022/11/17 17:10:23 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 # include <stdarg.h>
 
-void    ft_printf_functions(char c, va_list arg);
+char    *ft_hexa(int nbr, char *base);
+void	ft_unsigned_putnbr_fd(unsigned int nbr, int fd);
+void	ft_format(va_list arg, char c);
 
 #endif
 
