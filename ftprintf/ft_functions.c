@@ -5,69 +5,39 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 14:40:51 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/17 17:14:06 by eorer            ###   ########.fr       */
+/*   Created: 2022/11/18 15:32:01 by eorer             #+#    #+#             */
+/*   Updated: 2022/11/18 15:55:04 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 #include "libftprintf.h"
 
-static int	size_nbr(int n);
-static int	conversion(int nbr, char *resultat, char *base, int pos);
-
-void	ft_unsigned_putnbr_fd(unsigned int nbr, int fd)
+void	ft_putchar_count_fd(char c, int fd, int *count)
 {
-	if (nbr / 10)
-		ft_unsigned_putnbr_fd(nbr / 10, fd);
-	ft_putchar_fd(nbr % 10 + '0', fd);
+	write(fd, &c, 1);
+	*count = *count + 1;
 }
 
-char	*ft_hexa(int nbr, char *base)
+void	ft_putnbr_count_fd(int n, int fd, int *count)
 {
-	char	*resultat;
-
-	resultat = malloc(size_nbr(nbr) + 1);
-	if (!resultat)
-		return (NULL);
-	conversion(nbr, resultat, base, size_nbr(nbr) - 1);
-	resultat[size_nbr(nbr)] = '\0';
-	return (resultat);
-}
-
-static int	size_nbr(int n)
-{
-	int		size;
-	long	num;
-
-	num = (long)n;
-	size = 1;
-	if (num < 0)
+	if (n == -2147483648)
 	{
-		num = -num;
-		size++;
+		write(fd, "-2147483648", 11);
+		return ;
 	}
-	while (num / 16)
+	if (n < 0)
 	{
-		num = num / 16;
-		size++;
+		n = -n;
+		write(fd, "-", 1);
 	}
-	return (size);
+	if (n / 10)
+		ft_putnbr_fd(n / 10, fd);
+	ft_putchar_count_fd(n % 10 + '0', fd, count);
 }
 
-static int	conversion(int nbr, char *resultat, char *base, int pos)
+void	ft_putstr_count_fd(char *str, int fd, int *count)
 {
-	long	num;
-
-	num = (long)nbr;
-	if (num < 0)
-	{
-		num = -num;
-		resultat[0] = '-';
-	}
-	if (num / 16)
-		conversion(num / 16, resultat, base, pos - 1);
-	resultat[pos] = base[num % 16];
-	return (0);
+	write(fd, str, ft_strlen(str));
+	*count += ft_strlen(str);
 }
-

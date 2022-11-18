@@ -6,7 +6,7 @@
 #    By: eorer <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/14 18:28:44 by eorer             #+#    #+#              #
-#    Updated: 2022/11/15 12:59:16 by eorer            ###   ########.fr        #
+#    Updated: 2022/11/18 12:32:24 by eorer            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ LIBFT_PATH = $(DIR)
 all : $(NAME)
 
 $(NAME) :
-	$(CC) $(CFLAGS) $(SRC) -L$(LIBFT_PATH) -lft $(INCLUDE)
+	$(CC) $(CFLAGS) $(SRC) -L$(LIBFT_PATH) -lft $(INCLUDE) && ./a.out
 
 c :
 	rm -f a.out
