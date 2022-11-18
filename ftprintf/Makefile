@@ -6,38 +6,41 @@
 #    By: eorer <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/14 18:28:44 by eorer             #+#    #+#              #
-#    Updated: 2022/11/18 12:32:24 by eorer            ###   ########.fr        #
+#    Updated: 2022/11/18 17:46:29 by eorer            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = a.out
+NAME = libftprintf.a
 
 CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra
 
-INCLUDE = -include libftprintf.h ../libft.h
+INCLUDE = -include ft_printf.h libft/libft.h
 
-SRC = *.c
 
 DIR = $(shell dirname $(shell pwd))
 
-LIBFT_PATH = $(DIR)
+LIBFT_PATH = $(DIR)/libft
 
+SRC = ft_format.c ft_functions_2.c ft_functions.c ft_printf.c
 
+OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
 
-$(NAME) :
-	$(CC) $(CFLAGS) $(SRC) -L$(LIBFT_PATH) -lft $(INCLUDE) && ./a.out
-
-c :
-	rm -f a.out
+$(NAME) : $(OBJ)
+	make -C ./libft
+	cp libft/libft.a ./
+	$(CC) $(CFLAGS) -c $(INCLUDE) $(SRC)
+	ar -rcs $(NAME) $(OBJ)
 
 fclean : clean
 	make fclean -C libft
+	rm -rf $(NAME) libft.a
 
 clean :
 	make clean -C libft
+	rm -rf $(OBJ)
 
-re : c all
+re : fclean all

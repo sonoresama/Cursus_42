@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
-#include "libftprintf.h"
+#include "libft/libft.h"
+#include "ft_printf.h"
 
 static void	ft_print_arg(va_list arg, char c, int *count);
 

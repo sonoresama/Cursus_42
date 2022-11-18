@@ -6,12 +6,12 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:40:51 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/18 15:56:23 by eorer            ###   ########.fr       */
+/*   Updated: 2022/11/18 17:11:08 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
-#include "libftprintf.h"
+#include "libft/libft.h"
+#include "ft_printf.h"
 
 void	ft_unsigned_putnbr_fd(unsigned int nbr, int fd, int *count)
 {
@@ -39,10 +39,10 @@ void	ft_putnbr_hexa_fd(int n, char *base, int fd, int *count)
 	ft_putchar_count_fd(base[n % 16], fd, count);
 }
 
-static void	ft_putnbr_ul_hexa_fd(unsigned long n, char *base, int fd, int *count)
+static void	ft_puthexa_ul(unsigned long n, char *base, int fd, int *count)
 {
 	if (n / 16)
-		ft_putnbr_ul_hexa_fd(n / 16, base, fd, count);
+		ft_puthexa_ul(n / 16, base, fd, count);
 	ft_putchar_count_fd(base[n % 16], fd, count);
 }
 
@@ -52,5 +52,5 @@ void	ft_put_adress(void *ptr, int fd, int *count)
 
 	adress = (unsigned long)ptr;
 	ft_putstr_count_fd("0x", 1, count);
-	ft_putnbr_ul_hexa_fd(adress, "0123456789abcdef", fd, count);
+	ft_puthexa_ul(adress, "0123456789abcdef", fd, count);
 }
