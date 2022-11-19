@@ -1,0 +1,18 @@
+
+
+
+2’s complement only makes sense to me if you have an additional leading 1 denoting that this place value is a negative one. But first you have to invert all digits to find 1’s complement and then add 1 to the Least Significant Digit:
+
+F turns to 0 when inverted, E to 1, D to 2, C to 3, B to 4, A to 5, 9 to 6, 8 to 7.
+
+So the 1’s complement of A5C8 is 5A37, the 2’s complement 15A38=-10000+5A38.
+
+And this translates to
+
+1⋅164+5⋅163+10⋅162+3⋅161+8⋅160=
+
+65536+20480+2560+48+8=−4244010
+
+.
+
+Without the leading negative 1 the decimal equivalent of 5A38 is 23096 and thus far away from 42440 which is equal to the original A5C8.
