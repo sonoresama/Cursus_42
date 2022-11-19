@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 18:34:13 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/18 17:12:33 by eorer            ###   ########.fr       */
+/*   Updated: 2022/11/19 13:17:14 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,5 @@ int	ft_printf(const char *str, ...)
 	}
 	va_end(arg);
 	print_substr(str, j, i - j, &count);
-	return (count + 1);
+	return (count);
 }

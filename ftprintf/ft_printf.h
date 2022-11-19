@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 18:27:51 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/18 17:46:18 by eorer            ###   ########.fr       */
+/*   Updated: 2022/11/19 15:04:41 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdarg.h>
 # include "libft/libft.h"
+# include <limits.h>
 
 void	ft_putchar_count_fd(char c, int fd, int *count);
 void	ft_putnbr_count_fd(int nbr, int fd, int *count);

@@ -6,7 +6,7 @@
 #    By: eorer <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/14 18:28:44 by eorer             #+#    #+#              #
-#    Updated: 2022/11/18 17:46:29 by eorer            ###   ########.fr        #
+#    Updated: 2022/11/19 12:56:28 by eorer            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ all : $(NAME)
 $(NAME) : $(OBJ)
 	make -C ./libft
 	cp libft/libft.a ./
+	mv libft.a $(NAME)
 	$(CC) $(CFLAGS) -c $(INCLUDE) $(SRC)
 	ar -rcs $(NAME) $(OBJ)
 
