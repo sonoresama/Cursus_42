@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:32:01 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/19 15:21:20 by eorer            ###   ########.fr       */
+/*   Updated: 2022/11/20 17:09:51 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	ft_putchar_count_fd(char c, int fd, int *count)
 {
-	write(fd, &c, 1);
+	ft_putchar_fd(c, fd);
 	*count = *count + 1;
 }
 
@@ -45,4 +45,11 @@ void	ft_putstr_count_fd(char *str, int fd, int *count)
 	}
 	else
 		ft_putstr_count_fd("(null)", fd, count);
+}
+
+void	ft_unsigned_putnbr_fd(unsigned int nbr, int fd, int *count)
+{
+	if (nbr / 10)
+		ft_unsigned_putnbr_fd(nbr / 10, fd, count);
+	ft_putchar_count_fd(nbr % 10 + '0', fd, count);
 }

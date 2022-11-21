@@ -6,7 +6,7 @@
 #    By: eorer <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/14 18:28:44 by eorer             #+#    #+#              #
-#    Updated: 2022/11/19 12:56:28 by eorer            ###   ########.fr        #
+#    Updated: 2022/11/20 14:44:01 by emileorer        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ DIR = $(shell dirname $(shell pwd))
 
 LIBFT_PATH = $(DIR)/libft
 
-SRC = ft_format.c ft_functions_2.c ft_functions.c ft_printf.c
+SRC = ft_format.c ft_hexa.c ft_functions.c ft_printf.c
 
 OBJ = $(SRC:.c=.o)
 

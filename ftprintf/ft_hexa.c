@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 14:03:07 by emileorer         #+#    #+#             */
-/*   Updated: 2022/11/20 14:41:38 by emileorer        ###   ########.fr       */
+/*   Updated: 2022/11/21 10:37:22 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,14 @@ static void	ft_putnbr_2nd_comp(int n, char *base, int fd, int *count, int compte
 
 void	ft_putnbr_hexa_fd(int n, char *base, int fd, int *count)
 {
+	char	*revstr;
+
 	if (n < 0)
 	{
 		n = -1 * n - 1;
-		ft_putnbr_2nd_comp(n, ft_strrev(base), fd, count, 0);
+		revstr = ft_strrev(base);
+		ft_putnbr_2nd_comp(n, revstr, fd, count, 0);
+		free(revstr);
 		return ;
 	}
 	if (n / 16)

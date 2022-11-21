@@ -6,13 +6,12 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 09:53:19 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/15 12:16:29 by eorer            ###   ########.fr       */
+/*   Updated: 2022/11/19 19:13:08 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
-#include <bsd/string.h>
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {

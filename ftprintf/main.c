@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 12:37:26 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/19 15:20:06 by eorer            ###   ########.fr       */
+/*   Updated: 2022/11/21 10:48:34 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,12 @@ int	main(void)
 {
 	int	a;
 	int	b;
-	char	*str;
 
-	str = NULL;
-//	str = "Hello tito comment ca va coco bello. Il etait une fois une fpurmi verte qui courrait dans la street";
-	/*a = ft_printf(" NULL %s NULL", NULL);
-	printf("Taille : %d\n", a);
-	b = printf(" NULL %s NULL", NULL);
-	printf("Taille : %d\n", b);*/
-	a = ft_printf("  NULL %s NULL\n", str);
-	printf("taille : %d\n", a);
-	b = printf("  NULL %s NULL\n", str);
-	printf("taille : %d\n", b);
+	a = printf("Hexa de 42440: %X\n", 42440); 
+	ft_printf("  Taille : %i\n", a);
+	b = ft_printf("Ft Hexa de 42440: %X\n", 42440); 
+	ft_printf("  Taille : %i\n", b);
+	printf("Hexa de -42440 : %X\n", -42440); 
+	ft_printf("Ft Hexa de -42440 : %X\n", -42440); 
 	return (0);
 }
