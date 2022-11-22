@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:06:21 by emileorer         #+#    #+#             */
-/*   Updated: 2022/11/22 12:32:33 by emileorer        ###   ########.fr       */
+/*   Updated: 2022/11/22 16:19:57 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,18 @@ void	print_list(t_list *begin_list)
 	{
 		printf("--> %s\n", tmp->buffer);
 		tmp = tmp->next;
+	}
+}
+
+void	ft_lstclear(t_list **lst)
+{
+	t_list	*list;
+	while (lst && *lst)
+	{
+		list = (*lst)->next;
+		free((*lst)->buffer);
+		free(*lst);
+		*lst = list;
 	}
 }
 
@@ -56,6 +68,7 @@ static int	get_chained_list(int fd, t_list **begin_list)
 char	*get_next_line(int fd)
 {
 	t_list	*list;
+	t_list	*tmp;
 	char	*str;
 	size_t	size;
 	int		i;
@@ -71,12 +84,14 @@ char	*get_next_line(int fd)
 	str = (char *)malloc(sizeof(char) * (size + 1));
 	if (!str || !size)
 		return (NULL);
-	str = list->buffer;
-	while (list->next)
+	tmp = list;
+	str = tmp->buffer;
+	while (tmp->next)
 	{
-		list = list->next;
-		ft_strlcat(str, list->buffer, INT_MAX);
+		tmp = tmp->next;
+		ft_strlcat(str, tmp->buffer, INT_MAX);
 	}
 	str[ft_strlen(str)] = '\0';
+	ft_lstclear(&list);
 	return (str);
 }
