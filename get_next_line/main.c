@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 11:38:48 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/22 10:38:12 by emileorer        ###   ########.fr       */
+/*   Created: 2022/11/22 11:21:10 by emileorer         #+#    #+#             */
+/*   Updated: 2022/11/22 12:33:27 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "get_next_line.h"
+#include <stdio.h>
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void    print_list(t_list *begin_list);
+
+int	main(void)
 {
-	t_list	*last;
+	int	fd;
+	char	*str;
 
-	if (*lst)
-	{
-		last = ft_lstlast(*lst);
-		last->next = new;
-	}
-	else
-		*lst = new;
-
+	fd = open("./gnlTester/files/nl", O_RDWR);
+	str = get_next_line(fd);
+	printf("%s\n", str);
+	return (0);
+}
