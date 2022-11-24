@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:06:21 by emileorer         #+#    #+#             */
-/*   Updated: 2022/11/22 16:19:57 by emileorer        ###   ########.fr       */
+/*   Updated: 2022/11/23 14:03:35 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*get_next_line(int fd)
 	while (i == -1)
 	{
 		i = get_chained_list(fd, &list);
-		if (i != 0)
+		if (list)
 			size = size + list->len;
 	}
 	str = (char *)malloc(sizeof(char) * (size + 1));
@@ -89,9 +89,9 @@ char	*get_next_line(int fd)
 	while (tmp->next)
 	{
 		tmp = tmp->next;
-		ft_strlcat(str, tmp->buffer, INT_MAX);
+		ft_strlcat(str, tmp->buffer, ft_strlen(str) + ft_strlen(tmp->buffer) + 1);
 	}
 	str[ft_strlen(str)] = '\0';
-	ft_lstclear(&list);
+	//ft_lstclear(&list);
 	return (str);
 }
