@@ -1,100 +1,119 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
+/*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 12:38:41 by emileorer         #+#    #+#             */
-/*   Updated: 2022/11/22 11:20:19 by emileorer        ###   ########.fr       */
+/*   Created: 2022/11/23 14:27:16 by eorer             #+#    #+#             */
+/*   Updated: 2022/11/28 11:54:46 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
-size_t	ft_strlen(const char *str)
+size_t	ft_strlen(char *str)
 {
 	size_t	i;
 
 	i = 0;
-	while (str[i])
+	while (str && str[i])
 		i++;
 	return (i);
 }
 
-size_t	ft_strlcat(char *dest, const char *src, size_t size)
+char	*split_left(char *str)
 {
-	size_t	i;
-	size_t	j;
+	char	*left;
+	int		i;
+	int		j;
 
-	if (size <= ft_strlen(dest))
-		return (ft_strlen(src) + size);
-	i = ft_strlen(dest);
-	j = 0;
-	while (src[j] != '\0' && j < (size - i - 1))
-	{
-		dest[i + j] = src[j];
-		j++;
-	}
-	dest[i + j] = '\0';
-	return (ft_strlen(src) + i);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	size_t	i;
-	size_t	j;
-	char	*str;
-
-	if (start > ft_strlen(s) - 1)
-		str = (char *)malloc(1);
-	else if (len > ft_strlen(s))
-		str = (char *)malloc(ft_strlen(s) + 1);
-	else
-		str = (char *)malloc(len + 1);
-	if (!str)
-		return (NULL);
 	i = 0;
 	j = 0;
-	while (s[i])
+	while (str[i] && str[i] != '\n')
+		i++;
+	left = (char *)malloc(sizeof(char) * (i + 2));
+	if (!left)
+		return (NULL);
+	while (j <= i)
 	{
-		if (i >= start && j < len)
-		{
-			str[j] = s[i];
-			j++;
-		}
+		left[j] = str[j];
+		j++;
+	}
+	left[j] = '\0';
+	return (left);
+}
+
+char	*split_right(char *str)
+{
+	char	*right;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (str[i] && str[i] != '\n')
+		i++;
+	if (str[i + 1] == '\0')
+		return (NULL);
+	right = malloc(sizeof(char) * (ft_strlen(str) - i + 1));
+	if (!right)
+		return (NULL);
+	while (str[i + j])
+	{
+		right[j] = str[i + 1 + j];
+		j++;
+	}
+	right[j] = '\0';
+	return (right);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	char	*str;
+	int		i;	
+	int		j;
+
+	i = 0;
+	j = 0;
+	if (s1 == NULL && s2 == NULL)
+		return (NULL);
+	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!str)
+		return (NULL);
+	while (s1 && s1[i])
+	{
+		str[i] = s1[i];
 		i++;
 	}
-	str[j] = 0;
+	while (s2 && s2[j])
+	{
+		str[i + j] = s2[j];
+		j++;
+	}
+	if (s1)
+		free(s1);
+	str[i + j] = '\0';
 	return (str);
 }
 
-t_list	*add_new(char *buffer)
+/*char	*ft_strdup(char *src)
 {
-	t_list	*list;
+	char	*dest;
+	size_t	i;
 
-	if (!buffer)
+	if (!src)
 		return (NULL);
-	list = (t_list *)malloc(sizeof(t_list));
-	if (!list)
+	dest = malloc(ft_strlen(src) + 1);
+	if (!dest)
 		return (NULL);
-	list->buffer = buffer;
-	list->len = ft_strlen(buffer);
-	list->next = NULL;
-	return(list);
-}
-
-void	add_back(t_list **begin_list, t_list *new)
-{
-	t_list	*last;
-
-	if(!new)
-		return ;
-	last = *begin_list;
-	while (last && last->next)
-		last = last->next;
-	if (*begin_list)
-		last->next = new;
-	else
-		*begin_list = new;
-}
+	i = 0;
+	while (i < ft_strlen(src))
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest [i] = '\0';
+	return (dest);
+}*/

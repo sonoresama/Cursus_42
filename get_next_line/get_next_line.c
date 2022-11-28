@@ -3,95 +3,107 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
+/*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 16:06:21 by emileorer         #+#    #+#             */
-/*   Updated: 2022/11/23 14:03:35 by eorer            ###   ########.fr       */
+/*   Created: 2022/11/24 16:54:16 by eorer             #+#    #+#             */
+/*   Updated: 2022/11/28 12:44:44 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-void	print_list(t_list *begin_list)
+static int	is_new_line(char *buffer)
 {
-	t_list	*tmp;
-
-	if (!begin_list)
-		return ;
-	tmp = begin_list;
-	while (tmp)
-	{
-		printf("--> %s\n", tmp->buffer);
-		tmp = tmp->next;
-	}
-}
-
-void	ft_lstclear(t_list **lst)
-{
-	t_list	*list;
-	while (lst && *lst)
-	{
-		list = (*lst)->next;
-		free((*lst)->buffer);
-		free(*lst);
-		*lst = list;
-	}
-}
-
-static int	get_chained_list(int fd, t_list **begin_list)
-{
-	char	*buffer;
-	char	*line;
-	size_t	i;
-
-	i = 0;
-	if (BUFFER_SIZE == 0)
-		return (0);
-	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
 		return (0);
-	read(fd, buffer, BUFFER_SIZE);
-	if (!buffer[0])
-		return (0);
-	buffer[BUFFER_SIZE] = '\0';
-	while (buffer[i] && buffer[i] != '\n')
-		i++;
-	line = ft_substr(buffer, 0, i + (buffer[i] == '\n'));
-	add_back(begin_list, add_new(line));
-	if (line[ft_strlen(line) - 1] != '\n')
-		return (-1);
+	while (*buffer)
+	{
+		if (*buffer == '\n')
+			return (1);
+		buffer++;
+	}
+	return (0);
+}
+
+static char	*return_str(char *buffer, int bytes_rd, char *right, char *str)
+{
+	if (right)
+	{
+		str = ft_strjoin(str, right);
+		right = NULL;
+	}
+	if (bytes_rd == 0)
+		str = ft_strjoin(str, NULL);
 	else
-		return (1);
+		str = ft_strjoin(str, buffer);
+	return (str);
+}
+
+static char	*get_buffer(int fd, char *right)
+{
+	char	*buffer;
+	char	*str;
+	int		bytes_rd;
+
+	bytes_rd = 1;
+	str = NULL;
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
+	buffer[0] = '\0';
+	while (bytes_rd != 0 && !is_new_line(buffer))
+	{
+		bytes_rd = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_rd == -1)
+		{
+			free(buffer);
+			return (NULL);
+		}
+		buffer[bytes_rd] = '\0';
+		str = return_str(buffer, bytes_rd, right, str);
+	}
+	free(buffer);
+	return (str);
 }
 
 char	*get_next_line(int fd)
 {
-	t_list	*list;
-	t_list	*tmp;
-	char	*str;
-	size_t	size;
-	int		i;
+	static char	*right;
+	char		*left;
+	char		*next_line;
 
-	i = -1;
-	list = NULL;
-	while (i == -1)
+	next_line = get_buffer(fd, right);
+	if (right)
+		free(right);
+	if (is_new_line(next_line))
 	{
-		i = get_chained_list(fd, &list);
-		if (list)
-			size = size + list->len;
+		left = split_left(next_line);
+		right = split_right(next_line);
+		free(next_line);
 	}
-	str = (char *)malloc(sizeof(char) * (size + 1));
-	if (!str || !size)
-		return (NULL);
-	tmp = list;
-	str = tmp->buffer;
-	while (tmp->next)
+	else
 	{
-		tmp = tmp->next;
-		ft_strlcat(str, tmp->buffer, ft_strlen(str) + ft_strlen(tmp->buffer) + 1);
+		left = next_line;
+		right = NULL;
 	}
-	str[ft_strlen(str)] = '\0';
-	//ft_lstclear(&list);
-	return (str);
+	return (left);
 }
+
+/*int	main()
+{
+	int	fd;
+	int	n;
+	char	*str;
+
+	n = 0;
+	fd = open("gnlTester/files/multiple_line_no_nl", O_RDWR);
+	while (n < 7)
+	{
+		str = get_next_line(fd);
+		printf("--> %s\n", str);
+		free(str);
+		n++;
+	}
+	return (0);
+}*/
