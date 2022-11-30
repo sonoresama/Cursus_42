@@ -6,12 +6,16 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:54:16 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/28 12:44:44 by eorer            ###   ########.fr       */
+/*   Updated: 2022/11/30 12:04:03 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 42
+#endif
 
 static int	is_new_line(char *buffer)
 {
@@ -52,7 +56,7 @@ static char	*get_buffer(int fd, char *right)
 	if (!buffer)
 		return (NULL);
 	buffer[0] = '\0';
-	while (bytes_rd != 0 && !is_new_line(buffer))
+	while (bytes_rd > 0 && !is_new_line(buffer))
 	{
 		bytes_rd = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_rd == -1)
@@ -62,6 +66,7 @@ static char	*get_buffer(int fd, char *right)
 		}
 		buffer[bytes_rd] = '\0';
 		str = return_str(buffer, bytes_rd, right, str);
+		right = NULL;
 	}
 	free(buffer);
 	return (str);
@@ -89,21 +94,23 @@ char	*get_next_line(int fd)
 	}
 	return (left);
 }
-
 /*int	main()
 {
 	int	fd;
 	int	n;
 	char	*str;
 
-	n = 0;
-	fd = open("gnlTester/files/multiple_line_no_nl", O_RDWR);
-	while (n < 7)
+	n = 1;
+	fd = open("gnlTester/files/alternate_line_nl_no_nl", O_RDWR);
+	while (1)
 	{
+		printf("--> %i. \n", n);
 		str = get_next_line(fd);
-		printf("--> %s\n", str);
-		free(str);
+		if (str == NULL)
+			break;
+		printf("%s", str);
 		n++;
+		free(str);
 	}
 	return (0);
 }*/

@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 14:27:16 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/28 11:54:46 by eorer            ###   ########.fr       */
+/*   Updated: 2022/11/30 11:56:26 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ char	*split_left(char *str)
 
 	i = 0;
 	j = 0;
+	if (!str || !*str)
+		return (NULL);
 	while (str[i] && str[i] != '\n')
 		i++;
 	left = (char *)malloc(sizeof(char) * (i + 2));
