@@ -6,7 +6,7 @@
 #    By: eorer <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/07 17:59:35 by eorer             #+#    #+#              #
-#    Updated: 2022/12/07 18:45:52 by eorer            ###   ########.fr        #
+#    Updated: 2022/12/08 14:46:31 by eorer            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ $(LIB) :
 	@cp ftprintf/$(LIB) ./
 
 fclean : clean
-	@make clean -C ./ftprintf
+	@make fclean -C ./ftprintf
 	@rm -rf $(NAME) $(LIB)
 
 clean : 
