@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:54:16 by eorer             #+#    #+#             */
-/*   Updated: 2022/12/06 15:12:46 by eorer            ###   ########.fr       */
+/*   Updated: 2022/12/01 11:30:28 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static char	*get_buffer(int fd, char *right)
 	if (!buffer)
 		return (NULL);
 	buffer[0] = '\0';
-	while (bytes_rd > 0 && !is_new_line(str))
+	while (bytes_rd > 0 && !is_new_line(buffer))
 	{
 		bytes_rd = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_rd == -1)
@@ -74,27 +74,26 @@ static char	*get_buffer(int fd, char *right)
 
 char	*get_next_line(int fd)
 {
-	static char	*right;
+	static char	*right[1024];
 	char		*left;
-	char		*line;
+	char		*next_line;
 
-	line = get_buffer(fd, right);
-	if (right)
-		free(right);
-	if (is_new_line(line))
+	next_line = get_buffer(fd, right[fd]);
+	if (right[fd])
+		free(right[fd]);
+	if (is_new_line(next_line))
 	{
-		left = split_left(line);
-		right = split_right(line);
-		free(line);
+		left = split_left(next_line);
+		right[fd] = split_right(next_line);
+		free(next_line);
 	}
 	else
 	{
-		left = line;
-		right = NULL;
+		left = next_line;
+		right[fd] = NULL;
 	}
 	return (left);
 }
-
 /*int	main()
 {
 	int	fd;
