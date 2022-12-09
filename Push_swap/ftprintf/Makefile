@@ -6,7 +6,7 @@
 #    By: eorer <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/14 18:28:44 by eorer             #+#    #+#              #
-#    Updated: 2022/12/07 18:21:10 by eorer            ###   ########.fr        #
+#    Updated: 2022/12/09 15:05:40 by eorer            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,6 @@ CFLAGS = -Wall -Werror -Wextra
 
 INCLUDE = -include ft_printf.h libft/libft.h
 
-HEADER = ft_printf.h
 
 DIR = $(shell dirname $(shell pwd))
 
@@ -30,7 +29,7 @@ OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
 
-$(NAME) : $(OBJ) $(HEADER)
+$(NAME) : $(OBJ)
 	@make -C ./libft
 	@cp libft/libft.a ./
 	@mv libft.a $(NAME)

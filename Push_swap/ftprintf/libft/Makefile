@@ -6,7 +6,7 @@
 #    By: eorer <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 16:17:25 by eorer             #+#    #+#              #
-#    Updated: 2022/12/07 18:21:50 by eorer            ###   ########.fr        #
+#    Updated: 2022/12/09 15:06:52 by eorer            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,15 +27,13 @@ BONUS = ft_lstadd_back.c ft_lstadd_front.c ft_lstlast.c ft_lstnew.c ft_lstsize.c
 
 OBJECTS = $(SRC:.c=.o)
 
-HEADER = libft.h
-
 BONUS_OBJECTS = $(BONUS:.c=.o)
 
 
 all: $(NAME)
 
-$(NAME) : $(OBJECTS) bonus $(HEADER)
-	@ar -rcs $(NAME) $(OBJECTS)
+$(NAME): $(OBJECTS) $(BONUS_OBJECTS)
+	@ar -rcs $(NAME) $(OBJECTS) $(BONUS_OBJECTS)
 
 clean:
 	@/bin/rm -f $(OBJECTS) $(BONUS_OBJECTS)
@@ -45,5 +43,3 @@ fclean:	clean
 
 re: fclean all
 
-bonus: $(OBJECTS) $(BONUS_OBJECTS)
-	@ar -rcs $(NAME) $(OBJECTS) $(BONUS_OBJECTS)

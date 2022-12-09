@@ -6,7 +6,7 @@
 #    By: eorer <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/07 17:59:35 by eorer             #+#    #+#              #
-#    Updated: 2022/12/08 14:46:31 by eorer            ###   ########.fr        #
+#    Updated: 2022/12/09 15:07:35 by eorer            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ LIB = libftprintf.a
 
 all : $(NAME)
 
-$(NAME) : $(HEADER) $(LIB)
+$(NAME) : $(HEADER) $(LIB) $(SRC)
 	@$(CC) $(CFLAGS) -include $(HEADER) $(SRC) $(LIB) -o $(NAME)
 
 $(LIB) :
@@ -36,7 +36,7 @@ $(LIB) :
 
 fclean : clean
 	@make fclean -C ./ftprintf
-	@rm -rf $(NAME) $(LIB)
+	@rm -rf $(NAME)
 
 clean : 
 	@make clean -C ./ftprintf

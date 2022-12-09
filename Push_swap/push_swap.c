@@ -6,43 +6,71 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 17:54:38 by eorer             #+#    #+#             */
-/*   Updated: 2022/12/07 18:48:01 by eorer            ###   ########.fr       */
+/*   Updated: 2022/12/09 16:04:07 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
-int	*convert_to_num(char **arg, int size, int (*f)(const char *nptr))
+pile	init_pile(char **arg, int size, int (*f)(const char *nptr))
 {
 	int	i;
-	int	*array;
+	pile	pl;
 
 	i = 0;
-	array = malloc(size * sizeof(int));
-	if (!array)
-		return (NULL);
+	pl.content = malloc(size * sizeof(int));
+	if (arg)
+	{
+		while (pl.content && i < size)
+		{
+			pl.content[i] = f(arg[i + 1]);
+			i++;
+		}
+		pl.size = size;
+	}
+	else
+	{
+		while (pl.content && i < size)
+		{
+			pl.content[i] = 0;
+			i++;
+		}
+		pl.size = 0;
+	}
+	return (pl);
+}
+
+void	print_piles(pile a, pile b, int size)
+{
+	int	i;
+
+	i = 0;
+	ft_printf("a           b\n\n");
 	while (i < size)
 	{
-		array[i] = f(arg[i + 1]);
+		printf("%02i         %02i\n", a.content[i], b.content[i]);
 		i++;
 	}
-	return (array);
+	ft_printf("\n");
 }
 
-int	main(int argc, char **argv)
+/*int	main(int argc, char **argv)
 {
-	int	*array;
-	int	i;
+	pile	a;
+	pile	b;
 
-	array = convert_to_num(argv, argc - 1, &ft_atoi);
-	if (!array)
+	a = init_pile(argv, argc - 1, &ft_atoi);
+	if (!a.content)
 		return (0);
-	i = 0;
-	while (i < argc - 1)
-	{
-		ft_printf("--> %i\n", array[i]);
-		i++;
-	}
-	free (array);
+	b = init_pile(NULL, argc - 1, &ft_atoi);
+	if (!b.content)
+		return (0);
+	print_piles(a, b, argc - 1);
+	reverse_rotate(a);
+	reverse_rotate(a);
+	print_piles(a, b, argc - 1);
+	free (a.content);
+	free (b.content);
 	return (0);
-}
+}*/
