@@ -6,18 +6,17 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:09:56 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/07 16:29:35 by eorer            ###   ########.fr       */
+/*   Updated: 2022/12/12 18:59:42 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 #include <stdio.h>
 
-int	ft_atoi(const char *nptr)
+t_long	ft_atoi(const char *nptr)
 {
-	int	neg;
-	int	resultat;
+	t_long	neg;
+	t_long	resultat;
 
 	resultat = 0;
 	neg = 1;
@@ -35,6 +34,8 @@ int	ft_atoi(const char *nptr)
 		resultat = resultat * 10 + *nptr - '0';
 		nptr++;
 	}
+	if (*nptr)
+		return (0);
 	return (resultat * neg);
 }
 
@@ -43,6 +44,6 @@ int	ft_atoi(const char *nptr)
 	(void)argc;
 
 	printf("atoi : %i\n", atoi(argv[1]));
-	printf("ft_atoi : %i\n", ft_atoi(argv[1]));
+	printf("ft_atoi : %lli\n", ft_atoi(argv[1]));
 	return (0);
 }*/

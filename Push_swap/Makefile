@@ -6,7 +6,7 @@
 #    By: eorer <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/07 17:59:35 by eorer             #+#    #+#              #
-#    Updated: 2022/12/09 15:07:35 by eorer            ###   ########.fr        #
+#    Updated: 2022/12/12 17:22:52 by eorer            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,16 @@ HEADER = push_swap.h \
 	 ftprintf/ft_printf.h \
 	 ftprintf/libft/libft.h
 
-NAME = push_swap.out
+NAME = push_swap
 
-SRC = *.c
+SRC = ./push_swap.c \
+      ./utils/inst_push.c \
+      ./utils/inst_rev_rotate.c \
+      ./utils/inst_rotate.c \
+      ./utils/inst_swap.c \
+      ./utils/utilities.c \
+      ./sort_algo/sort_insertion.c \
+      ./sort_algo/sort_three_digit.c
 
 LIB = libftprintf.a
 

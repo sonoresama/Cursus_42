@@ -6,71 +6,105 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 17:54:38 by eorer             #+#    #+#             */
-/*   Updated: 2022/12/09 16:04:07 by eorer            ###   ########.fr       */
+/*   Updated: 2022/12/12 19:19:22 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
-pile	init_pile(char **arg, int size, int (*f)(const char *nptr))
+static int	check_doublon(int *tab, int size)
 {
 	int	i;
-	pile	pl;
+	int	j;
 
 	i = 0;
-	pl.content = malloc(size * sizeof(int));
-	if (arg)
+	j = 0;
+	while (tab && i < size)
 	{
-		while (pl.content && i < size)
+		j = i + 1;
+		while (j < size)
 		{
-			pl.content[i] = f(arg[i + 1]);
-			i++;
+			if (tab[j] == tab[i])
+			{
+				write(2, "Error\n", 6);
+				return (0);
+			}
+			j++;
 		}
-		pl.size = size;
+		i++;
+	}
+	return (1);
+}
+
+static int	check_args(char **tab, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (!ft_atoi(tab[i]))
+		{
+			if (!ft_isdigit(tab[i][0]) || ft_strlen(tab[i]) > 1)
+				return (0);
+		}
+		else
+		{
+			if (ft_atoi(tab[i]) > INT_MAX || ft_atoi(tab[i]) < INT_MIN)
+				return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+static int	overall_check(char **argv, int argc, int *size, char ***tab)
+{
+	if (argc == 2)
+	{
+		*tab = ft_split(argv[1], ' ');
+		*size = ft_size_tab(argv[1], ' ');
 	}
 	else
 	{
-		while (pl.content && i < size)
-		{
-			pl.content[i] = 0;
-			i++;
-		}
-		pl.size = 0;
+		*tab = argv + 1;
+		*size = argc - 1;
 	}
-	return (pl);
-}
-
-void	print_piles(pile a, pile b, int size)
-{
-	int	i;
-
-	i = 0;
-	ft_printf("a           b\n\n");
-	while (i < size)
+	if (!check_args(*tab, *size))
 	{
-		printf("%02i         %02i\n", a.content[i], b.content[i]);
-		i++;
+		write(2, "Error\n", 6);
+		return (0);
 	}
-	ft_printf("\n");
+	return (1);
 }
 
-/*int	main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	pile	a;
-	pile	b;
+	t_pile	a;
+	t_pile	b;
+	char	**tab;
+	int		size;
 
-	a = init_pile(argv, argc - 1, &ft_atoi);
+	if (!overall_check(argv, argc, &size, &tab))
+		return (0);
+	a = init_pile(tab, size, &ft_atoi);
 	if (!a.content)
 		return (0);
-	b = init_pile(NULL, argc - 1, &ft_atoi);
+	b = init_pile(NULL, size, &ft_atoi);
 	if (!b.content)
 		return (0);
-	print_piles(a, b, argc - 1);
-	reverse_rotate(a);
-	reverse_rotate(a);
-	print_piles(a, b, argc - 1);
+	if (!check_doublon(a.content, a.size))
+		return (0);
+	//print_piles(a, b, a.size);
+	insertion_sort(&a, &b);
+	//print_piles(a, b, a.size);
 	free (a.content);
 	free (b.content);
+	if (argc == 2)
+	{
+		free_tab(tab);
+		free(tab);
+	}
 	return (0);
-}*/
+}

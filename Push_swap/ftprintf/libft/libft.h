@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:44:04 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/16 15:25:27 by eorer            ###   ########.fr       */
+/*   Updated: 2022/12/12 18:27:03 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 
 // PREMIERE PARTIE //
 
+typedef long long int	t_long;
+
+t_long	ft_atoi(const char *nptr);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcat(char *dest, const char *src, size_t size);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
@@ -31,7 +34,8 @@ void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
 void	ft_bzero(void *s, size_t n);
-int		ft_atoi(const char *nptr);
+void	free_tab(char **tableau);
+int		ft_size_tab(char *str, char c);
 int		ft_isprint(int c);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);

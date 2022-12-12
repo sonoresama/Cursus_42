@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:00:37 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/17 15:44:20 by eorer            ###   ########.fr       */
+/*   Updated: 2022/12/12 16:47:59 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	free_tab(char **tableau)
 	}
 }
 
-static int	size_tab(char *str, char c)
+int	ft_size_tab(char *str, char c)
 {
 	int	count;
 
@@ -101,7 +101,7 @@ char	**ft_split(const char *s, char c)
 	char	**tableau;
 	int		size;
 
-	size = size_tab((char *)s, c);
+	size = ft_size_tab((char *)s, c);
 	tableau = malloc(sizeof(tableau) * (size + 1));
 	if (tableau == 0)
 		return (0);
