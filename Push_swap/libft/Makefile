@@ -6,17 +6,17 @@
 #    By: eorer <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/14 18:28:44 by eorer             #+#    #+#              #
-#    Updated: 2022/12/09 15:05:40 by eorer            ###   ########.fr        #
+#    Updated: 2022/12/13 11:59:14 by eorer            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
+NAME = libft.a
 
 CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra
 
-INCLUDE = -include ft_printf.h libft/libft.h
+HEADERS = ft_printf.h libft_og/libft.h
 
 
 DIR = $(shell dirname $(shell pwd))
@@ -29,19 +29,19 @@ OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
 
-$(NAME) : $(OBJ)
-	@make -C ./libft
-	@cp libft/libft.a ./
-	@mv libft.a $(NAME)
-	@$(CC) $(CFLAGS) -c $(INCLUDE) $(SRC)
+$(NAME) : $(OBJ) $(HEADER)
+	@make -C ./libft_og
+	@cp libft_og/libft_og.a ./
+	@mv libft_og.a $(NAME)
+	@$(CC) $(CFLAGS) -include $(HEADERS) -c $(SRC)
 	@ar -rcs $(NAME) $(OBJ)
 
 fclean : clean
-	@make fclean -C libft
-	@rm -rf $(NAME) libft.a
+	@make fclean -C libft_og
+	@rm -rf $(NAME) libft_og.a
 
 clean :
-	@make clean -C libft
+	@make clean -C libft_og
 	@rm -rf $(OBJ)
 
 re : fclean all

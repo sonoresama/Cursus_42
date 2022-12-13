@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 18:49:36 by eorer             #+#    #+#             */
-/*   Updated: 2022/12/12 15:17:36 by eorer            ###   ########.fr       */
+/*   Updated: 2022/12/13 16:38:07 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,25 @@ static	int	index_smaller(int *tab, int size)
 		i++;
 	}
 	return (tmp);
+}
+
+int	*sorted_tab(t_pile *a, t_pile *b)
+{
+	int	*tab;
+	int	i;
+
+	(void)b;
+	i = 0;
+	tab = (int *)malloc(sizeof(int) * a->size);
+	if (!tab)
+		return (0);
+	while (i < a->size)
+	{
+		tab[i] = a->content[i];
+		i++;
+	}
+	quicksort(tab, 0, a->size - 1);
+	return (tab);
 }
 
 void	insertion_sort(t_pile *a, t_pile *b)

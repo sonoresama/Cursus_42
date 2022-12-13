@@ -6,11 +6,10 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:32:01 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/20 17:09:51 by emileorer        ###   ########.fr       */
+/*   Updated: 2022/12/13 11:59:52 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "ft_printf.h"
 
 void	ft_putchar_count_fd(char c, int fd, int *count)

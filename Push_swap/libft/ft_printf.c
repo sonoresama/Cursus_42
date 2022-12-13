@@ -6,11 +6,10 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 18:34:13 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/21 10:51:44 by emileorer        ###   ########.fr       */
+/*   Updated: 2022/12/13 12:00:04 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "ft_printf.h"
 #include <stdio.h>
 

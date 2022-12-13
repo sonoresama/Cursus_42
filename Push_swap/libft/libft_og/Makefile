@@ -6,7 +6,7 @@
 #    By: eorer <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 16:17:25 by eorer             #+#    #+#              #
-#    Updated: 2022/12/09 15:06:52 by eorer            ###   ########.fr        #
+#    Updated: 2022/12/13 11:50:16 by eorer            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror -I.
 
-NAME = libft.a
+NAME = libft_og.a
 
 SRC = ft_atoi.c ft_isascii.c ft_isprint.c ft_memcpy.c ft_putnbr_fd.c ft_striteri.c ft_strmapi.c \
       ft_substr.c ft_bzero.c ft_isdigit.c ft_memmove.c ft_putstr_fd.c ft_strjoin.c \

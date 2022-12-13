@@ -6,14 +6,14 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 17:55:04 by eorer             #+#    #+#             */
-/*   Updated: 2022/12/12 18:21:07 by eorer            ###   ########.fr       */
+/*   Updated: 2022/12/13 17:08:41 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "ftprintf/ft_printf.h"
+# include "libft/ft_printf.h"
 
 typedef struct s_pile {
 	int	*content;
@@ -36,7 +36,10 @@ typedef enum e_functions {
 
 t_pile	init_pile(char **arg, int size, t_long (*f)(const char *nptr));
 void	print_piles(t_pile a, t_pile b, int size);
+void	printf_array(int *arr, int size);
+int	*sorted_tab(t_pile *a, t_pile *b);
 int		is_sorted(int *tab, int size);
+void	insertion_boosted(t_pile *a, t_pile *b);
 
 // FONCTIONS POUR LES INSCTRUCTIONS
 
@@ -57,4 +60,5 @@ void	quicksort(int *arr, int low, int high);
 
 void	insertion_sort(t_pile *a, t_pile *b);
 void	three_digit_sort(t_pile *a, t_pile *b);
+void	sort_five_digit(t_pile *a, t_pile *b);
 #endif

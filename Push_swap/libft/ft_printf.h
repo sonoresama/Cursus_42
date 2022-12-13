@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 18:27:51 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/28 14:02:26 by eorer            ###   ########.fr       */
+/*   Updated: 2022/12/13 11:47:04 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
-# include "libft/libft.h"
+# include "libft_og/libft.h"
 # include <limits.h>
 
 void	ft_putchar_count_fd(char c, int fd, int *count);

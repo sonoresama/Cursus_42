@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 17:54:38 by eorer             #+#    #+#             */
-/*   Updated: 2022/12/12 19:19:22 by eorer            ###   ########.fr       */
+/*   Updated: 2022/12/13 18:02:50 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,7 @@ int	main(int argc, char **argv)
 		return (0);
 	if (!check_doublon(a.content, a.size))
 		return (0);
-	//print_piles(a, b, a.size);
 	insertion_sort(&a, &b);
-	//print_piles(a, b, a.size);
 	free (a.content);
 	free (b.content);
 	if (argc == 2)
