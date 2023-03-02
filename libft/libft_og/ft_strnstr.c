@@ -5,43 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 13:35:08 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/23 13:38:30 by eorer            ###   ########.fr       */
+/*   Created: 2022/11/08 09:53:19 by eorer             #+#    #+#             */
+/*   Updated: 2022/11/19 19:13:08 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
-#include <bsd/string.h>
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	if (!big && len == 0)
-		return (0);
-	if (ft_strlen(little) == 0)
-		return ((char *)&big[i]);
-	while (big[i] && i < len)
-	{
-		j = 0;
-		if (big[i] == little[j])
-		{
-			while (i + j < len && big[i + j] == little[j])
-			{
-				j++;
-				if (little[j] == '\0')
-					return ((char *)&big[i]);
-			}
-		}
-		i++;
-	}
-	return (0);
-}
-
-/*char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
 	size_t	i;
 	size_t	j;
@@ -63,7 +35,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	return (0);
 }
 
-if (little == 0)
+/*if (little == 0)
 	return ((char *)big);
 
 int	main(int argc, char **argv)

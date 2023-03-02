@@ -6,32 +6,37 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:00:37 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/17 15:44:20 by eorer            ###   ########.fr       */
+/*   Updated: 2023/02/23 15:54:28 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-void	free_tab(char **tableau)
+int	is_charset(char c, char *charset)
 {
-	while (*tableau)
+	int	i;
+
+	i = 0;
+	while (charset && charset[i])
 	{
-		free(*tableau);
-		tableau++;
+		if (charset[i] == c)
+			return (1);
+		i++;
 	}
+	return (0);
 }
 
-static int	size_tab(char *str, char c)
+int	ft_size_tab(char *str, char *charset)
 {
 	int	count;
 
 	count = 0;
 	while (*str)
 	{
-		if (*str != c)
+		if (is_charset(*str, charset) == 0)
 		{
-			while (*str != c && *str)
+			while ((is_charset(*str, charset) == 0) && *str)
 				str++;
 			count = count + 1;
 		}
@@ -41,7 +46,7 @@ static int	size_tab(char *str, char c)
 	return (count);
 }
 
-static char	**ft_alloc(char *str, char c, char **tableau)
+static char	**ft_alloc(char *str, char *charset, char **tableau)
 {
 	int	count;
 	int	i;
@@ -49,10 +54,10 @@ static char	**ft_alloc(char *str, char c, char **tableau)
 	count = 0;
 	while (*str)
 	{
-		if (*str != c)
+		if (is_charset(*str, charset) == 0)
 		{
 			i = 0;
-			while (*str != c && *str)
+			while (is_charset(*str, charset) == 0 && *str)
 			{
 				i++;
 				str++;
@@ -68,7 +73,7 @@ static char	**ft_alloc(char *str, char c, char **tableau)
 	return (tableau);
 }
 
-static void	ft_implementation(char *str, char c, char **tableau)
+static void	ft_implementation(char *str, char *charset, char **tableau)
 {
 	int	pos;
 	int	i;
@@ -79,10 +84,10 @@ static void	ft_implementation(char *str, char c, char **tableau)
 	j = 0;
 	while (str[i])
 	{
-		if (str[i] != c)
+		if (is_charset(str[i], charset) == 0)
 		{
 			j = 0;
-			while (str[i + j] != c && str[i + j])
+			while (is_charset(str[i + j], charset) == 0 && str[i + j])
 			{
 				tableau[pos][j] = str[i + j];
 				j++;
@@ -96,40 +101,43 @@ static void	ft_implementation(char *str, char c, char **tableau)
 	}
 }
 
-char	**ft_split(const char *s, char c)
+char	**ft_split(const char *s, char *charset)
 {
 	char	**tableau;
 	int		size;
 
-	size = size_tab((char *)s, c);
+	size = ft_size_tab((char *)s, charset);
 	tableau = malloc(sizeof(tableau) * (size + 1));
-	if (tableau == 0)
-		return (0);
-	if (ft_alloc((char *)s, c, tableau) == NULL)
+	if (tableau == NULL)
+		return (NULL);
+	if (ft_alloc((char *)s, charset, tableau) == NULL)
 	{
-		free_tab(tableau);
+		ft_free_tab(tableau);
 		return (NULL);
 	}
-	ft_implementation((char *)s, c, tableau);
+	ft_implementation((char *)s, charset, tableau);
 	tableau[size] = NULL;
 	return (tableau);
 }
 
-/*int	main(int argc, char **argv)
+/*int	main(void)
 {
 	char **tableau;
 	int	i;
+	char 	*str;
+	char	*charset;
 
 	i = 0;
-	(void)argc;
-	tableau = ft_split((char *)argv[2], argv[1][0]);
-	printf("Size du tableau a rendre : %i\n", size_tab(argv[2], argv[1][0]));
-	while (i < size_tab(argv[2], argv[1][0]))
+	str = "HELLO JE SUIS \n TITO";
+	charset = " \n";
+	tableau = ft_split(str, charset);
+	printf("%s\n", str);
+	while (tableau[i])
 	{
 		printf("--> %s\n", tableau[i]);
 		i++;
 	}
-	free_tab(tableau,size_tab(argv[2], argv[1][0]));
+	ft_free_tab(tableau);
 	free(tableau);
 	return (0);
 }*/

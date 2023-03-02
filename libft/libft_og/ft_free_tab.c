@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_free_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 11:38:48 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/23 13:33:48 by eorer            ###   ########.fr       */
+/*   Created: 2023/02/23 14:20:59 by eorer             #+#    #+#             */
+/*   Updated: 2023/02/23 14:21:12 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_free_tab(char **tableau)
 {
-	t_list	*last;
-
-	if (*lst)
+	while (*tableau)
 	{
-		last = ft_lstlast(*lst);
-		last->next = new;
+		free(*tableau);
+		tableau++;
 	}
-	else
-		*lst = new;
 }

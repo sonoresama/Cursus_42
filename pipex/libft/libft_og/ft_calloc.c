@@ -1,40 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 17:20:18 by eorer             #+#    #+#             */
-/*   Updated: 2022/11/15 12:10:05 by eorer            ###   ########.fr       */
+/*   Created: 2022/11/08 10:21:50 by eorer             #+#    #+#             */
+/*   Updated: 2022/11/14 17:04:33 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <bsd/string.h>
 #include <stdio.h>
+#include <stddef.h>
+#include <stdint.h>
 
-size_t	ft_strlcat(char *dest, const char *src, size_t size)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	size_t	i;
-	size_t	j;
+	void	*ptr;
+	size_t	a;
 
-	if (size <= ft_strlen(dest))
-		return (ft_strlen(src) + size);
-	i = ft_strlen(dest);
-	j = 0;
-	while (src[j] != '\0' && j < (size - i - 1))
-	{
-		dest[i + j] = src[j];
-		j++;
-	}
-	dest[i + j] = '\0';
-	return (ft_strlen(src) + i);
+	a = nmemb * size;
+	if (size != 0 && a / size != nmemb)
+		return (0);
+	ptr = malloc(size * nmemb);
+	if (!ptr)
+		return (0);
+	ft_bzero(ptr, nmemb * size);
+	return (ptr);
 }
 
-/*int	main(void)
+/*int main(void)
 {
-	printf("--> %li\n", strlcat("Hello", "coucou", 4));
-	printf("--> %li\n", ft_strlcat("Hello", "coucou", 4));
+	void	*p = ft_calloc(4, 0);
+
+	printf("--> %p\n", p);
+	free(p);
 	return (0);
 }*/

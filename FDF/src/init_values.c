@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:16:25 by eorer             #+#    #+#             */
-/*   Updated: 2023/02/23 13:57:07 by eorer            ###   ########.fr       */
+/*   Updated: 2023/03/02 15:56:00 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,23 @@
 
 void	set_size(t_vars *vars)
 {
-	t_coord	corner;
+	t_coord	corner_a;
+	t_coord	corner_b;
 
-	corner = coord_to_plan(vars->length_map, vars->height_map, 0, vars);
-	while (corner.x > vars->w_width || corner.y > vars->w_height)
+	corner_a = coord_to_plan(vars->length_map, vars->height_map, 0, vars);
+	corner_b = coord_to_plan(0, vars->height_map, 0, vars);
+	while (corner_b.x > vars->w_width || corner_b.y > vars->w_height
+		|| corner_a.x > vars->w_width || corner_a.y > vars->w_height)
 	{
 		zoom_moins(vars);
-		corner = coord_to_plan(vars->length_map, vars->height_map, 0, vars);
+		corner_a = coord_to_plan(vars->length_map, vars->height_map, 0, vars);
+		corner_b = coord_to_plan(0, vars->height_map, 0, vars);
 		vars->m_center = coord_to_plan(vars->length_map / 2 - 1,
 				vars->height_map / 2 - 1, 0, vars);
 		center_map(vars);
 	}
+	zoom_moins(vars);
+	center_map(vars);
 }
 
 void	max_high(t_vars *vars, int *max)
