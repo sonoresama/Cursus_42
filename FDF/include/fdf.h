@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:34:09 by eorer             #+#    #+#             */
-/*   Updated: 2023/02/23 16:14:07 by eorer            ###   ########.fr       */
+/*   Updated: 2023/03/20 15:11:09 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_vars{
 	t_coord	m_center;
 	t_img	mlx_img;
 	int		**map;
+	int		**colors;
 	int		w_width;
 	int		w_height;
 	int		length_map;
@@ -79,13 +80,13 @@ void	free_map(char **map);
 void	print_map(char **map);
 void	print_tab(int **tab, int length);
 void	free_tab(int **tab);
-t_coord	coord_to_plan(int x, int y, int z, t_vars *vars);
 void	center_map(t_vars *vars);
 void	center_y(t_vars *vars);
 void	center_x(t_vars *vars);
 void	zoom_plus(t_vars *vars);
 void	zoom_moins(t_vars *vars);
 void	adjust_height(t_vars *vars);
+t_coord	coord_to_plan(int x, int y, int z, t_vars *vars);
 
 int		init_mlx(t_vars *vars);
 int		init_color(int t, int r, int g, int b);

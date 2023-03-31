@@ -6,7 +6,7 @@
 #    By: eorer <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/23 17:15:01 by eorer             #+#    #+#              #
-#    Updated: 2023/03/01 14:44:12 by eorer            ###   ########.fr        #
+#    Updated: 2023/03/31 15:10:07 by eorer            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,20 @@ LIB = ./libft/libft.a
 
 INCLUDE = -I./include
 
-HEADERS = ./include/pipex.h
+HEADERS = ./include/pipex.h ./include/get_next_line.h
 
 NAME = pipex
 
-SRC = $(addprefix ./src/, main.c utilities.c parsing.c check_args.c set_argv.c cmd_in.c cmd_out.c)
+SRCS = $(addprefix ./srcs/, main.c utilities.c parsing.c check_args.c set_argv.c cmd.c)
 
-OBJ = $(SRC:.c=.o)
+OBJ = $(SRCS:.c=.o)
+
+HEADERS_BONUS = ./include/pipex_bonus.h
+
+SRC_BONUS = $(addprefix ./bonus/, main_bonus.c cmd_bonus.c utilities.c check_args.c set_argv.c parsing.c) \
+      get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
+
+OBJ_BONUS = $(SRC_BONUS:.c=.o)
 
 
 all : $(NAME)
@@ -34,13 +41,20 @@ $(NAME) : $(LIB) $(OBJ)
 
 $(LIB) :
 	@make -C ./libft
-	
+
+bonus : $(LIB) $(OBJ_BONUS)
+	@$(CC) -o $(NAME) $(OBJ_BONUS) $(LIB)
+
 clean :
 	@make clean -C ./libft
 	@/bin/rm -f $(OBJ)
 
-fclean : clean
+clean_bonus :
+	@make clean -C ./libft
+	@/bin/rm -f $(OBJ_BONUS)
+
+fclean : clean clean_bonus
 	@make fclean -C ./libft
-	@/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME) $(BONUS)
 
 re : fclean all

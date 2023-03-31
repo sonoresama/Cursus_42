@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:16:25 by eorer             #+#    #+#             */
-/*   Updated: 2023/03/02 15:56:00 by eorer            ###   ########.fr       */
+/*   Updated: 2023/03/20 15:22:21 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	max_high(t_vars *vars, int *max)
 		j = 0;
 		while (j < vars->length_map)
 		{
-			if (vars->map[i][j] > *max)
-				*max = vars->map[i][j];
+			if (valeur_absolue(vars->map[i][j]) > *max)
+				*max = valeur_absolue(vars->map[i][j]);
 			j++;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 18:30:20 by eorer             #+#    #+#             */
-/*   Updated: 2023/02/23 14:54:02 by eorer            ###   ########.fr       */
+/*   Updated: 2023/03/20 17:02:46 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ char	**init_map(char *map_path)
 	if (!map)
 		return (NULL);
 	fd = open(map_path, O_RDWR);
+	if (fd == -1)
+	{
+		free(map);
+		perror("ERROR");
+		return (NULL);
+	}
 	while (++i < n_row)
 		map[i] = get_next_line(fd);
 	map[i] = NULL;
@@ -32,10 +38,25 @@ char	**init_map(char *map_path)
 	return (map);
 }
 
-int	*atoi_split(char **split, int *length_map)
+int	is_coma(char *str)
 {
 	int	i;
-	int	*tab;
+
+	i = 0;
+	while (str && str[i])
+	{
+		if (str[i] == ',')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	*atoi_split(char **split, int *length_map)
+{
+	int		i;
+	int		*tab;
+	char	**test;
 
 	if (!split)
 		return (NULL);
@@ -46,7 +67,14 @@ int	*atoi_split(char **split, int *length_map)
 		return (NULL);
 	while (split[i] && split[i][0] != '\n')
 	{
-		tab[i] = ft_atoi(split[i]);
+		if (is_coma(split[i]))
+		{
+			test = ft_split(split[i], ",");
+			tab[i] = ft_atoi(test[0]);
+			free_map(test);
+		}
+		else
+			tab[i] = ft_atoi(split[i]);
 		i++;
 	}
 	return (tab);

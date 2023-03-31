@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 11:38:48 by eorer             #+#    #+#             */
-/*   Updated: 2023/03/21 18:18:44 by eorer            ###   ########.fr       */
+/*   Created: 2023/02/27 23:07:41 by eorer             #+#    #+#             */
+/*   Updated: 2023/03/31 14:59:54 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/pipex.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+int	check_args(int argc)
 {
-	t_list	*last;
-
-	if (*lst)
+	if (argc != 5)
 	{
-		last = ft_lstlast(*lst);
-		last->next = new;
+		ft_putstr_fd("Bad argument number\n", 2);
+		exit(1);
 	}
-	else
-		*lst = new;
+	return (argc - 3);
 }

@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   set_argv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 11:38:48 by eorer             #+#    #+#             */
-/*   Updated: 2023/03/21 18:18:44 by eorer            ###   ########.fr       */
+/*   Created: 2023/02/27 23:53:43 by eorer             #+#    #+#             */
+/*   Updated: 2023/03/31 15:01:17 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/pipex.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
-{
-	t_list	*last;
+char	**set_argv(char *param)
+{	
+	char	**split;
 
-	if (*lst)
-	{
-		last = ft_lstlast(*lst);
-		last->next = new;
-	}
-	else
-		*lst = new;
+	split = ft_split(param, " ");
+	if (!split)
+		error_msg(1, "Split Arguments");
+	return (split);
 }

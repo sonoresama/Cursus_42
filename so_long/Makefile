@@ -6,7 +6,7 @@
 #    By: eorer <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/16 14:02:57 by eorer             #+#    #+#              #
-#    Updated: 2022/12/25 15:34:20 by eorer            ###   ########.fr        #
+#    Updated: 2023/02/15 17:28:48 by eorer            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,9 @@ LIBX = libmlx42.a
 
 NAME = so_long
 
-SRC = main.c utils.c init_game.c utils_map.c move_player.c \
-      get_next_line/get_next_line.c get_next_line/get_next_line_utils.c 
+SRC = $(addprefix ./src/, draw_rect.c init_game.c main.c mlx_utils.c render_background.c render_mobile.c \
+      utilities.c init_map.c parsing.c move_parsing.c) \
+      		get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 
 OBJ = $(SRC:.c=.o)
 
