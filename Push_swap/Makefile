@@ -6,7 +6,7 @@
 #    By: eorer <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/07 17:59:35 by eorer             #+#    #+#              #
-#    Updated: 2022/12/13 18:02:11 by eorer            ###   ########.fr        #
+#    Updated: 2022/12/14 18:53:42 by emileorer        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ LIB = libft.a
 all : $(NAME)
 
 $(NAME) : $(HEADER) $(LIB) $(SRC)
-	@$(CC) $(CFLAGS) -include $(HEADER) $(SRC) $(LIB) -o $(NAME)
+	@$(CC) $(CFLAGS) -include $(HEADER) $(SRC) $(LIB)
 
 $(LIB) :
 	@make -C ./libft
