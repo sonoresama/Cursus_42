@@ -1,0 +1,19 @@
+
+
+3 2 1 : sa 2 3 1	ra 3 1 x	sa 1 3 x	rra : 2 1 3	sa : 1 2 3
+
+
+
+3 1 2 : sa 1 3 2	ra 3 2 x	sa : 2 3 x	rra : 1 2 3
+
+
+
+1 3 2 : ra 3 2 x	sa 2 3 x	rra : 1 2 3
+
+
+
+2 1 3 : sa 1 2 3
+
+
+
+2 3 1 : ra 3 1 x	sa 1 3 x	rra : 2 1 3	sa : 1 2 3

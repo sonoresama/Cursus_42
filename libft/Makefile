@@ -5,43 +5,43 @@
 #                                                     +:+ +:+         +:+      #
 #    By: eorer <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/11/07 16:17:25 by eorer             #+#    #+#              #
-#    Updated: 2022/11/16 15:18:46 by eorer            ###   ########.fr        #
+#    Created: 2022/11/14 18:28:44 by eorer             #+#    #+#              #
+#    Updated: 2022/12/13 11:59:14 by eorer            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
-
-CFLAGS = -Wall -Wextra -Werror -I.
-
 NAME = libft.a
 
-SRC = ft_atoi.c ft_isascii.c ft_isprint.c ft_memcpy.c ft_putnbr_fd.c ft_striteri.c ft_strmapi.c \
-      ft_substr.c ft_bzero.c ft_isdigit.c ft_memmove.c ft_putstr_fd.c ft_strjoin.c \
-      ft_strncmp.c ft_tolower.c ft_calloc.c ft_itoa.c ft_memset.c ft_split.c ft_strlcat.c \
-      ft_strnstr.c ft_toupper.c ft_isalnum.c ft_memchr.c ft_putchar_fd.c ft_strchr.c ft_strlcpy.c \
-      ft_strrchr.c ft_isalpha.c ft_memcmp.c ft_putendl_fd.c ft_strdup.c ft_strlen.c ft_strtrim.c
+CC = gcc
 
-BONUS = ft_lstadd_back.c ft_lstadd_front.c ft_lstlast.c ft_lstnew.c ft_lstsize.c ft_lstdelone.c \
-	ft_lstclear.c ft_lstiter.c ft_lstmap.c
+CFLAGS = -Wall -Werror -Wextra
 
-OBJECTS = $(SRC:.c=.o)
-
-BONUS_OBJECTS = $(BONUS:.c=.o)
+HEADERS = ft_printf.h libft_og/libft.h
 
 
-all: $(NAME)
+DIR = $(shell dirname $(shell pwd))
 
-$(NAME) : $(OBJECTS)
-	ar -rcs $(NAME) $(OBJECTS)
+LIBFT_PATH = $(DIR)/libft
 
-clean:
-	/bin/rm -f $(OBJECTS) $(BONUS_OBJECTS)
+SRC = ft_hexa.c ft_functions.c ft_printf.c
 
-fclean:	clean
-	/bin/rm -f $(NAME)
+OBJ = $(SRC:.c=.o)
 
-re: fclean all
+all : $(NAME)
 
-bonus: $(OBJECTS) $(BONUS_OBJECTS)
-	ar -rcs $(NAME) $(OBJECTS) $(BONUS_OBJECTS)
+$(NAME) : $(OBJ) $(HEADER)
+	@make -C ./libft_og
+	@cp libft_og/libft_og.a ./
+	@mv libft_og.a $(NAME)
+	@$(CC) $(CFLAGS) -include $(HEADERS) -c $(SRC)
+	@ar -rcs $(NAME) $(OBJ)
+
+fclean : clean
+	@make fclean -C libft_og
+	@rm -rf $(NAME) libft_og.a
+
+clean :
+	@make clean -C libft_og
+	@rm -rf $(OBJ)
+
+re : fclean all

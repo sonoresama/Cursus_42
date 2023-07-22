@@ -6,7 +6,7 @@
 #    By: eorer <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/07 17:59:35 by eorer             #+#    #+#              #
-#    Updated: 2022/12/14 18:53:42 by emileorer        ###   ########.fr        #
+#    Updated: 2023/07/22 16:47:27 by emileorer        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC = ./push_swap.c \
       ./sort_algo/sort_insertion.c \
       ./sort_algo/sort_three_digit.c \
       ./sort_algo/sort_quick.c \
+      ./sort_algo/quicksort.c \
 
 LIB = libft.a
 
@@ -36,7 +37,7 @@ LIB = libft.a
 all : $(NAME)
 
 $(NAME) : $(HEADER) $(LIB) $(SRC)
-	@$(CC) $(CFLAGS) -include $(HEADER) $(SRC) $(LIB)
+	@$(CC) $(CFLAGS) -g -include $(HEADER) $(SRC) $(LIB) -o $(NAME)
 
 $(LIB) :
 	@make -C ./libft

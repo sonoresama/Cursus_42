@@ -6,12 +6,23 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 17:54:38 by eorer             #+#    #+#             */
-/*   Updated: 2022/12/13 18:02:50 by eorer            ###   ########.fr       */
+/*   Updated: 2022/12/20 12:25:24 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
+
+void	free_all(t_pile *a, t_pile *b, int size, char ***tab)
+{
+	free (a->content);
+	free (b->content);
+	if (size == 2)
+	{
+		free_tab(*tab);
+		free(*tab);
+	}
+}
 
 static int	check_doublon(int *tab, int size)
 {
@@ -95,14 +106,14 @@ int	main(int argc, char **argv)
 	if (!b.content)
 		return (0);
 	if (!check_doublon(a.content, a.size))
-		return (0);
-	insertion_sort(&a, &b);
-	free (a.content);
-	free (b.content);
-	if (argc == 2)
 	{
-		free_tab(tab);
-		free(tab);
+		free_all(&a, &b, argc, &tab);
+		return (0);
 	}
+	if (size < 70)
+		insertion_sort(&a, &b);
+	else
+		sort_quick(&a, &b, a.size);
+	free_all(&a, &b, argc, &tab);
 	return (0);
 }
