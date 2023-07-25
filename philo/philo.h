@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:57:04 by emileorer         #+#    #+#             */
-/*   Updated: 2023/07/25 18:15:20 by eorer            ###   ########.fr       */
+/*   Updated: 2023/07/26 00:51:01 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,23 @@
 
 typedef struct s_data {
 	long		start;
+	int		dead;
+	void		*error;
 	pthread_t	*threads;
-	pthread_mutex_t	dead;
+	pthread_mutex_t	lock;
 }	t_data;
 
 typedef struct s_philo {
+	t_data				*data;
 	int				id;
 	int				nb_philo;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nb_eat;
+	pthread_t			check;
 	long				last_meal;
-	t_data				*data;
-	pthread_mutex_t fork;
+	pthread_mutex_t 		fork;
 	struct s_philo			*prev;
 	struct s_philo			*next;
 }					t_philo;
@@ -48,7 +51,7 @@ t_philo *ft_initiate_philo(char **argv);
 long	ft_get_time(void);
 int	ft_print(t_philo *philo, char *str);
 int	ft_eating(t_philo *philo);
-int	ft_generate_threads(t_philo *philo, int nb_philo);
+int	ft_generate_threads(t_philo *philo);
 void	*ft_philo(void *arg);
 
 //  UTILITIES  //
