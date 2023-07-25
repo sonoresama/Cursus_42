@@ -6,11 +6,11 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 15:13:15 by emileorer         #+#    #+#             */
-/*   Updated: 2023/07/21 17:32:06 by emileorer        ###   ########.fr       */
+/*   Updated: 2023/07/22 16:58:36 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 int	ft_isdigit(int c)
 {

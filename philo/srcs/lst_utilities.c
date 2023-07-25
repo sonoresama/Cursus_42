@@ -6,11 +6,11 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 15:34:25 by emileorer         #+#    #+#             */
-/*   Updated: 2023/07/22 16:30:17 by emileorer        ###   ########.fr       */
+/*   Updated: 2023/07/24 16:02:54 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 t_philo	*ft_lstnew(int id, char **args)
 {
@@ -21,9 +21,12 @@ t_philo	*ft_lstnew(int id, char **args)
 		return (NULL);
 	new->id = id;
 	new->nb_philo = ft_atoi(args[1]);
-	new->time_to_die = ft_atoi(args[2]);
-	new->time_to_eat = ft_atoi(args[3]);
-	new->time_to_sleep = ft_atoi(args[4]);
+	new->time_to_die = ft_atoi(args[2]) * 1000;
+	new->time_to_eat = ft_atoi(args[3]) * 1000;
+	new->time_to_sleep = ft_atoi(args[4]) * 1000;
+	new->nb_eat = -1;
+	new->last_meal = 0;
+	new->start = ft_get_time();
 	pthread_mutex_init(&new->fork, NULL);
 	new->prev = NULL;
 	new->next = NULL;

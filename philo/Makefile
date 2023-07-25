@@ -6,7 +6,7 @@
 #    By: emileorer <marvin@42.fr>                   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/21 14:53:45 by emileorer         #+#    #+#              #
-#    Updated: 2023/07/21 17:28:13 by emileorer        ###   ########.fr        #
+#    Updated: 2023/07/22 16:54:00 by emileorer        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 
 LFLAGS = -lpthread
 
-SRCS = $(wildcard ./*.c) 
+SRCS = $(wildcard ./srcs/*.c) 
 
 OBJ = $(SRCS:.c=.o)
 
