@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:57:04 by emileorer         #+#    #+#             */
-/*   Updated: 2023/07/24 16:07:38 by emileorer        ###   ########.fr       */
+/*   Updated: 2023/07/25 18:15:20 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,10 @@
 // STRUCTURES //
 
 typedef struct s_data {
-	int				nb_philo;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	long			start;
-}					t_data;
+	long		start;
+	pthread_t	*threads;
+	pthread_mutex_t	dead;
+}	t_data;
 
 typedef struct s_philo {
 	int				id;
@@ -37,8 +35,8 @@ typedef struct s_philo {
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nb_eat;
-	int				last_meal;
-	int				start;
+	long				last_meal;
+	t_data				*data;
 	pthread_mutex_t fork;
 	struct s_philo			*prev;
 	struct s_philo			*next;
@@ -48,8 +46,10 @@ typedef struct s_philo {
 
 t_philo *ft_initiate_philo(char **argv);
 long	ft_get_time(void);
-void	ft_print(t_philo *philo, char *str);
-void	ft_eating(t_philo *philo);
+int	ft_print(t_philo *philo, char *str);
+int	ft_eating(t_philo *philo);
+int	ft_generate_threads(t_philo *philo, int nb_philo);
+void	*ft_philo(void *arg);
 
 //  UTILITIES  //
 
@@ -57,6 +57,6 @@ int	ft_atoi(const char *nptr);
 void	ft_bzero(void *s, size_t n);
 void	ft_lstadd_back(t_philo **lst, t_philo *new);
 t_philo	*ft_lstlast(t_philo *lst);
-t_philo	*ft_lstnew(int id, char **args);
+t_philo	*ft_lstnew(int id, char **args, t_data *data);
 
 #endif

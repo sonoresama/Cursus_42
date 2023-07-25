@@ -6,11 +6,36 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 15:13:15 by emileorer         #+#    #+#             */
-/*   Updated: 2023/07/22 16:58:36 by emileorer        ###   ########.fr       */
+/*   Updated: 2023/07/25 18:00:03 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+void	free_all(t_philo *philo, pthread_t *threads)
+{
+	int	i;
+
+	i = 0;
+	printf("nb de philo au moment de free : %i\n", philo->nb_philo);
+	while(i < philo->nb_philo)
+	{
+		pthread_mutex_destroy(&philo->fork);
+		philo = philo->next;
+		if (philo->prev)
+			free(philo->prev);
+		i++;
+	}
+	free(threads);
+}
+
+long	ft_get_time(void)
+{
+	struct timeval	current_time;
+
+	gettimeofday(&current_time, NULL);
+	return (current_time.tv_sec * 1000 + current_time.tv_usec / 1000);
+}
 
 int	ft_isdigit(int c)
 {
