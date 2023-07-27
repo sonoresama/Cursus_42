@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:57:04 by emileorer         #+#    #+#             */
-/*   Updated: 2023/07/26 00:51:01 by eorer            ###   ########.fr       */
+/*   Updated: 2023/07/27 17:45:17 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@
 typedef struct s_data {
 	long		start;
 	int		dead;
+	int		max_meal;
 	void		*error;
 	pthread_t	*threads;
 	pthread_mutex_t	lock;
+	pthread_mutex_t	write;
 }	t_data;
 
 typedef struct s_philo {
@@ -38,7 +40,6 @@ typedef struct s_philo {
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nb_eat;
-	pthread_t			check;
 	long				last_meal;
 	pthread_mutex_t 		fork;
 	struct s_philo			*prev;
