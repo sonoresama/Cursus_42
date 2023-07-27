@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:56:50 by emileorer         #+#    #+#             */
-/*   Updated: 2023/07/27 17:56:57 by eorer            ###   ########.fr       */
+/*   Updated: 2023/07/27 19:11:29 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,20 @@ void	print_philos(t_philo *philos);
 int	ft_join_threads(t_philo *philos)
 {
 	int	i;
+	int	error;
 
 	i = 0;
+	printf("\nJOIN\nEDEADLK : %i\nEINVAL : %i\nESRCH : %i\n", EDEADLK, EINVAL, ESRCH);
 	while (i++ < philos->nb_philo)
 	{
-		if (pthread_join(philos->data->threads[i], NULL))
+		printf("Waiting for thread n%i\n", i);
+		error = pthread_join(philos->data->threads[i], NULL);
+		if (error)
 		{
-			printf("Error creating thread\n");
+			printf("Error creating thread : %i\n", error);
 			return (1);
 		}
+		printf("Received thread n%i\n", i);
 	}
 	return (0);
 }
