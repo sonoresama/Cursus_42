@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:56:50 by emileorer         #+#    #+#             */
-/*   Updated: 2023/07/26 00:54:06 by eorer            ###   ########.fr       */
+/*   Updated: 2023/07/26 14:42:42 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	main(int argc, char **argv)
 	philo = ft_initiate_philo(argv);
 	if (!philo)
 		return (1);
-//	print_philos(philos);
 	if(ft_generate_threads(philo))
 		return (1);
 	ft_join_threads(philo);

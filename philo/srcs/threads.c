@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 23:01:59 by eorer             #+#    #+#             */
-/*   Updated: 2023/07/26 00:50:38 by eorer            ###   ########.fr       */
+/*   Updated: 2023/07/26 16:07:11 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ void	*ft_philo(void *arg)
 
 int	ft_generate_threads(t_philo *philo)
 {
-	int		i;
-
-	i = 0;
 	philo->data->start = ft_get_time();
 	if (lancement_threads(philo->data->threads, philo, 0))
 		return (1);
@@ -58,6 +55,7 @@ int	lancement_threads(pthread_t *threads, t_philo *philo, int i)
 		philo = philo->next->next;
 		i += 2;
 	}
+	usleep(10);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 11:23:54 by emileorer         #+#    #+#             */
-/*   Updated: 2023/07/26 00:47:43 by eorer            ###   ########.fr       */
+/*   Updated: 2023/07/26 15:27:25 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	ft_print(t_philo *philo, char *str)
 		pthread_mutex_unlock(&data->lock);
 		return (1);
 	}
-	printf("%ld %d %s\n", ft_get_time() - data->start, philo->id, str);
+	if (!data->dead)
+		printf("%ld %d %s\n", ft_get_time() - data->start, philo->id, str);
 	return (0);
 }
 
@@ -50,4 +51,3 @@ int	ft_eating(t_philo *philo)
 		philo->nb_eat++;
 	return (0);
 }
-
