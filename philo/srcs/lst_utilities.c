@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 15:34:25 by emileorer         #+#    #+#             */
-/*   Updated: 2023/07/25 16:53:58 by eorer            ###   ########.fr       */
+/*   Updated: 2023/07/27 17:35:01 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 t_philo	*ft_lstlast(t_philo *lst)
 {
 	while (lst && lst->next)
-	{
 		lst = lst->next;
-	}
 	return (lst);
 }
 

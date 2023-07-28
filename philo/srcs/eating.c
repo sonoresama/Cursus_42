@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 11:23:54 by emileorer         #+#    #+#             */
-/*   Updated: 2023/07/26 15:27:25 by emileorer        ###   ########.fr       */
+/*   Updated: 2023/07/28 14:53:50 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	ft_print(t_philo *philo, char *str)
 	t_data	*data;
 
 	data = philo->data;
+	pthread_mutex_lock(&data->write);
 	time = ft_get_time();
 	if (time - philo->last_meal >= philo->time_to_die)
 	{
@@ -30,6 +31,7 @@ int	ft_print(t_philo *philo, char *str)
 	}
 	if (!data->dead)
 		printf("%ld %d %s\n", ft_get_time() - data->start, philo->id, str);
+	pthread_mutex_unlock(&data->write);
 	return (0);
 }
 
