@@ -6,11 +6,17 @@
 #    By: emileorer <marvin@42.fr>                   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/21 14:53:45 by emileorer         #+#    #+#              #
-#    Updated: 2023/07/22 16:54:00 by emileorer        ###   ########.fr        #
+#    Updated: 2023/07/28 16:09:29 by emileorer        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = cc
+TARGET := $(shell uname -s)
+
+ifeq ($(TARGET), Darwin)
+	CC = clang
+else
+	CC = cc
+endif
 
 CFLAGS = -Wall -Wextra -Werror -g 
 

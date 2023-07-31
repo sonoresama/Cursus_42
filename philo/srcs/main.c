@@ -6,13 +6,11 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:56:50 by emileorer         #+#    #+#             */
-/*   Updated: 2023/07/28 14:55:15 by emileorer        ###   ########.fr       */
+/*   Updated: 2023/07/31 12:17:27 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-
-void	print_philos(t_philo *philos);
 
 int	ft_join_threads(t_philo *philos)
 {
@@ -20,17 +18,14 @@ int	ft_join_threads(t_philo *philos)
 	int	error;
 
 	i = 0;
-	printf("\nJOIN\nEDEADLK : %i\nEINVAL : %i\nESRCH : %i\n", EDEADLK, EINVAL, ESRCH);
 	while (i++ < philos->nb_philo)
 	{
-		printf("Waiting for thread n%i\n", i);
 		error = pthread_join(philos->data->threads[i], NULL);
 		if (error)
 		{
-			printf("Error creating thread : %i\n", error);
+			printf("Error joining thread : %i\n", error);
 			return (1);
 		}
-		printf("Received thread n%i\n", i);
 	}
 	return (0);
 }
@@ -63,30 +58,18 @@ int	main(int argc, char **argv)
 
 	if (ft_check(argc, argv))
 		return (0);
+	if (ft_check(argc, argv))
+		return (0);
 	philo = ft_initiate_philo(argv);
 	if (!philo)
 		return (1);
-	if(ft_generate_threads(philo))
+	if (philo->nb_philo == 1)
+		return (one_philo(philo));
+else if (ft_generate_threads(philo))
 		return (1);
-//	while (philo->data->dead == 0)
-//		;
-	ft_join_threads(philo);
-	//free_all(philos, threads);
+	while (philo->data->dead == 0)
+		;
+	//ft_join_threads(philo);
+	ft_exit(philo);
 	return (0);
-}
-
-void	print_philos(t_philo *philos)
-{
-	int	i;
-
-	i = 0;
-	return; 
-	while (philos && i++ < philos->nb_philo)
-	{
-		printf("Num philo : %i\n", philos->id);
-		printf("time to die : %i\n", philos->time_to_die);
-		printf("time to sleep : %i\n", philos->time_to_sleep);
-		printf("time to eat : %i\n", philos->time_to_eat);
-		philos = philos->next;
-	}
 }

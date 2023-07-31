@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:57:04 by emileorer         #+#    #+#             */
-/*   Updated: 2023/07/27 19:01:47 by eorer            ###   ########.fr       */
+/*   Updated: 2023/07/31 12:17:04 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ typedef struct s_data {
 	long		start;
 	int		dead;
 	int		max_meal;
+	int		finished;
 	void		*error;
+	pthread_t	checker;
 	pthread_t	*threads;
 	pthread_mutex_t	lock;
 	pthread_mutex_t	write;
@@ -56,6 +58,9 @@ int	ft_print(t_philo *philo, char *str);
 int	ft_eating(t_philo *philo);
 int	ft_generate_threads(t_philo *philo);
 void	*ft_philo(void *arg);
+void	free_philo(t_philo *philo);
+int	ft_join_threads(t_philo *philos);
+int	one_philo(t_philo *philo);
 
 //  UTILITIES  //
 
@@ -64,5 +69,7 @@ void	ft_bzero(void *s, size_t n);
 void	ft_lstadd_back(t_philo **lst, t_philo *new);
 t_philo	*ft_lstlast(t_philo *lst);
 t_philo	*ft_lstnew(int id, char **args, t_data *data);
+void	ft_exit(t_philo *philo);
+int	ft_usleep(useconds_t time);
 
 #endif

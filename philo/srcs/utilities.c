@@ -6,27 +6,20 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 15:13:15 by emileorer         #+#    #+#             */
-/*   Updated: 2023/07/25 18:00:03 by eorer            ###   ########.fr       */
+/*   Updated: 2023/07/28 18:25:47 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	free_all(t_philo *philo, pthread_t *threads)
+int	ft_usleep(useconds_t time)
 {
-	int	i;
+	long	start;
 
-	i = 0;
-	printf("nb de philo au moment de free : %i\n", philo->nb_philo);
-	while(i < philo->nb_philo)
-	{
-		pthread_mutex_destroy(&philo->fork);
-		philo = philo->next;
-		if (philo->prev)
-			free(philo->prev);
-		i++;
-	}
-	free(threads);
+	start = ft_get_time();
+	while ((ft_get_time() - start) < time)
+		usleep(time / 10);
+	return (0);
 }
 
 long	ft_get_time(void)
