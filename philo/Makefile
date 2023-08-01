@@ -6,7 +6,7 @@
 #    By: emileorer <marvin@42.fr>                   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/21 14:53:45 by emileorer         #+#    #+#              #
-#    Updated: 2023/07/28 16:09:29 by emileorer        ###   ########.fr        #
+#    Updated: 2023/08/01 15:05:27 by eorer            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,12 +15,25 @@ TARGET := $(shell uname -s)
 ifeq ($(TARGET), Darwin)
 	CC = clang
 else
-	CC = cc
+	CC = gcc
 endif
 
-CFLAGS = -Wall -Wextra -Werror -g 
+CFLAGS = -Wall -Wextra -Werror -g -pthread 
 
 LFLAGS = -lpthread
+
+C_SANITIZE_FLAGS =
+
+L_SANITIZE_FLAGS =
+
+ifeq ($(filter sanitize,$(MAKECMDGOALS)),sanitize)
+    C_SANITIZE_FLAGS = -fsanitize=thread
+    L_SANITIZE_FLAGS = -L/path/to/tsan/library -ltsan
+endif
+
+CFLAGS += $(C_SANITIZE_FLAGS)
+
+LFLAGS += $(L_SANITIZE_FLAGS)
 
 SRCS = $(wildcard ./srcs/*.c) 
 
@@ -46,3 +59,8 @@ fclean : clean
 	rm -rf $(NAME)
 
 re : fclean all
+
+.PHONY: all clean
+
+.PHONY: sanitize
+sanitize: | all

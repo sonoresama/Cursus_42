@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 12:15:39 by emileorer         #+#    #+#             */
-/*   Updated: 2023/07/31 12:16:47 by emileorer        ###   ########.fr       */
+/*   Updated: 2023/08/01 18:49:32 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	one_philo(t_philo *philo)
 	pthread_t	thread;
 
 	philo->data->start = ft_get_time();
-	philo->last_meal = philo->data->start; //ft_get_time(); //philo->data->start;
+	philo->last_meal = philo->data->start;
 	if (pthread_create(&thread, NULL, &ft_one_philo, philo) != 0)
 	{
 		printf("Error creating thread\n");

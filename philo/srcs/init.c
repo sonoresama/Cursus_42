@@ -62,15 +62,15 @@ t_data	*ft_init_data(char	**argv)
 	return (data);
 }
 
-t_philo *ft_initiate_philo(char **argv)
+t_philo	*ft_initiate_philo(char **argv)
 {
 	t_philo		*begin;
 	t_data		*data;
-	int		nb_philo;
-	int		i;
+	int			nb_philo;
+	int			i;
 
 	i = 0;
-	data =	ft_init_data(argv); 
+	data = ft_init_data(argv);
 	begin = ft_lstnew(i, argv, data);
 	nb_philo = ft_atoi(argv[1]);
 	while (++i < nb_philo)

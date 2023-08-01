@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:56:50 by emileorer         #+#    #+#             */
-/*   Updated: 2023/07/31 12:17:27 by emileorer        ###   ########.fr       */
+/*   Updated: 2023/08/01 18:06:09 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,20 @@
 int	ft_join_threads(t_philo *philos)
 {
 	int	i;
+	int	nb;
 	int	error;
 
 	i = 0;
-	while (i++ < philos->nb_philo)
+	nb = philos->nb_philo;
+	while (i < nb)
 	{
 		error = pthread_join(philos->data->threads[i], NULL);
 		if (error)
 		{
-			printf("Error joining thread : %i\n", error);
+			printf("Error waiting thread: %i\n", error);
 			return (1);
 		}
+		i++;
 	}
 	return (0);
 }
@@ -58,18 +61,16 @@ int	main(int argc, char **argv)
 
 	if (ft_check(argc, argv))
 		return (0);
-	if (ft_check(argc, argv))
-		return (0);
 	philo = ft_initiate_philo(argv);
 	if (!philo)
 		return (1);
 	if (philo->nb_philo == 1)
 		return (one_philo(philo));
-else if (ft_generate_threads(philo))
+	else if (ft_generate_threads(philo))
 		return (1);
-	while (philo->data->dead == 0)
-		;
-	//ft_join_threads(philo);
-	ft_exit(philo);
+//	while (philo->data->dead == 0)
+//		;
+	ft_join_threads(philo);
+//	ft_exit(philo);
 	return (0);
 }
