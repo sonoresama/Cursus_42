@@ -6,7 +6,7 @@
 #    By: emileorer <marvin@42.fr>                   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/21 14:53:45 by emileorer         #+#    #+#              #
-#    Updated: 2023/08/01 15:05:27 by eorer            ###   ########.fr        #
+#    Updated: 2023/08/02 14:48:49 by eorer            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,4 +63,4 @@ re : fclean all
 .PHONY: all clean
 
 .PHONY: sanitize
-sanitize: | all
+sanitize: fclean | all

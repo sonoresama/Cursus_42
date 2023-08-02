@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:56:50 by emileorer         #+#    #+#             */
-/*   Updated: 2023/08/01 18:06:09 by eorer            ###   ########.fr       */
+/*   Updated: 2023/08/02 15:51:05 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	ft_check(int argc, char **argv)
 	{
 		if (ft_atoi(argv[i]) <= 0)
 		{
-			printf("ERROR : Negative numbers\n");
+			printf("ERROR : Negative or null numbers\n");
 			return (1);
 		}
 		i++;
@@ -68,9 +68,6 @@ int	main(int argc, char **argv)
 		return (one_philo(philo));
 	else if (ft_generate_threads(philo))
 		return (1);
-//	while (philo->data->dead == 0)
-//		;
-	ft_join_threads(philo);
-//	ft_exit(philo);
+	ft_exit(philo);
 	return (0);
 }

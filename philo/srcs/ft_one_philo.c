@@ -35,6 +35,6 @@ int	one_philo(t_philo *philo)
 		return (1);
 	}
 	pthread_join(thread, NULL);
-	//free
+	ft_exit(philo);
 	return (0);
 }
