@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 12:15:39 by emileorer         #+#    #+#             */
-/*   Updated: 2023/08/01 18:49:32 by eorer            ###   ########.fr       */
+/*   Updated: 2023/09/07 11:42:08 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	*ft_one_philo(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	ft_print(philo, "has taken a fork");
+	ft_print(philo, "has taken a fork", 0);
 	ft_usleep(philo->time_to_die);
-	ft_print(philo, "died");
+	ft_print(philo, "died", 1);
 	return (NULL);
 }
 

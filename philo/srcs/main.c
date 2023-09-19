@@ -6,11 +6,25 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:56:50 by emileorer         #+#    #+#             */
-/*   Updated: 2023/08/02 15:51:05 by eorer            ###   ########.fr       */
+/*   Updated: 2023/09/18 17:16:24 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+int	check_args(char *arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg && arg[i])
+	{
+		if (arg[i] < '0' || arg[i] > '9')
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 int	ft_join_threads(t_philo *philos)
 {
@@ -50,6 +64,11 @@ int	ft_check(int argc, char **argv)
 			printf("ERROR : Negative or null numbers\n");
 			return (1);
 		}
+		else if (check_args(argv[i]))
+		{
+			printf("ERROR : Wrong arguments\n");
+			return (1);
+		}
 		i++;
 	}
 	return (0);
@@ -64,6 +83,8 @@ int	main(int argc, char **argv)
 	philo = ft_initiate_philo(argv);
 	if (!philo)
 		return (1);
+	philo->data->extra_think = 2*(philo->time_to_die - philo->time_to_eat
+			- philo->time_to_sleep) / 3;
 	if (philo->nb_philo == 1)
 		return (one_philo(philo));
 	else if (ft_generate_threads(philo))

@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 16:26:10 by emileorer         #+#    #+#             */
-/*   Updated: 2023/08/02 15:52:33 by eorer            ###   ########.fr       */
+/*   Updated: 2023/09/11 16:54:35 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	free_philo(t_philo *philo)
 	while (i < nb)
 	{
 		pthread_mutex_destroy(&philo->fork);
+		pthread_mutex_destroy(&philo->eat);
 		tmp = philo;
 		if (philo->next)
 			philo = philo->next;
@@ -35,7 +36,6 @@ void	free_philo(t_philo *philo)
 void	ft_exit(t_philo *philo)
 {
 	pthread_mutex_destroy(&philo->data->lock);
-	pthread_mutex_destroy(&philo->data->write);
 	free(philo->data->threads);
 	free(philo->data);
 	free_philo(philo);

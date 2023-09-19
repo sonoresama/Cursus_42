@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 16:22:33 by emileorer         #+#    #+#             */
-/*   Updated: 2023/08/02 15:07:01 by eorer            ###   ########.fr       */
+/*   Updated: 2023/09/11 16:56:10 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_philo	*ft_lstnew(int id, char **argv, t_data *data)
 	new->last_meal = 0;
 	new->data = data;
 	pthread_mutex_init(&new->fork, NULL);
+	pthread_mutex_init(&new->eat, NULL);
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);
@@ -58,7 +59,6 @@ t_data	*ft_init_data(char	**argv)
 	if (argv[5])
 		data->max_meal = ft_atoi(argv[5]);
 	pthread_mutex_init(&data->lock, NULL);
-	pthread_mutex_init(&data->write, NULL);
 	return (data);
 }
 
