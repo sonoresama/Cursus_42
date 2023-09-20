@@ -6,50 +6,71 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:29:27 by eorer             #+#    #+#             */
-/*   Updated: 2023/09/19 18:24:51 by eorer            ###   ########.fr       */
+/*   Updated: 2023/09/20 17:18:33 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-typedef struct	s_screen{
-	float	focal_length;//distance entre l'observateurice et le screen
-	float	width;
-	float	height;
-}	t_screen;
+int	is_hiting_sphere(t_ray ray, t_sphere sphere)
+{
+	double	a;
+	double	b;
+	double	c;
+
+	a = mult_vectors(ray.direction, ray.direction);
+	b = mult_vectors(mult_const_vector(ray.direction, 2), sous_vectors(ray.origin, sphere.center));
+	c = mult_vectors(sous_vectors(ray.origin, sphere.center), sous_vectors(ray.origin, sphere.center)) - pow(sphere.radius, 2);
+	if (pow(b, 2) - 4 * a * c >= 0)
+		return (1);
+	return (0);
+}
 
 void	draw_sphere(t_data *data, t_sphere *sphere)
 {
-	(void)data;
-	(void)sphere;
+	int	i;
+	int	j;
+	t_ray	ray;
+
+	i = 0;
+	j = 0;
+	while (i < data->img_width)
+	{
+		while (j < data->img_height)
+		{
+			generate_ray(&ray, data, (t_pixel){i, j});
+//			printf("ray direction : %f %f %f\n", ray.direction.x, ray.direction.y, ray.direction.z);
+			if (is_hiting_sphere(ray, *sphere))
+				my_mlx_pixel_put(&data->mlx_img, i, j, init_color(0, 255, 255, 150));
+			else
+				my_mlx_pixel_put(&data->mlx_img, i, j, 0);
+			j++;
+		}
+		j = 0;
+		i++;
+	}
 	return ;
 }
 
-void	generate_ray(t_ray *ray, t_data *data, t_pixel origin)
+void	generate_ray(t_ray *ray, t_data *data, t_pixel pixel)
 {
-	t_screen screen;
 	float	x_norm;
 	float	y_norm;
 	t_vect	pixel_cam;
-	float	img_ratio;
 
 	if (!data->img_height)
 	{
 		printf("Height = 0\n");
 		return ;
 	}
-	img_ratio = data->img_width / data->img_height;
-	screen.focal_length = 1.0;
-	screen.width = 2.0;
-	screen.height = screen.width * img_ratio;
-	x_norm = (origin.x + 0.5) / data->img_width;
-	y_norm = (origin.y + 0.5) / data->img_height;
-	pixel_cam.x = (2 * x_norm - 1) * img_ratio * tan((data->fov / 2) * (M_PI / 180)); 
+	x_norm = (pixel.x + 0.5) / data->img_width;
+	y_norm = (pixel.y + 0.5) / data->img_height;
+		// this is assuming img_width > img_height
+	pixel_cam.x = (2 * x_norm - 1) * data->screen.aspect_ratio * tan((data->fov / 2) * (M_PI / 180)); 
 	pixel_cam.y = (1 - 2 * y_norm) * tan((data->fov / 2) * (M_PI / 180)); 
 	pixel_cam.z = -1.0;
 	ray->origin = data->cam_pos;
-	ray->direction.x = pixel_cam.x - ray->origin.x;
-	ray->direction.y = pixel_cam.y - ray->origin.y;
-	ray->direction.z = pixel_cam.z - ray->origin.z;
+	ray->direction = sous_vectors(pixel_cam, ray->origin);
+	ft_normalize(&ray->direction);
 	return ;
 }

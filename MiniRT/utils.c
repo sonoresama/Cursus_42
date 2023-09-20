@@ -6,20 +6,27 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 18:19:22 by eorer             #+#    #+#             */
-/*   Updated: 2023/09/19 18:27:26 by eorer            ###   ########.fr       */
+/*   Updated: 2023/09/20 16:40:31 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini.h"
 
-void	ft_normalize(t_vect *vector)
-{
-	float	norm;
-
-	norm = sqrt(pow(vector->x, 2) + pow(vector->x, 2) + pow(vector->x, 2));
-	if (!norm)
-		return ;
-	vector->x = vector->x / norm;
-	vector->y = vector->y / norm;
-	vector->z = vector->z / norm;
-}
+//int	create_matrix(double, int x, int y)
+//{
+//	int	j;
+//
+//	j = 0;
+//	matrix.x = x;
+//	matrix.y = y;
+//	matrix.mat = (int **)malloc(sizeof(int *) * y);
+//	if (!matrix.mat)
+//		return (1);
+//	while (j < y) 
+//	{
+//		matrix.mat[j] = (int *)malloc(sizeof(int) * x);
+//		if (!matrix.mat[j])
+//			return (1);
+//		j++;
+//	}
+//}
