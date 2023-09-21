@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:29:27 by eorer             #+#    #+#             */
-/*   Updated: 2023/09/20 17:18:33 by eorer            ###   ########.fr       */
+/*   Updated: 2023/09/21 18:09:09 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	draw_sphere(t_data *data, t_sphere *sphere)
 		while (j < data->img_height)
 		{
 			generate_ray(&ray, data, (t_pixel){i, j});
-//			printf("ray direction : %f %f %f\n", ray.direction.x, ray.direction.y, ray.direction.z);
 			if (is_hiting_sphere(ray, *sphere))
 				my_mlx_pixel_put(&data->mlx_img, i, j, init_color(0, 255, 255, 150));
 			else
@@ -66,10 +65,16 @@ void	generate_ray(t_ray *ray, t_data *data, t_pixel pixel)
 	x_norm = (pixel.x + 0.5) / data->img_width;
 	y_norm = (pixel.y + 0.5) / data->img_height;
 		// this is assuming img_width > img_height
-	pixel_cam.x = (2 * x_norm - 1) * data->screen.aspect_ratio * tan((data->fov / 2) * (M_PI / 180)); 
-	pixel_cam.y = (1 - 2 * y_norm) * tan((data->fov / 2) * (M_PI / 180)); 
+	pixel_cam.x = (2 * x_norm - 1) * data->screen.aspect_ratio * tan(rad((data->camera.fov / 2))); 
+	pixel_cam.y = (1 - 2 * y_norm) * tan(rad((data->camera.fov / 2))); 
 	pixel_cam.z = -1.0;
-	ray->origin = data->cam_pos;
+	ray->origin = data->camera.pos;
+//	print_vect(pixel_cam);
+//	pixel_cam = rotate_cam(data->fov / 2, 1, pixel_cam);
+//	pixel_cam = rotate_cam(data->fov / 2, 2, pixel_cam);
+//	pixel_cam = rotate_cam(data->fov / 2, 3, pixel_cam);
+//	pixel_cam = add_vectors(pixel_cam, data->camera->pos);
+//	print_vect(pixel_cam);
 	ray->direction = sous_vectors(pixel_cam, ray->origin);
 	ft_normalize(&ray->direction);
 	return ;

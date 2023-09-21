@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:37:41 by eorer             #+#    #+#             */
-/*   Updated: 2023/09/20 17:30:27 by eorer            ###   ########.fr       */
+/*   Updated: 2023/09/21 16:47:31 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,13 @@ int	init_data(t_data *data)
 		return (1);
 	data->img_width = WIDTH;
 	data->img_height = HEIGHT;
-	data->cam_pos.x = 0;
-	data->cam_pos.y = 0;
-	data->cam_pos.z = 0;
-	data->fov = 90;
+	data->camera.pos.x = 0;
+	data->camera.pos.y = 0;
+	data->camera.pos.z = 0;
+	data->camera.look.x = 0;
+	data->camera.look.y = 0;
+	data->camera.look.z = -1;
+	data->camera.fov = 90;
 	data->screen.focal_length = 1.0;
 	data->screen.width = 4.0;
 	data->screen.aspect_ratio = (double)WIDTH / (double)HEIGHT;
@@ -84,6 +87,11 @@ void	init_sphere(t_sphere *sphere)
 	sphere->color.z = 155;
 }
 
+void	print_vect(t_vect vect)
+{
+	printf("(%f %f %f)\n", vect.x, vect.y, vect.z);
+}
+
 int	main(void)
 {
 	t_data		data;
@@ -92,7 +100,6 @@ int	main(void)
 	if (init_data(&data))
 		return (1);
 	init_sphere(&sphere);
-//	ft_normalize(&ray.direction);
 	draw_sphere(&data, &sphere);
 	mlx_put_image_to_window(data.mlx, data.win, data.mlx_img.img, 0, 0);
 	mlx_loop_hook(data.mlx, &render, &data);
