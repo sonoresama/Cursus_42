@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:32:23 by eorer             #+#    #+#             */
-/*   Updated: 2023/09/21 16:32:42 by eorer            ###   ########.fr       */
+/*   Updated: 2023/09/26 11:41:08 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,16 @@ double	mult_vectors(t_vect vect_a, t_vect vect_b)
 	double	result;
 
 	result = vect_a.x * vect_b.x + vect_a.y * vect_b.y + vect_a.z * vect_b.z; 
+	return (result);
+}
+
+t_vect	cross_product(t_vect a, t_vect b)
+{
+	t_vect	result;
+
+	result.x = a.y * b.z - a.z * b.y;
+	result.y = a.z * b.x - a.x * b.z;
+	result.z = a.x * b.y - a.y * b.x;
 	return (result);
 }
 

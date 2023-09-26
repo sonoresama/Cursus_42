@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:37:41 by eorer             #+#    #+#             */
-/*   Updated: 2023/09/21 16:47:31 by eorer            ###   ########.fr       */
+/*   Updated: 2023/09/26 11:45:24 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	init_data(t_data *data)
 	data->img_width = WIDTH;
 	data->img_height = HEIGHT;
 	data->camera.pos.x = 0;
-	data->camera.pos.y = 0;
+	data->camera.pos.y = 10;
 	data->camera.pos.z = 0;
 	data->camera.look.x = 0;
 	data->camera.look.y = 0;
@@ -78,7 +78,7 @@ int	init_data(t_data *data)
 
 void	init_sphere(t_sphere *sphere)
 {
-	sphere->radius = 5;
+	sphere->radius = 10;
 	sphere->center.x = 0;
 	sphere->center.y = 0;
 	sphere->center.z = -20;

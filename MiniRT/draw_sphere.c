@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:29:27 by eorer             #+#    #+#             */
-/*   Updated: 2023/09/21 18:09:09 by eorer            ###   ########.fr       */
+/*   Updated: 2023/09/26 11:42:03 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,38 @@ void	draw_sphere(t_data *data, t_sphere *sphere)
 	return ;
 }
 
+void	generate_rot_matrix(t_data *data)
+{
+	t_vect	forward;
+	t_vect	right;
+	t_vect	up;
+	t_vect	tmp;
+
+	tmp = new_vector(0, 1, 0);
+	forward = data->camera.look;
+	ft_normalize(&forward);
+	right = cross_product(tmp, forward);
+	up = cross_product(forward, right);
+	data->camera.matrix[0][0] = right.x;
+	data->camera.matrix[0][1] = right.y;
+	data->camera.matrix[0][2] = right.z;
+	data->camera.matrix[1][0] = up.x;
+	data->camera.matrix[1][1] = up.y;
+	data->camera.matrix[1][2] = up.z;
+	data->camera.matrix[2][0] = forward.x;
+	data->camera.matrix[2][1] = forward.y;
+	data->camera.matrix[2][2] = forward.z;
+}
+
+t_vect	camera_to_world(double matrix[3][3], t_vect *vector)
+{
+	t_vect	result;
+	result.x = vector->x * matrix[0][0] + vector->y * matrix[1][0] + vector->z * matrix[2][0];
+	result.y = vector->x * matrix[0][1] + vector->y * matrix[1][1] + vector->z * matrix[2][1];
+	result.z = vector->x * matrix[0][2] + vector->y * matrix[1][2] + vector->z * matrix[2][2];
+	return (result);
+}
+
 void	generate_ray(t_ray *ray, t_data *data, t_pixel pixel)
 {
 	float	x_norm;
@@ -69,13 +101,15 @@ void	generate_ray(t_ray *ray, t_data *data, t_pixel pixel)
 	pixel_cam.y = (1 - 2 * y_norm) * tan(rad((data->camera.fov / 2))); 
 	pixel_cam.z = -1.0;
 	ray->origin = data->camera.pos;
+	generate_rot_matrix(data);
+	ray->direction = camera_to_world(data->camera.matrix, &pixel_cam);
 //	print_vect(pixel_cam);
 //	pixel_cam = rotate_cam(data->fov / 2, 1, pixel_cam);
 //	pixel_cam = rotate_cam(data->fov / 2, 2, pixel_cam);
 //	pixel_cam = rotate_cam(data->fov / 2, 3, pixel_cam);
-//	pixel_cam = add_vectors(pixel_cam, data->camera->pos);
+//	pixel_cam = add_vectors(pixel_cam, data->camera.pos);
 //	print_vect(pixel_cam);
-	ray->direction = sous_vectors(pixel_cam, ray->origin);
+//	ray->direction = sous_vectors(pixel_cam, ray->origin);
 	ft_normalize(&ray->direction);
 	return ;
 }
