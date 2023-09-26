@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   main.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 17:43:18 by eorer             #+#    #+#             */
-/*   Updated: 2023/09/26 18:57:36 by eorer            ###   ########.fr       */
+/*   Created: 2023/09/26 18:41:23 by eorer             #+#    #+#             */
+/*   Updated: 2023/09/26 18:48:10 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.hpp"
+#ifndef MAIN_HPP
+# define MAIN_HPP
 
-int	main(void)
-{
-	return (0);
-}
+# include <iostream>
+# include "PhoneBook.hpp"
+# include "Contact.hpp"
+
+#endif

@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Contact.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 17:43:18 by eorer             #+#    #+#             */
-/*   Updated: 2023/09/26 18:57:36 by eorer            ###   ########.fr       */
+/*   Created: 2023/09/26 18:46:01 by eorer             #+#    #+#             */
+/*   Updated: 2023/09/26 18:55:35 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.hpp"
+#ifndef CONTACT_HPP
+# define CONTACT_HPP
 
-int	main(void)
-{
-	return (0);
-}
+class	Contact{
+	public :
+		std::string prenom;
+		std::string nom;
+		std::string num;
+		Contact(std::string prenom, std::string nom, std::string num);
+		~Contact();
+};
+
+#endif

@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   PhoneBook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 17:43:18 by eorer             #+#    #+#             */
-/*   Updated: 2023/09/26 18:57:36 by eorer            ###   ########.fr       */
+/*   Created: 2023/09/26 18:26:50 by eorer             #+#    #+#             */
+/*   Updated: 2023/09/26 18:44:07 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "PhoneBook.hpp"
 #include "main.hpp"
 
-int	main(void)
-{
-	return (0);
+PhoneBook::PhoneBook(){
+	std::cout << "Constructor called" << std::endl;
+}
+
+PhoneBook::~PhoneBook(){
+	std::cout << "Destructor called" << std::endl;
 }
