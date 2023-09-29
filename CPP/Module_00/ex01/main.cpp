@@ -6,11 +6,13 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:43:18 by eorer             #+#    #+#             */
-/*   Updated: 2023/09/28 17:36:52 by eorer            ###   ########.fr       */
+/*   Updated: 2023/09/29 18:39:14 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.hpp"
+#include <string>
+#include <cctype>
 
 int	main(void)
 {
