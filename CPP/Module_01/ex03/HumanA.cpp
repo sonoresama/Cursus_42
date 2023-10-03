@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   HumanA.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 17:43:18 by eorer             #+#    #+#             */
-/*   Updated: 2023/10/02 17:11:13 by eorer            ###   ########.fr       */
+/*   Created: 2023/10/03 15:37:43 by eorer             #+#    #+#             */
+/*   Updated: 2023/10/03 17:44:13 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.hpp"
-#include <string>
-#include <cctype>
+#include "HumanA.hpp"
 
-int	main(void)
+HumanA::HumanA(std::string name, Weapon &weapon) : _name(name), _weapon(weapon)
 {
-	PhoneBook book;
-	std::string str;
+}
 
-	while (1)
-	{
-		std::cout << "Que voulez-vous faire : ";
-		std::getline(std::cin, str);
-		if (str.empty())
-			continue;
-		if (!str.compare("EXIT"))
-		{
-			std::cout << "GOODBYE :)" << std::endl;
-			return (0);
-		}
-		else
-			book.init_phonebook(str);
-	}
-	return (0);
+HumanA::~HumanA()
+{
+}
+
+void HumanA::attack()
+{
+	std::cout << this->_name << " attacks with their " << this->_weapon.getType() << std::endl;
 }

@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:26:50 by eorer             #+#    #+#             */
-/*   Updated: 2023/09/29 18:38:57 by eorer            ###   ########.fr       */
+/*   Updated: 2023/10/02 13:31:08 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,8 @@ PhoneBook::~PhoneBook(){
 }
 
 void	PhoneBook::add_contact(){
-	if (this->size < 8)
-	{
-		this->contacts[this->size].init_contact(this->size);
-		this->size++;
-	}
-	else
-		this->contacts[7].init_contact(7);
+	this->contacts[this->size % 8].init_contact(this->size % 8);
+	this->size++;
 }
 
 int	is_all_digit(std::string str)
@@ -52,10 +47,10 @@ void	PhoneBook::search_contact(){
 	do
 	{
 		std::cout << std::endl << "Enter the contact index : ";
-		std::cin >> str;
+		getline(std::cin, str);
 		if (!is_all_digit(str) || stoi(str) < 0 || stoi(str) > this->size - 1)
 			std::cout << "Sorry, wrong index";
-	} while (stoi(str) < 0 || stoi(str) > this->size - 1);
+	} while (!is_all_digit(str) || stoi(str) < 0 || stoi(str) > this->size - 1);
 	this->contacts[stoi(str)].print_contact_infos();
 	return;
 }

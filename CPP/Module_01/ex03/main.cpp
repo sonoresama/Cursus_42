@@ -5,33 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 17:43:18 by eorer             #+#    #+#             */
-/*   Updated: 2023/10/02 17:11:13 by eorer            ###   ########.fr       */
+/*   Created: 2023/10/03 15:28:23 by eorer             #+#    #+#             */
+/*   Updated: 2023/10/03 17:19:50 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.hpp"
-#include <string>
-#include <cctype>
+#include "Weapon.hpp"
+#include "HumanA.hpp"
+#include "HumanB.hpp"
 
-int	main(void)
+
+int main()
 {
-	PhoneBook book;
-	std::string str;
-
-	while (1)
 	{
-		std::cout << "Que voulez-vous faire : ";
-		std::getline(std::cin, str);
-		if (str.empty())
-			continue;
-		if (!str.compare("EXIT"))
-		{
-			std::cout << "GOODBYE :)" << std::endl;
-			return (0);
-		}
-		else
-			book.init_phonebook(str);
+		Weapon club = Weapon("crude spiked club");
+		HumanA bob("Bob", club);
+		bob.attack();
+		club.setType("some other type of club");
+		bob.attack();
+	}
+	{
+		Weapon club = Weapon("crude spiked club");
+		HumanB jim("Jim");
+		jim.setWeapon(club);
+		jim.attack();
+		club.setType("some other type of club");
+		jim.attack();
 	}
 	return (0);
 }

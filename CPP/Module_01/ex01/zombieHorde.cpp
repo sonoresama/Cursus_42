@@ -1,37 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   zombieHorde.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 17:43:18 by eorer             #+#    #+#             */
-/*   Updated: 2023/10/02 17:11:13 by eorer            ###   ########.fr       */
+/*   Created: 2023/10/03 14:48:42 by eorer             #+#    #+#             */
+/*   Updated: 2023/10/03 14:57:49 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.hpp"
-#include <string>
-#include <cctype>
+#include "Zombie.hpp"
 
-int	main(void)
+Zombie* zombieHorde(int N, std::string name)
 {
-	PhoneBook book;
-	std::string str;
+	Zombie* horde = new Zombie[N];
 
-	while (1)
-	{
-		std::cout << "Que voulez-vous faire : ";
-		std::getline(std::cin, str);
-		if (str.empty())
-			continue;
-		if (!str.compare("EXIT"))
-		{
-			std::cout << "GOODBYE :)" << std::endl;
-			return (0);
-		}
-		else
-			book.init_phonebook(str);
-	}
-	return (0);
+	for (int i = 0; i < N; i++)
+		horde[i]._setName(name);
+	return (horde);
 }

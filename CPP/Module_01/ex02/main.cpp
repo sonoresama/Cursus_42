@@ -5,33 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 17:43:18 by eorer             #+#    #+#             */
-/*   Updated: 2023/10/02 17:11:13 by eorer            ###   ########.fr       */
+/*   Created: 2023/10/03 15:00:42 by eorer             #+#    #+#             */
+/*   Updated: 2023/10/03 15:19:23 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.hpp"
-#include <string>
-#include <cctype>
+#include <iostream>
 
 int	main(void)
 {
-	PhoneBook book;
-	std::string str;
+	std::string str = "HI THIS IS BRAIN";
+	std::string* stringPTR = &str;
+	std::string& stringREF = str;
 
-	while (1)
-	{
-		std::cout << "Que voulez-vous faire : ";
-		std::getline(std::cin, str);
-		if (str.empty())
-			continue;
-		if (!str.compare("EXIT"))
-		{
-			std::cout << "GOODBYE :)" << std::endl;
-			return (0);
-		}
-		else
-			book.init_phonebook(str);
-	}
+	std::cout << "Addresse string : " << &str << std::endl;
+	std::cout << "Addresse stock dans le ptr : " << stringPTR << std::endl;
+	std::cout << "Addresse stock dans la ref : " << &stringREF << std::endl;
+	std::cout << std::endl;
+	std::cout << "Valeur string : " << str << std::endl;
+	std::cout << "Valeur pointeur : " << *stringPTR << std::endl;
+	std::cout << "Valeur ref : " << stringREF << std::endl;
 	return (0);
 }

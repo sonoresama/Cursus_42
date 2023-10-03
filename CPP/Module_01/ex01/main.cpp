@@ -5,33 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 17:43:18 by eorer             #+#    #+#             */
-/*   Updated: 2023/10/02 17:11:13 by eorer            ###   ########.fr       */
+/*   Created: 2023/10/03 14:43:19 by eorer             #+#    #+#             */
+/*   Updated: 2023/10/03 14:59:03 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.hpp"
-#include <string>
-#include <cctype>
+#include "Zombie.hpp"
+
+Zombie* zombieHorde(int N, std::string name);
 
 int	main(void)
 {
-	PhoneBook book;
-	std::string str;
+	Zombie* horde;
+	int	N = 42;
 
-	while (1)
-	{
-		std::cout << "Que voulez-vous faire : ";
-		std::getline(std::cin, str);
-		if (str.empty())
-			continue;
-		if (!str.compare("EXIT"))
-		{
-			std::cout << "GOODBYE :)" << std::endl;
-			return (0);
-		}
-		else
-			book.init_phonebook(str);
-	}
+	horde = zombieHorde(N, "tito");
+	for (int i = 0; i < N; i++)
+		horde[i].announce();
+	delete [] horde;
 	return (0);
 }

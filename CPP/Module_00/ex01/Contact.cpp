@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:47:43 by eorer             #+#    #+#             */
-/*   Updated: 2023/09/29 18:15:07 by eorer            ###   ########.fr       */
+/*   Updated: 2023/10/02 13:30:11 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,24 @@ Contact::~Contact(){
 
 void Contact::init_contact(int index){
 	std::cout << "Enter firstname : ";
-	std::cin >> this->firstname;
+	std::getline(std::cin, this->firstname);
 	std::cout << "Enter lastname : ";
-	std::cin >> this->lastname;
+	std::getline(std::cin, this->lastname);
 	std::cout << "Enter nickname : ";
-	std::cin >> this->nickname;
+	std::getline(std::cin, this->nickname);
 	std::cout << "Enter number : ";
-	std::cin >> this->number;
+	std::getline(std::cin, this->number);
 	std::cout << "Enter secret : ";
-	std::cin >> this->dark_secret;
+	std::getline(std::cin, this->dark_secret);
 	this->index = index;
 }
 
 void Contact::print_contact_infos(){
-	std::cout << "INFOS" << std::endl;
+	std::cout << "	Firstname : " << this->firstname << std::endl;
+	std::cout << "	Lastname : " << this->lastname << std::endl;
+	std::cout << "	Nickname : " << this->nickname << std::endl;
+	std::cout << "	Number : " << this->number << std::endl;
+	std::cout << "	Dark Secret : " << this->dark_secret << std::endl;
 }
 
 void Contact::print_contact_list(){

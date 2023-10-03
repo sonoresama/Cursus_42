@@ -1,37 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Zombie.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 17:43:18 by eorer             #+#    #+#             */
-/*   Updated: 2023/10/02 17:11:13 by eorer            ###   ########.fr       */
+/*   Created: 2023/10/03 14:36:33 by eorer             #+#    #+#             */
+/*   Updated: 2023/10/03 14:57:26 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.hpp"
+#ifndef ZOMBIE_HPP
+#define ZOMBIE_HPP
+
 #include <string>
-#include <cctype>
+#include <iostream>
 
-int	main(void)
-{
-	PhoneBook book;
-	std::string str;
+class Zombie{
+	public:
+		Zombie();
+		~Zombie();
+		void announce(void) const;
+		void _setName(std::string name);
 
-	while (1)
-	{
-		std::cout << "Que voulez-vous faire : ";
-		std::getline(std::cin, str);
-		if (str.empty())
-			continue;
-		if (!str.compare("EXIT"))
-		{
-			std::cout << "GOODBYE :)" << std::endl;
-			return (0);
-		}
-		else
-			book.init_phonebook(str);
-	}
-	return (0);
-}
+	private:
+		std::string _name;
+};
+
+#endif
