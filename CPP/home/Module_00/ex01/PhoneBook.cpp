@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:26:50 by eorer             #+#    #+#             */
-/*   Updated: 2023/09/29 18:38:57 by eorer            ###   ########.fr       */
+/*   Updated: 2023/10/01 14:29:52 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,8 @@ PhoneBook::~PhoneBook(){
 }
 
 void	PhoneBook::add_contact(){
-	if (this->size < 8)
-	{
-		this->contacts[this->size].init_contact(this->size);
-		this->size++;
-	}
-	else
-		this->contacts[7].init_contact(7);
+	this->contacts[this->size % 8].init_contact(this->size % 8);
+	this->size++;
 }
 
 int	is_all_digit(std::string str)
@@ -41,7 +36,8 @@ int	is_all_digit(std::string str)
 	return (1);
 }
 
-void	PhoneBook::search_contact(){
+void	PhoneBook::search_contact()
+{
 	std::string str;
 
 	std::cout << std::endl;
@@ -55,7 +51,7 @@ void	PhoneBook::search_contact(){
 		std::cin >> str;
 		if (!is_all_digit(str) || stoi(str) < 0 || stoi(str) > this->size - 1)
 			std::cout << "Sorry, wrong index";
-	} while (stoi(str) < 0 || stoi(str) > this->size - 1);
+	} while (!is_all_digit(str) || stoi(str) < 0 || stoi(str) > this->size - 1);
 	this->contacts[stoi(str)].print_contact_infos();
 	return;
 }

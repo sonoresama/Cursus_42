@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:47:43 by eorer             #+#    #+#             */
-/*   Updated: 2023/09/29 18:15:07 by eorer            ###   ########.fr       */
+/*   Updated: 2023/10/01 14:27:18 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@ void Contact::init_contact(int index){
 }
 
 void Contact::print_contact_infos(){
-	std::cout << "INFOS" << std::endl;
+	std::cout << "	Firstname : " << this->firstname << std::endl;
+	std::cout << "	Lastname : " << this->lastname << std::endl;
+	std::cout << "	Nickname : " << this->nickname << std::endl;
+	std::cout << "	Number : " << this->number << std::endl;
+	std::cout << "	Dark secret : " << this->dark_secret << std::endl;
 }
 
 void Contact::print_contact_list(){
