@@ -5,70 +5,75 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 15:58:52 by eorer             #+#    #+#             */
-/*   Updated: 2023/10/04 19:31:55 by eorer            ###   ########.fr       */
+/*   Created: 2023/11/24 13:02:32 by eorer             #+#    #+#             */
+/*   Updated: 2023/11/24 16:43:40 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
-//CONSTRUCTEURS --------------------------
-Fixed::Fixed() : _fixedPointNumber(0){
-	COUT("Default constructor called");
-}
+// CONSTRUCTORS
+Fixed::Fixed() : _number(0){COUT("Default constructor called");}
 
-Fixed::Fixed(const int integer){
+Fixed::Fixed(const int i_raw)
+{
 	COUT("Integer constructor called");
-	this->_fixedPointNumber = integer * (1 << this->_fixedPointPos);
+	this->_number = i_raw << this->_fract;
 }
 
-Fixed::Fixed(const float floater){
-	COUT("Floater constructor called");
-	this->_fixedPointNumber = floater * (1 << this->_fixedPointPos);
+Fixed::Fixed(const float f_raw)
+{
+	COUT("Float constructor called");
+	this->_number = roundf(f_raw * (1 << this->_fract));
 }
 
-Fixed::Fixed(const Fixed &f){
+Fixed::Fixed(const Fixed &n)
+{
 	COUT("Copy constructor called");
-	this->_fixedPointNumber = f._fixedPointNumber;
+	this->_number = n.getRawBits();
 }
 
-//DESTRUCTEUR ----------------------------
-Fixed::~Fixed(){
-	COUT("Destructor called");
-}
 
-//FONCTIONS MEMBRES ----------------------
-int Fixed::getRawBits(void) const {
-	COUT("getRawBits member function called");
-	return (this->_fixedPointNumber);
-}
-
-void Fixed::setRawBits(int const raw)
+// DESTRUCTOR
+Fixed::~Fixed()
 {
-	this->_fixedPointNumber = raw;
+	std::cout << "Destructor called" << std::endl;
 }
 
-int	Fixed::toInt(void) const
+
+// PUBLIC METHODS
+int	Fixed::getRawBits(void) const
 {
-	return (this->_fixedPointNumber >> this->_fixedPointPos);
+	std::cout << "getRawBits member function called" << std::endl;
+	return (this->_number);
 }
 
-float Fixed::toFloat(void) const
+void	Fixed::setRawBits(int const raw)
 {
-	int	tmp;
-
-	return (static_cast<float>(this->_fixedPointNumber) / static_cast<float>(1 << this->_fixedPointPos));
+	this->_number = raw;
 }
 
-// SURCHARGES D'OPERATEURS ------------------
-Fixed& Fixed::operator=(Fixed const & rhs)
+float	Fixed::toFloat(void) const
 {
-	this->_fixedPointNumber = rhs.getRawBits();
+	return((float)this->_number / (float)(1 << this->_fract));
+}
+
+int		Fixed::toInt(void) const
+{
+	return(this->_number >> this->_fract);
+}
+
+
+// SURCHARGES D'OPERATEURS
+Fixed& Fixed::operator=(const Fixed &f)
+{
+	this->_number = f.getRawBits();
 	return (*this);
 }
 
-std::ostream& operator<<(std::ostream &out, Fixed const &rhs)
+std::ostream& operator<<(std::ostream &out, Fixed const &f)
 {
-	out << rhs.toFloat();
+	out << f.toFloat();
 	return (out);
 }
+

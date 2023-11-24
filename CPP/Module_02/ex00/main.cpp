@@ -5,15 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 15:17:14 by eorer             #+#    #+#             */
-/*   Updated: 2023/10/04 16:43:45 by eorer            ###   ########.fr       */
+/*   Created: 2023/11/24 12:45:40 by eorer             #+#    #+#             */
+/*   Updated: 2023/11/24 13:12:21 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
-int	main(void)
-{
+int main( void ) {
 	Fixed a;
 	Fixed b( a );
 	Fixed c;
@@ -21,5 +20,4 @@ int	main(void)
 	std::cout << a.getRawBits() << std::endl;
 	std::cout << b.getRawBits() << std::endl;
 	std::cout << c.getRawBits() << std::endl;
-	return (0);
-}
+return 0;}
