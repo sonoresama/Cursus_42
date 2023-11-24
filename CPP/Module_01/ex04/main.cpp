@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 17:50:09 by eorer             #+#    #+#             */
-/*   Updated: 2023/10/04 15:37:26 by eorer            ###   ########.fr       */
+/*   Updated: 2023/11/14 17:33:01 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,6 @@ void	replace_str(std::string &buffer, std::string s1, std::string s2)
 		}
 	}
 }
-
-//void	replace_str(std::string *buffer, std::string s1, std::string s2)
-//{
-//	for (int i = 0; i + s1.length() - 1 < buffer->length(); i++)
-//	{
-//		if (!buffer->compare(i, s1.length(), s1))
-//		{
-//			buffer->erase(i, s1.length());
-//			buffer->insert(i, s2);
-//		}
-//	}
-//}
 
 int	main(int argc, char **argv)
 {

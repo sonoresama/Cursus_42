@@ -5,37 +5,25 @@
 #                                                     +:+ +:+         +:+      #
 #    By: eorer <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/09/18 18:32:12 by eorer             #+#    #+#              #
-#    Updated: 2023/09/19 10:54:37 by eorer            ###   ########.fr        #
+#    Created: 2023/11/24 12:44:56 by eorer             #+#    #+#              #
+#    Updated: 2023/11/24 13:12:28 by eorer            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = cc
+CC = c++
 
-CFLAGS = -Wall -Wextra -Werror -g -I$(INC) -I./minilibx-linux
+CFLAGS = -Wall -Werror -Wextra -std=c++98
 
-LFLAGS = -L./minilibx-linux -lmlx -L$(INCLIB) -lXext -lX11 -lm -lbsd
+SRC = main.cpp Fixed.cpp
 
-INC = /usr/include
+OBJ = $(SRC:.cpp=.o)
 
-INCLIB = $(INC)/../lib
-
-LIBX = libmlx_Linux.a
-
-SRC = $(wildcard ./*.c) 
-
-OBJ = $(SRC:.c=.o)
-
-NAME = minirt
-
+NAME = a.out
 
 all : $(NAME)
 
-$(NAME) : $(OBJ) $(LIBX)
-	$(CC) $(OBJ) $(LFLAGS) -o $(NAME)
-
-$(LIBX) :
-	@make -C ./minilibx-linux
+$(NAME) : $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
 clean : 
 	/bin/rm -f $(OBJ)
