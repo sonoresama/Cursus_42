@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/25 16:42:31 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/27 15:07:06 by eorer            ###   ########.fr       */
+/*   Created: 2023/11/27 15:29:33 by eorer             #+#    #+#             */
+/*   Updated: 2023/11/27 18:08:20 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#pragma once
+
 #include "ClapTrap.hpp"
 
-int	main(void)
-{
-	ClapTrap milou("Milou");
-	ClapTrap cpy(milou);
-	ClapTrap tito("Tito");
+class ScavTrap : public ClapTrap {
+	public :
+		ScavTrap();
+		ScavTrap(const std::string name);
+		ScavTrap(ScavTrap& scav);
+		~ScavTrap();
+		ScavTrap& operator=(ScavTrap& cpy);
 
-	cpy.attack("Tito");
-	tito.takeDamage(11);
-	tito.beRepaired(15);
-	tito.attack("Milou");
-	return (0);
-}
+		void attack(const std::string &target);
+		void guardGate();
+};

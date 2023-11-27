@@ -5,22 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/25 16:42:31 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/27 15:07:06 by eorer            ###   ########.fr       */
+/*   Created: 2023/11/27 16:36:15 by eorer             #+#    #+#             */
+/*   Updated: 2023/11/27 18:00:39 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ScavTrap.hpp"
 #include "ClapTrap.hpp"
 
 int	main(void)
 {
-	ClapTrap milou("Milou");
-	ClapTrap cpy(milou);
 	ClapTrap tito("Tito");
+	ScavTrap milou("Milou");
+	ScavTrap milou_bis(milou);
 
-	cpy.attack("Tito");
-	tito.takeDamage(11);
-	tito.beRepaired(15);
-	tito.attack("Milou");
+	milou_bis.attack("Tito");
+	milou_bis.guardGate();
 	return (0);
 }
