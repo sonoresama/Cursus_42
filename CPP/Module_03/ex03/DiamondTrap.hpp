@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   DiamondTrap.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 18:19:56 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/28 15:36:59 by eorer            ###   ########.fr       */
+/*   Created: 2023/11/28 14:04:05 by eorer             #+#    #+#             */
+/*   Updated: 2023/11/28 14:25:06 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONE_BOOK_H
-# define PHONE_BOOK_H
+#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
-# include "Contact.hpp"
-
-class PhoneBook {
+class DiamonTrap : public ScavTrap, public FragTrap
+{
 	public :
-		PhoneBook();
-		void add_contact();
-		void search_contact();
-		void print_contacts();
-		void init_phonebook(std::string str);
-		~PhoneBook();
+		DiamonTrap();
 
-	private :
-		Contact contacts[8];
-		int	size;
+	private:
+			std::string _name;
 };
-
-#endif

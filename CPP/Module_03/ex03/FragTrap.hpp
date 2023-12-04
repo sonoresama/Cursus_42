@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   FragTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 18:19:56 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/28 15:36:59 by eorer            ###   ########.fr       */
+/*   Created: 2023/11/27 18:11:59 by eorer             #+#    #+#             */
+/*   Updated: 2023/11/28 14:23:45 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONE_BOOK_H
-# define PHONE_BOOK_H
+#pragma once
 
-# include "Contact.hpp"
+#include "ClapTrap.hpp"
 
-class PhoneBook {
+class FragTrap : virtual public ClapTrap {
 	public :
-		PhoneBook();
-		void add_contact();
-		void search_contact();
-		void print_contacts();
-		void init_phonebook(std::string str);
-		~PhoneBook();
+		FragTrap();
+		FragTrap(const std::string name);
+		FragTrap(FragTrap& scav);
+		~FragTrap();
+		FragTrap& operator=(FragTrap& cpy);
 
-	private :
-		Contact contacts[8];
-		int	size;
+		void highFiveGuys();
 };
-
-#endif

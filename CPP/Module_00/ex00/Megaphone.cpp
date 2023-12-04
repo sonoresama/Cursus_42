@@ -6,22 +6,11 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:49:23 by eorer             #+#    #+#             */
-/*   Updated: 2023/09/26 17:41:48 by eorer            ###   ########.fr       */
+/*   Updated: 2023/11/28 15:36:12 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-
-//std::string	new_str(std::string arg)
-//{
-//	std::string result = arg;
-//	for (int i = 0; i < arg.length(); i++)
-//	{
-//		if (arg[i] >= 'a' && arg[i] <= 'z')
-//			result[i] = arg[i] - 32;
-//	}
-//	return (result);
-//}
 
 std::string	new_str(std::string arg)
 {

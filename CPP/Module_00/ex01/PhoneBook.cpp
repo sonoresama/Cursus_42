@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:26:50 by eorer             #+#    #+#             */
-/*   Updated: 2023/10/02 13:31:08 by eorer            ###   ########.fr       */
+/*   Updated: 2023/11/28 15:45:14 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	PhoneBook::search_contact(){
 	{
 		std::cout << std::endl << "Enter the contact index : ";
 		getline(std::cin, str);
+		if (str.empty())
+			return ;
 		if (!is_all_digit(str) || stoi(str) < 0 || stoi(str) > this->size - 1)
 			std::cout << "Sorry, wrong index";
 	} while (!is_all_digit(str) || stoi(str) < 0 || stoi(str) > this->size - 1);
@@ -74,4 +76,3 @@ void	PhoneBook::init_phonebook(std::string str){
 	else
 		std::cout << "Sorry, I don't know this command." << std::endl;
 }
-

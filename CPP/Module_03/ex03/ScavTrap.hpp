@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 18:19:56 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/28 15:36:59 by eorer            ###   ########.fr       */
+/*   Created: 2023/11/27 15:29:33 by eorer             #+#    #+#             */
+/*   Updated: 2023/11/28 14:23:35 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONE_BOOK_H
-# define PHONE_BOOK_H
+#pragma once
 
-# include "Contact.hpp"
+#include "ClapTrap.hpp"
 
-class PhoneBook {
+class ScavTrap : virtual public ClapTrap {
 	public :
-		PhoneBook();
-		void add_contact();
-		void search_contact();
-		void print_contacts();
-		void init_phonebook(std::string str);
-		~PhoneBook();
+		ScavTrap();
+		ScavTrap(const std::string name);
+		ScavTrap(ScavTrap& scav);
+		~ScavTrap();
+		ScavTrap& operator=(ScavTrap& cpy);
 
-	private :
-		Contact contacts[8];
-		int	size;
+		void attack(const std::string &target);
+		void guardGate();
 };
-
-#endif

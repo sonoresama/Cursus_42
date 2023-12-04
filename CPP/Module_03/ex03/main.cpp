@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 18:19:56 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/28 15:36:59 by eorer            ###   ########.fr       */
+/*   Created: 2023/11/27 16:36:15 by eorer             #+#    #+#             */
+/*   Updated: 2023/11/27 18:36:06 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONE_BOOK_H
-# define PHONE_BOOK_H
+#include "FragTrap.hpp"
+#include "ScavTrap.hpp"
 
-# include "Contact.hpp"
+int	main(void)
+{
+	ClapTrap tito("Tito");
+	ScavTrap milou("Milou");
+	ScavTrap milou_bis(milou);
+	FragTrap titi("Titi");
 
-class PhoneBook {
-	public :
-		PhoneBook();
-		void add_contact();
-		void search_contact();
-		void print_contacts();
-		void init_phonebook(std::string str);
-		~PhoneBook();
-
-	private :
-		Contact contacts[8];
-		int	size;
-};
-
-#endif
+	titi.attack("Milou");
+	milou_bis.attack("Milou");
+	milou.takeDamage(30);
+	milou.beRepaired(100);
+	titi.highFiveGuys();
+	return (0);
+}
