@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:11:34 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/27 18:35:41 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/03 12:52:50 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ FragTrap&	FragTrap::operator=(FragTrap &clap)
 }
 
 
-// PUBLIC FUNCTIONS
+//  FUNCTIONS
 void	FragTrap::highFiveGuys(void)
 {
 	COUT("HIGH FIVES");
