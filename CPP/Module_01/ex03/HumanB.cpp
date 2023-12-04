@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:17:59 by eorer             #+#    #+#             */
-/*   Updated: 2023/10/03 17:23:48 by eorer            ###   ########.fr       */
+/*   Updated: 2023/11/17 16:44:45 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ HumanB::HumanB(std::string name) : _name(name), _weapon(NULL)
 
 HumanB::~HumanB()
 {
+	std::cout << "HumanB " << this->_name << " is dead" << std::endl;
 }
 
 void	HumanB::setWeapon(Weapon &weapon)

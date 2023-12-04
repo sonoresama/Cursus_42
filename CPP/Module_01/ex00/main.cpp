@@ -3,29 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 12:50:38 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/17 17:20:59 by emileorer        ###   ########.fr       */
+/*   Created: 2023/11/17 14:30:34 by emileorer         #+#    #+#             */
+/*   Updated: 2023/11/17 15:46:39 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Harl.hpp"
+#include "Zombie.hpp"
+#include <string>
 
-int	main(void)
+Zombie	*newZombie(std::string name);
+void	randomChump(std::string name);
+
+int main(void)
 {
-	Harl harl;
+	Zombie *zomb;
 
-	void	(Harl::*ft)(std::string);
-
-	ft = &Harl::complain;
-	(harl.*ft)("DEBUG");
-	(harl.*ft)("INFO");   
-	(harl.*ft)("WARNING");
-	(harl.*ft)("ERROR");
-//	harl.complain("DEBUG");
-//	harl.complain("INFO");
-//	harl.complain("WARNING");
-//	harl.complain("ERROR");
+	zomb = newZombie("Tito");
+	zomb->announce();
+	randomChump("Titi");
+	delete(zomb);
 	return (0);
 }

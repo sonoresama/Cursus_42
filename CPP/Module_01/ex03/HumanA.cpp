@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 15:37:43 by eorer             #+#    #+#             */
-/*   Updated: 2023/10/03 17:44:13 by eorer            ###   ########.fr       */
+/*   Updated: 2023/11/17 16:42:26 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ HumanA::HumanA(std::string name, Weapon &weapon) : _name(name), _weapon(weapon)
 
 HumanA::~HumanA()
 {
+	std::cout << "HumanA " << this->_name << " is dead" << std::endl;
 }
 
 void HumanA::attack()

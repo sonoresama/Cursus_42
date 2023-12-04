@@ -5,26 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 15:00:42 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/17 16:31:52 by emileorer        ###   ########.fr       */
+/*   Created: 2023/12/04 17:04:47 by eorer             #+#    #+#             */
+/*   Updated: 2023/12/04 18:13:57 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+#include "Ice.hpp"
+#include "AMateria.hpp"
 
 int	main(void)
 {
-	std::string str = "HI THIS IS BRAIN";
-	std::string* stringPTR = &str;
-	std::string& stringREF = str;
+	Ice ice;
+	Ice frozen(ice);
+	AMateria* blue = new Ice();
 
-	std::cout << "Addresse string : " << &str << std::endl;
-	std::cout << "Addresse stock dans le ptr : " << stringPTR << std::endl;
-	std::cout << "Addresse stock dans la ref : " << &stringREF << std::endl;
-	std::cout << std::endl;
-	std::cout << "Valeur string : " << str << std::endl;
-	std::cout << "Valeur pointeur : " << *stringPTR << std::endl;
-	std::cout << "Valeur ref : " << stringREF << std::endl;
-	std::cout << std::endl;
+	std::cout << "ice type : " << ice._getType() << std::endl;
+	std::cout << "frozen type : " << frozen._getType() << std::endl;
+	std::cout << "blue type : " << blue->_getType() << std::endl;
 	return (0);
 }

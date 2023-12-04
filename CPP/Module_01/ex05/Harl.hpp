@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 12:43:53 by eorer             #+#    #+#             */
-/*   Updated: 2023/10/04 12:52:16 by eorer            ###   ########.fr       */
+/*   Updated: 2023/11/17 16:47:07 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ class Harl {
 	void complain(std::string level);
   
   private :
-	void debug(void);
-	void info(void);
-	void warning(void);
-	void error(void);
+	void _debug(void);
+	void _info(void);
+	void _warning(void);
+	void _error(void);
 };
 
 #endif

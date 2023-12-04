@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   HumanA.hpp                                         :+:      :+:    :+:   */
+/*   Brain.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 15:35:41 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/17 16:42:18 by emileorer        ###   ########.fr       */
+/*   Created: 2023/12/03 17:08:39 by emileorer         #+#    #+#             */
+/*   Updated: 2023/12/03 17:54:27 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HUMANA_HPP
-# define HUMANA_HPP
+#pragma once
 
-#include "Weapon.hpp"
+#include <iostream>
+#include "color.h"
 
-class HumanA {
+class Brain
+{
 	public:
-		HumanA(std::string name, Weapon &weapon);
-		~HumanA();
-		void	attack();
+		Brain(void);
+		~Brain(void);
+		Brain(Brain const &cpy);
+		Brain&	operator=(Brain const &cpy);
+
+		void	_setIdea(int i, std::string idea);
+		std::string	_getIdea(int i) const;
 
 	private:
-		Weapon &_weapon;
-		std::string _name;
+		std::string		ideas[100];
 };
-
-#endif

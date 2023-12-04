@@ -6,7 +6,15 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:26:50 by eorer             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/11/28 15:45:14 by eorer            ###   ########.fr       */
+=======
+<<<<<<< HEAD:CPP/home/Module_00/ex01/PhoneBook.cpp
+/*   Updated: 2023/10/01 14:29:52 by emileorer        ###   ########.fr       */
+=======
+/*   Updated: 2023/10/02 13:31:08 by eorer            ###   ########.fr       */
+>>>>>>> 0fcc48fbcff29450fe18c43f73966fd039aace6e:CPP/Module_00/ex01/PhoneBook.cpp
+>>>>>>> 69df6490eadb3f692a738e51bf177fa8dd6fa323
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +44,8 @@ int	is_all_digit(std::string str)
 	return (1);
 }
 
-void	PhoneBook::search_contact(){
+void	PhoneBook::search_contact()
+{
 	std::string str;
 
 	std::cout << std::endl;

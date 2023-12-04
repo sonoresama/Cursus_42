@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   HumanA.hpp                                         :+:      :+:    :+:   */
+/*   Dog.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 15:35:41 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/17 16:42:18 by emileorer        ###   ########.fr       */
+/*   Created: 2023/12/03 12:46:33 by emileorer         #+#    #+#             */
+/*   Updated: 2023/12/03 17:11:52 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HUMANA_HPP
-# define HUMANA_HPP
+#pragma once
 
-#include "Weapon.hpp"
+#include "Animal.hpp"
 
-class HumanA {
-	public:
-		HumanA(std::string name, Weapon &weapon);
-		~HumanA();
-		void	attack();
+class	Dog : public Animal {
+	public :
+		Dog();
+		Dog(const Dog &dog);
+		~Dog();
+		Dog& operator=(const Dog& dog);
 
-	private:
-		Weapon &_weapon;
-		std::string _name;
+		std::string _getType() const;
+		void	makeSound(void) const;
+
+	protected :
+		std::string type;
 };
-
-#endif

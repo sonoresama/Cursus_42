@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Ice.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 12:50:38 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/17 17:20:59 by emileorer        ###   ########.fr       */
+/*   Created: 2023/12/04 16:59:19 by eorer             #+#    #+#             */
+/*   Updated: 2023/12/04 18:06:46 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Harl.hpp"
+#pragma once
 
-int	main(void)
-{
-	Harl harl;
+#include "AMateria.hpp"
+#include "color.h"
 
-	void	(Harl::*ft)(std::string);
+class Ice : public AMateria {
 
-	ft = &Harl::complain;
-	(harl.*ft)("DEBUG");
-	(harl.*ft)("INFO");   
-	(harl.*ft)("WARNING");
-	(harl.*ft)("ERROR");
-//	harl.complain("DEBUG");
-//	harl.complain("INFO");
-//	harl.complain("WARNING");
-//	harl.complain("ERROR");
-	return (0);
-}
+	public : 
+		Ice();
+		Ice(const Ice &cpy);
+		Ice &operator=(const Ice &cpy);
+		~Ice ();
+
+    	std::string const & _getType() const;
+    	virtual AMateria* clone() const;
+};
