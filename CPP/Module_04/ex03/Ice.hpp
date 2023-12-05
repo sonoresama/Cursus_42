@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 16:59:19 by eorer             #+#    #+#             */
-/*   Updated: 2023/12/04 18:06:46 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/05 17:37:27 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ class Ice : public AMateria {
 		~Ice ();
 
     	std::string const & _getType() const;
-    	virtual AMateria* clone() const;
+    	AMateria* clone() const;
+		void use(ICharacter& target);
 };

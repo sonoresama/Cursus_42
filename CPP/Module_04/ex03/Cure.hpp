@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   Cure.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 18:19:56 by eorer             #+#    #+#             */
-/*   Updated: 2023/12/05 14:21:17 by eorer            ###   ########.fr       */
+/*   Created: 2023/12/05 13:20:22 by eorer             #+#    #+#             */
+/*   Updated: 2023/12/05 17:08:16 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONE_BOOK_H
-# define PHONE_BOOK_H
+#pragma once
 
-# include "Contact.hpp"
-# include <list>
+#include "AMateria.hpp"
+#include "color.h"
 
-class PhoneBook {
-	public :
-		PhoneBook();
-		void add_contact();
-		void search_contact();
-		void print_contacts();
-		void init_phonebook(std::string str);
-		~PhoneBook();
+class Cure : public AMateria {
 
-	private :
-		Contact contacts[8];
-		int	size;
+	public : 
+		Cure();
+		Cure(const Cure &cpy);
+		Cure &operator=(const Cure &cpy);
+		~Cure ();
+
+    	std::string const & _getType() const;
+		void use(ICharacter& target);
+    	AMateria* clone() const;
 };
-
-#endif

@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   ICharacter.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 18:19:56 by eorer             #+#    #+#             */
-/*   Updated: 2023/12/05 14:21:17 by eorer            ###   ########.fr       */
+/*   Created: 2023/12/05 12:20:58 by eorer             #+#    #+#             */
+/*   Updated: 2023/12/05 17:48:42 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONE_BOOK_H
-# define PHONE_BOOK_H
+#pragma once
 
-# include "Contact.hpp"
-# include <list>
+#include "AMateria.hpp"
 
-class PhoneBook {
-	public :
-		PhoneBook();
-		void add_contact();
-		void search_contact();
-		void print_contacts();
-		void init_phonebook(std::string str);
-		~PhoneBook();
+class AMateria;
 
-	private :
-		Contact contacts[8];
-		int	size;
+class ICharacter
+{
+	public:
+		virtual ~ICharacter() {}
+		virtual std::string const & _getName() const = 0;
+		virtual void equip(AMateria *m) = 0;
+		virtual void unequip(int idx) = 0;
+		virtual void use(int idx, ICharacter& target) = 0;
 };
-
-#endif

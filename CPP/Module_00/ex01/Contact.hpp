@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:46:01 by eorer             #+#    #+#             */
-/*   Updated: 2023/09/29 17:56:40 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/05 14:18:49 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CONTACT_HPP
 
 # include <iostream>
+# include <string>
 
 class	Contact{
 	public :

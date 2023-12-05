@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 16:43:21 by eorer             #+#    #+#             */
-/*   Updated: 2023/12/04 18:12:50 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/05 17:48:26 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,12 @@ AMateria::~AMateria()
 }
 
 	//METHODS
-
 std::string const & AMateria::_getType() const
 {
 	return (this->_type);
 }
-    
-//void	AMateria::use(ICharacter& target);
-//{
-//	...
-//}
+
+void	AMateria::use(ICharacter& target)
+{
+	std::cout << "Prout" << std::endl;
+}
