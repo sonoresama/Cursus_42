@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:37:58 by eorer             #+#    #+#             */
-/*   Updated: 2023/10/03 14:57:18 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/06 17:18:40 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 Zombie::Zombie() 
 {
+	std::cout << "Un zombie a ete cree" << std::endl;
 }
 
 Zombie::~Zombie(void)
 {
-	std::cout << "Le zombie " << this->_name << " died" << std::endl;
+	std::cout << "Le zombie " << this->_name << " est mort" << std::endl;
 }
 
 void	Zombie::announce(void) const{
