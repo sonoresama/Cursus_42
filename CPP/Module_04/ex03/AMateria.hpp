@@ -6,11 +6,12 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 16:40:42 by eorer             #+#    #+#             */
-/*   Updated: 2023/12/05 17:46:31 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/06 13:20:08 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#ifndef AMATERIA_HPP
+# define AMATERIA_HPP
 
 #include <iostream>
 #include "color.h"
@@ -34,3 +35,5 @@ class AMateria
   protected:
     std::string const _type;
 };
+
+#endif

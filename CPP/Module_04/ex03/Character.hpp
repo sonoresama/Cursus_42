@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:13:53 by eorer             #+#    #+#             */
-/*   Updated: 2023/12/05 17:44:17 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/06 14:35:05 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,4 @@ class	Character : public ICharacter
 	private :
 		std::string	_name;
 		AMateria* _inventory[4];
-//		AMateria* _garbage[100];
 };

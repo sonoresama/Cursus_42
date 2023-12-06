@@ -6,19 +6,19 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:21:09 by eorer             #+#    #+#             */
-/*   Updated: 2023/12/05 17:44:36 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/06 15:23:48 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cure.hpp"
 
 	//CANON
-Cure::Cure() : AMateria("ice")
+Cure::Cure() : AMateria("cure")
 {
 	std::cout << GREEN << "Cure default constructor called" << std::endl << DEFAULT;
 }
 
-Cure::Cure(const Cure &cpy) : AMateria("ice")
+Cure::Cure(const Cure &cpy) : AMateria("cure")
 {
 	std::cout << GREEN << "Cure cpy constructor called" << std::endl << DEFAULT;
 	*this = cpy;

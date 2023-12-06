@@ -22,6 +22,9 @@ tabnew
 tabnew
 tabnew
 tabnew
+tabnew
+tabnew
+tabnew
 tabrewind
 edit AMateria.hpp
 argglobal
@@ -36,11 +39,11 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 32 - ((31 * winheight(0) + 28) / 57)
+let s:l = 20 - ((10 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 32
+keepjumps 20
 normal! 0
 tabnext
 edit AMateria.cpp
@@ -57,12 +60,12 @@ setlocal fen
 silent! normal! zE
 16,40fold
 let &fdl = &fdl
-let s:l = 50 - ((49 * winheight(0) + 28) / 57)
+let s:l = 16 - ((10 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 50
-normal! 038|
+keepjumps 16
+normal! 01|
 tabnext
 edit Cure.hpp
 argglobal
@@ -77,7 +80,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 27 - ((26 * winheight(0) + 28) / 57)
+let s:l = 27 - ((19 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -100,12 +103,12 @@ silent! normal! zE
 let &fdl = &fdl
 16
 normal! zo
-let s:l = 50 - ((49 * winheight(0) + 28) / 57)
+let s:l = 27 - ((16 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 50
-normal! 039|
+keepjumps 27
+normal! 038|
 tabnext
 edit Ice.hpp
 argglobal
@@ -120,7 +123,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 15 - ((14 * winheight(0) + 28) / 57)
+let s:l = 15 - ((10 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -141,12 +144,12 @@ setlocal fen
 silent! normal! zE
 16,35fold
 let &fdl = &fdl
-let s:l = 49 - ((48 * winheight(0) + 28) / 57)
+let s:l = 45 - ((31 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 49
-normal! 055|
+keepjumps 45
+normal! 0
 tabnext
 edit ICharacter.hpp
 argglobal
@@ -161,11 +164,11 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 17 - ((16 * winheight(0) + 28) / 57)
+let s:l = 18 - ((13 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 17
+keepjumps 18
 normal! 0
 tabnext
 edit Character.hpp
@@ -180,11 +183,11 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 18 - ((17 * winheight(0) + 28) / 57)
+let s:l = 33 - ((27 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 18
+keepjumps 33
 normal! 0
 tabnext
 edit Character.cpp
@@ -199,19 +202,79 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-16,44fold
-47,84fold
+16,53fold
+56,93fold
 let &fdl = &fdl
 16
 normal! zo
-47
+56
 normal! zo
-let s:l = 73 - ((53 * winheight(0) + 28) / 57)
+let s:l = 73 - ((20 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 73
-normal! 09|
+normal! 027|
+tabnext
+edit IMateriaSource.hpp
+argglobal
+balt Character.cpp
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 21 - ((20 * winheight(0) + 20) / 41)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 21
+normal! 037|
+tabnext
+edit MateriaSource.hpp
+argglobal
+balt IMateriaSource.hpp
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 31 - ((30 * winheight(0) + 20) / 41)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 31
+normal! 02|
+tabnext
+edit MateriaSource.cpp
+argglobal
+balt MateriaSource.hpp
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 9 - ((0 * winheight(0) + 20) / 41)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 9
+normal! 0
 tabnext
 edit main.cpp
 argglobal
@@ -226,24 +289,27 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 24 - ((23 * winheight(0) + 28) / 57)
+let s:l = 74 - ((40 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 24
-normal! 024|
-tabnext 10
+keepjumps 74
+normal! 09|
+tabnext 13
 set stal=1
+badd +1 AMateria.hpp
 badd +1 Character.hpp
-badd +0 Character.cpp
-badd +0 ICharacter.hpp
-badd +0 AMateria.cpp
-badd +0 Cure.cpp
-badd +0 Cure.hpp
-badd +1 Ice.cpp
-badd +0 AMateria.hpp
-badd +0 Ice.hpp
+badd +1 Cure.hpp
+badd +1 Ice.hpp
+badd +1 ICharacter.hpp
+badd +1 Character.cpp
 badd +1 main.cpp
+badd +1 AMateria.cpp
+badd +1 Cure.cpp
+badd +1 Ice.cpp
+badd +0 IMateriaSource.hpp
+badd +0 MateriaSource.hpp
+badd +0 MateriaSource.cpp
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf
 endif
