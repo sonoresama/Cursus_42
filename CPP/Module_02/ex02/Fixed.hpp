@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:46:21 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/24 18:06:27 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/07 16:17:23 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ class	Fixed{
 		Fixed operator/(const Fixed &n);
 		Fixed &operator++(); //prefix
 		Fixed &operator--(); //prefix
-		Fixed &operator++(int);	//suffix
-		Fixed &operator--(int);	//suffix
+		Fixed operator++(int);	//suffix
+		Fixed operator--(int);	//suffix
 
 		//static
 		static Fixed& min(Fixed &a, Fixed &b);

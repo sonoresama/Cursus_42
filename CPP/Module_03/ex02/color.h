@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FragTrap.hpp                                       :+:      :+:    :+:   */
+/*   color.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 18:11:59 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/28 14:23:45 by eorer            ###   ########.fr       */
+/*   Created: 2023/12/03 17:25:41 by emileorer         #+#    #+#             */
+/*   Updated: 2023/12/03 17:26:44 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include "ClapTrap.hpp"
-
-class FragTrap : virtual public ClapTrap {
-	public :
-		FragTrap();
-		FragTrap(const std::string name);
-		FragTrap(FragTrap& scav);
-		~FragTrap();
-		FragTrap& operator=(FragTrap& cpy);
-
-		void highFiveGuys();
-};
+#define DEFAULT "\033[0m"
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+#define YELLOW "\033[33m"
+#define BLUE "\033[34m"
+#define MAGENTA "\033[35m"
+#define WHITE "\033[37m"

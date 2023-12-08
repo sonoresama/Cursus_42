@@ -6,16 +6,21 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:34:27 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/27 15:09:46 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/08 12:23:25 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
 	//CANONICAL
-ClapTrap::ClapTrap(std::string name) : _name(name)
+ClapTrap::ClapTrap() : _name("_default_"), _hit_point(10), _energy_point(10), _attack_damage(0)
 {
 	COUT("Default constructor has been called");
+}
+
+ClapTrap::ClapTrap(std::string name) : _name(name), _hit_point(10), _energy_point(10), _attack_damage(0)
+{
+	COUT("Name constructor has been called");
 }
 
 ClapTrap::ClapTrap(const ClapTrap &cpy)
@@ -36,7 +41,6 @@ ClapTrap& ClapTrap::operator=(const ClapTrap &clap)
 	this->_energy_point = clap._energy_point;
 	this->_attack_damage = clap._attack_damage;
 	return (*this);
-
 }
 
 
@@ -63,7 +67,7 @@ void	ClapTrap::takeDamage(unsigned int amount)
 
 void	ClapTrap::beRepaired(unsigned int amount)
 {
-	if (this->_energy_point <= 0)
+	if (this->_energy_point <= 0 || this->_hit_point <= 0)
 		return ;
 	this->_hit_point += amount;
 	this->_energy_point -= 1;

@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:29:21 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/27 15:06:39 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/08 12:22:52 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 class ClapTrap{
   public:
+	ClapTrap();
 	ClapTrap(std::string name);
 	ClapTrap(const ClapTrap &clap);
 	~ClapTrap();
@@ -31,9 +32,9 @@ class ClapTrap{
 
   private:
 	std::string _name;
-	int	_hit_point = 10;
-	int	_energy_point = 1;
-	int	_attack_damage = 0;
+	int	_hit_point;
+	int	_energy_point;
+	int	_attack_damage;
 };
 
 #endif

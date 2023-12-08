@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   DiamondTrap.hpp                                    :+:      :+:    :+:   */
+/*   color.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/28 14:04:05 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/28 14:25:06 by eorer            ###   ########.fr       */
+/*   Created: 2023/12/03 17:25:41 by emileorer         #+#    #+#             */
+/*   Updated: 2023/12/03 17:26:44 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScavTrap.hpp"
-#include "FragTrap.hpp"
+#pragma once
 
-class DiamonTrap : public ScavTrap, public FragTrap
-{
-	public :
-		DiamonTrap();
-
-	private:
-			std::string _name;
-};
+#define DEFAULT "\033[0m"
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+#define YELLOW "\033[33m"
+#define BLUE "\033[34m"
+#define MAGENTA "\033[35m"
+#define WHITE "\033[37m"

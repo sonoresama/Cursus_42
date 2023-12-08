@@ -6,11 +6,12 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:11:59 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/27 18:29:26 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/08 12:38:20 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#ifndef FRAGTRAP_HPP
+# define FRAGTRAP_HPP
 
 #include "ClapTrap.hpp"
 
@@ -24,3 +25,5 @@ class FragTrap : public ClapTrap {
 
 		void highFiveGuys();
 };
+
+#endif

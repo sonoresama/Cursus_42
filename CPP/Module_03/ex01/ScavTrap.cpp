@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 15:51:42 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/27 17:59:45 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/08 12:31:11 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 	//CANONICAL
 ScavTrap::ScavTrap() : ClapTrap()
 {
-	COUT("ScavTrap default constructor has eben called");
+	std::cout << GREEN << "ScavTrap " << this->_name << " default constructor called" << DEFAULT << std::endl;
 	this->_hit_point = 100;
 	this->_energy_point = 50;
 	this->_attack_damage = 20;
@@ -23,7 +23,7 @@ ScavTrap::ScavTrap() : ClapTrap()
 
 ScavTrap::ScavTrap(const std::string name) : ClapTrap(name)
 {
-	COUT("ScavTrap name constructor has eben called");
+	std::cout << GREEN << "ScavTrap " << this->_name << " name constructor called" << DEFAULT << std::endl;
 	this->_hit_point = 100;
 	this->_energy_point = 50;
 	this->_attack_damage = 20;
@@ -31,13 +31,13 @@ ScavTrap::ScavTrap(const std::string name) : ClapTrap(name)
 
 ScavTrap::ScavTrap(ScavTrap &cpy)
 {
-	COUT("ScavTrap copy constructor has been called");
 	*this = cpy;
+	std::cout << GREEN << "ScavTrap " << this->_name << " cpy constructor called" << DEFAULT << std::endl;
 }
 
 ScavTrap::~ScavTrap()
 {
-	COUT("ScavTrap destructor has been called");
+	std::cout << GREEN << "ScavTrap " << this->_name << " destructor called" << DEFAULT << std::endl;
 }
 
 ScavTrap&	ScavTrap::operator=(ScavTrap &clap)
@@ -64,5 +64,11 @@ void	ScavTrap::attack(const std::string &target)
 
 void	ScavTrap::guardGate()
 {
+	if (this->_energy_point <= 0 || this->_hit_point <= 0)
+	{
+		if(this->_energy_point <= 0)
+			std::cout << "ScavTrap " << this->_name << " is out of energy" << std::endl;
+		return ;
+	}
 	std::cout << "ScavTrap " << this->_name << " is now in guard mode" << std::endl;
 }

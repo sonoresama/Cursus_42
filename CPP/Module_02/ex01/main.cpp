@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 15:20:01 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/24 16:39:30 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/07 14:28:24 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int main( void ) {
   Fixed const c( 42.42f );
   Fixed const d( b );
 
-  Fixed::test();
-  return (0);
   a = Fixed( 1234.4321f );
   std::cout << "a is " << a << std::endl;
   std::cout << "b is " << b << std::endl;

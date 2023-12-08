@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:34:27 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/27 17:51:54 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/08 12:29:10 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,23 @@
 
 ClapTrap::ClapTrap(void) : _name("no_one"), _hit_point(10), _energy_point(10), _attack_damage(0)
 {
-	COUT ("ClapTrap default constructor called");
+	std::cout << "ClapTrap " << this->_name << " default constructor called" << std::endl;
 }
 
 ClapTrap::ClapTrap(std::string name) : _name(name), _hit_point(10), _energy_point(10), _attack_damage(0)
 {
-	COUT("ClapTrap name constructor has been called");
+	std::cout << "ClapTrap " << this->_name << " name constructor called" << std::endl;
 }
 
 ClapTrap::ClapTrap(const ClapTrap &cpy)
 {
-	COUT("ClapTrap copy constructor has been called");
 	*this = cpy;
+	std::cout << "ClapTrap " << this->_name << " cpy constructor called" << std::endl;
 }
 
 ClapTrap::~ClapTrap()
 {
-	COUT("ClapTrap destructor has been called");
+	std::cout << "ClapTrap " << this->_name << " destructor called" << std::endl;
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap &clap)
@@ -105,9 +105,10 @@ void	ClapTrap::takeDamage(unsigned int amount)
 
 void	ClapTrap::beRepaired(unsigned int amount)
 {
-	if (this->_energy_point <= 0)
+	if (this->_energy_point <= 0 || this->_hit_point <= 0)
 	{
-		std::cout << "ClapTrap " << this->_name << " is out of energy" << std::endl;
+		if(this->_energy_point <= 0)
+			std::cout << "ClapTrap " << this->_name << " is out of energy" << std::endl;
 		return ;
 	}
 	this->_hit_point += amount;

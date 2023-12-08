@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:02:32 by eorer             #+#    #+#             */
-/*   Updated: 2023/11/24 18:24:48 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/07 16:19:52 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ Fixed::Fixed(const int i_raw)
 Fixed::Fixed(const float f_raw)
 {
 //	COUT("Float constructor called");
-	this->_number = f_raw * roundf((1 << this->_fract));
+	this->_number = roundf(f_raw * (1 << this->_fract));
 }
 
 Fixed::Fixed(const Fixed &n)
@@ -173,9 +173,9 @@ Fixed &Fixed::operator++() //prefix
 	return (*this);
 }
 
-Fixed &Fixed::operator++(int) //suffix
+Fixed Fixed::operator++(int) //suffix
 {
-	Fixed	&tmp = *this;
+	Fixed	tmp = *this;
 
 	this->_number++;
 	return (tmp);
@@ -187,11 +187,11 @@ Fixed &Fixed::operator--() //prefix
 	return (*this);
 }
 
-Fixed &Fixed::operator--(int) //suffix
+Fixed Fixed::operator--(int) //suffix
 {
-	Fixed	&tmp = *this;
+	Fixed	tmp = *this;
 
-	this->_number--;
+	this->_number++;
 	return (tmp);
 }
 
