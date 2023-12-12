@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 12:36:23 by emileorer         #+#    #+#             */
-/*   Updated: 2023/12/04 14:56:40 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/11 16:35:13 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,3 @@ std::string Animal::_getType(void) const
 {
 	return (this->type);
 }
-
-//void Animal::makeSound(void) const
-//{
-//	std::cout << "Grrrrrrrr" << std::endl;
-//}

@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:21:09 by eorer             #+#    #+#             */
-/*   Updated: 2023/12/06 15:23:48 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/11 16:44:41 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ Cure::Cure(const Cure &cpy) : AMateria("cure")
 
 Cure& Cure::operator=(const Cure& cpy)
 {
+	(void)cpy;
 	return (*this);
 }
 

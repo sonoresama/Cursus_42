@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:02:31 by eorer             #+#    #+#             */
-/*   Updated: 2023/12/06 16:53:11 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/11 16:44:13 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ Ice::Ice(const Ice &cpy) : AMateria("ice")
 
 Ice& Ice::operator=(const Ice& cpy)
 {
+	(void)cpy;
 	return (*this);
 }
 

@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:34:27 by eorer             #+#    #+#             */
-/*   Updated: 2023/12/08 12:29:10 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/11 13:50:17 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,20 @@ int	ClapTrap::_get_attack_damage()
 
 void ClapTrap::_set_hit_point(int i)
 {
-	this->_hit_point = i;
+	if (i >= 0)
+		this->_hit_point = i;
 }
 
 void ClapTrap::_set_energy_point(int i)
 {
-	this->_energy_point = i;
+	if (i >= 0)
+		this->_energy_point = i;
 }
 
 void ClapTrap::_set_attack_damage(int i)
 {
-	this->_attack_damage = i;
+	if (i >= 0)
+		this->_attack_damage = i;
 }
 
 	//PUBLIC FUNCTIONS

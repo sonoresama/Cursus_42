@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 16:43:21 by eorer             #+#    #+#             */
-/*   Updated: 2023/12/05 17:48:26 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/11 16:43:16 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ AMateria::AMateria(std::string const &str) : _type(str)
 	std::cout << "AMateria type constructor called" << std::endl;
 }
 
-AMateria::AMateria(const AMateria &cpy)
+AMateria::AMateria(const AMateria &cpy) : _type(cpy._type)
 {
 	std::cout << "AMateria cpy constructor called" << std::endl;
 	*this = cpy;
@@ -31,8 +31,10 @@ AMateria::AMateria(const AMateria &cpy)
 
 AMateria& AMateria::operator=(const AMateria& cpy)
 {
+	(void)cpy;
 	return (*this);
 }
+
 
 AMateria::~AMateria()
 {
@@ -47,5 +49,5 @@ std::string const & AMateria::_getType() const
 
 void	AMateria::use(ICharacter& target)
 {
-	std::cout << "Prout" << std::endl;
+	std::cout << "* default materia use at " << target._getName() << " *" << std::endl;
 }
