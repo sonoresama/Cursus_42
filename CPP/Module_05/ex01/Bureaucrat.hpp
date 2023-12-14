@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:15:46 by eorer             #+#    #+#             */
-/*   Updated: 2023/12/12 15:38:15 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/14 16:20:17 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,13 @@ class	Bureaucrat
 	class GradeTooHighException : public std::exception
 	{
 	  public :
-		const char* what() const throw()
-		{
-			return ("Grade is too high");
-		}
+		const char* what() const throw();
 	};
 
 	class GradeTooLowException : public std::exception
 	{
 	  public :
-		const char* what() const throw()
-		{
-			return ("Grade is too low");
-		}
+		const char* what() const throw();
 	};
 
   private:

@@ -6,7 +6,7 @@
 #    By: eorer <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/24 12:44:56 by eorer             #+#    #+#              #
-#    Updated: 2023/12/14 13:55:12 by eorer            ###   ########.fr        #
+#    Updated: 2023/12/14 14:57:01 by eorer            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC = c++
 
 CFLAGS = -Wall -Werror -Wextra -std=c++98
 
-SRC = $(addprefix ./src/, AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp Bureaucrat.cpp) main.cpp
+SRC = $(addprefix ./src/, AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp Intern.cpp Bureaucrat.cpp) main.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

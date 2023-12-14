@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ShrubberyCreationForm.hpp                          :+:      :+:    :+:   */
+/*   Intern.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/12 16:26:55 by eorer             #+#    #+#             */
-/*   Updated: 2023/12/14 14:14:07 by eorer            ###   ########.fr       */
+/*   Created: 2023/12/14 14:41:16 by eorer             #+#    #+#             */
+/*   Updated: 2023/12/14 15:56:37 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include "AForm.hpp"
-#include <fstream>
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
-class AForm;
+class AFrom;
 
-class	ShrubberyCreationForm : public AForm
-{
+class Intern{
 	public :
-		ShrubberyCreationForm(std::string target);
-		ShrubberyCreationForm(const ShrubberyCreationForm &cpy);
-		ShrubberyCreationForm &operator=(const ShrubberyCreationForm &cpy);
-		~ShrubberyCreationForm();
+		Intern();
+		Intern(const Intern &cpy);
+		Intern &operator=(const Intern &cpy);
+		~Intern();
 
-		std::string	_getTarget() const;
-		void	execute(const Bureaucrat& executor) const;
-
-	private :
-		ShrubberyCreationForm();
-		std::string _target;
+		AForm *formSCF(std::string tName);
+		AForm *formRRF(std::string tName);
+		AForm *formPPF(std::string tName);
+		AForm *makeForm(std::string fName, std::string tName);
 };

@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 14:01:15 by eorer             #+#    #+#             */
-/*   Updated: 2023/12/12 15:51:25 by eorer            ###   ########.fr       */
+/*   Updated: 2023/12/14 16:20:56 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,21 @@ int	Form::_getExecutingGrade() const
 	return (this->_executingGrade);
 }
 
+	//Exception classes
+const char *Form::GradeTooHighException::what() const throw()
+{
+	return ("Grade is too high");
+}
+
+const char *Form::GradeTooLowException::what() const throw()
+{
+	return ("Grade is too low");
+}
 	//Public methods
 void	Form::beSigned(const Bureaucrat& b) 
 {
 	if (this->_signed == true)
 		return ;
-	if (b._getGrade() < this->_signingGrade)
-		throw Form::GradeTooHighException();
 	if (b._getGrade() > this->_signingGrade)
 		throw Form::GradeTooLowException();
 	this->_signed = true;
