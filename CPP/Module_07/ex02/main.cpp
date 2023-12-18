@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Array.cpp                                          :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 15:19:10 by eorer             #+#    #+#             */
-/*   Updated: 2023/12/18 15:21:00 by eorer            ###   ########.fr       */
+/*   Created: 2023/12/18 15:11:23 by eorer             #+#    #+#             */
+/*   Updated: 2023/12/18 16:20:26 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <iostream>
 #include "Array.hpp"
 
-Array::Array()
+int main(void)
 {
-	std::cout << "Array default constructor called" << std::endl;
-}
+	Array<int>	i(10);
+	Array<std::string>	str(10);
 
-Array::Array(const Array &cpy)
-{
-	std::cout << "Array default constructor called" << std::endl;
-}
+	std::cout << i[2] << std::endl;
+	std::cout << str[2] << std::endl;
 
-Array &Array::operator=(const Array &cpy)
-{
-}
-
-~Array::Array()
-{
-	std::cout << "Array default destructor called" << std::endl;
+	i._setValue(2, 42);
+	str._setValue(2, "Hello");
+	std::cout << i[2] << std::endl;
+	std::cout << str[2] << std::endl;
+	return (0);
 }
