@@ -6,7 +6,7 @@
 #    By: emileorer <marvin@42.fr>                   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/03 15:38:01 by emileorer         #+#    #+#              #
-#    Updated: 2024/01/03 15:39:30 by emileorer        ###   ########.fr        #
+#    Updated: 2024/01/04 14:36:23 by eorer            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC = c++
 
 CFLAGS = -Wall -Wextra -Werror -g -std=c++98
 
-SRC = main.cpp
+SRC = main.cpp BitcoinExchange.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
