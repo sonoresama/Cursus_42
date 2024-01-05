@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:16:30 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/04 16:36:45 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/05 16:39:12 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	BitcoinExchange::_initialiseExchange(const std::string dataPath)
 	getline(dataFile, line);
 	while (getline(dataFile, line))
 	{
-		this->_exchange[line.substr(0, line.find(","))] = strtod(line.substr(line.find(","), line.length()).c_str(), NULL);
+		this->_exchange[line.substr(0, line.find(","))] = strtod(line.substr(line.find(",") + 1, line.length()).c_str(), NULL);
 	}
 	dataFile.close();
 }
@@ -82,19 +82,20 @@ void	BitcoinExchange::analyse(std::string input)
 		try
 		{
 			item = _analyseFormat(line);
-			it = this->_exchange.find(item.first);
+			it = this->_exchange.upper_bound(item.first);
+			it--;
 			if (it == this->_exchange.end())
 				std::cout << "Date not found" << std::endl;
 			else
 				std::cout << item.first << " => " << item.second << " = " << it->second * item.second << std::endl;
 		}
-		catch (std::exception &error)
-		{
-			std::cerr << "Error: " << error.what() << std::endl;
-		}
 		catch (std::string error)
 		{
 			std::cerr << "Error: " << error << std::endl;
+		}
+		catch (std::exception &error)
+		{
+			std::cerr << "Error: " << error.what() << std::endl;
 		}
 	}
 	file.close();
@@ -103,12 +104,37 @@ void	BitcoinExchange::analyse(std::string input)
 std::pair<std::string, double>	BitcoinExchange::_analyseFormat(std::string line)
 {
 	std::pair<std::string, double>	item;
+	std::string	str;
+	int	num;
 
 	if (line.empty())
 		throw ("File is empty");
-	std::remove(line.begin(), line.end(), ' ');
+	line.erase(std::remove(line.begin(), line.end(), ' '), line.end());
+	if (line.find("|") >= line.length())
+		throw ("bad input => " + line);
 	item.first = line.substr(0, line.find("|"));
-	item.second = strtod(line.substr(line.find("|"), line.length()).c_str(), NULL);
+	item.second = strtod(line.substr(line.find("|") + 1, line.length()).c_str(), NULL);
+
+		//Date analysis
+	str = item.first.substr(0, item.first.find("-"));
+	num = atoi(str.c_str());
+	if (num > 2025 || num < 2000)
+		throw ("bad input => " + item.first);
+	str = item.first.substr(item.first.find("-") + 1, item.first.rfind("-") - item.first.find("-"));
+	num = atoi(str.c_str());
+	if (num > 12 || num <= 0)
+		throw ("bad input => " + item.first);
+	str = item.first.substr(item.first.rfind("-") + 1, item.first.length());
+	num = atoi(str.c_str());
+	if (num > 31 || num <= 0)
+		throw ("bad input => " + item.first);
+
+		//Amount analysis
+	if (item.second > 1000)
+		throw (static_cast<std::string>("too large number"));
+	if (item.second < 0)
+		throw (static_cast<std::string>("negative number"));
+
 	return (item);
 }
 
