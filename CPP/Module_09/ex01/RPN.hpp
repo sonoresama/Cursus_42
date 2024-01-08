@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 17:28:14 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/06 23:16:54 by emileorer        ###   ########.fr       */
+/*   Updated: 2024/01/08 14:20:10 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ class	RPN
 		int	_getResult();
 
 	private:
+		void	_printStack();
 		std::stack<int>	_stack;
 		int	_result;
-		void	_parseArg(std::string arg);
+		void	_checkArg(std::string arg);
 };
 
 #endif

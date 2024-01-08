@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:39:45 by emileorer         #+#    #+#             */
-/*   Updated: 2024/01/06 23:48:18 by emileorer        ###   ########.fr       */
+/*   Updated: 2024/01/08 17:24:58 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,13 @@ int	main(int argc, char **argv)
 		return (1);
 	RPN	test;
 
-	std::cout << test._getResult(static_cast<std::string>(argv[1])) << std::endl;
-	std::cout << "C BOOOOOOOOn" << '\n';
+	try
+	{
+		std::cout << test._getResult(static_cast<std::string>(argv[1])) << std::endl;
+	}
+	catch(std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+	}
 	return (0);
 }
