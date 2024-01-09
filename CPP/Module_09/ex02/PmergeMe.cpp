@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 15:37:04 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/08 19:25:02 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/09 17:19:32 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,40 @@ PmergeMe::~PmergeMe()
 
 void  PmergeMe::sort(char **argv)
 {
-  //time
+  clock_t l_start;
+  clock_t v_start;
+  clock_t l_end;
+  clock_t v_end;
+  LIST  l_tmp;
+  VECTOR  v_tmp;
+
+  l_start = clock();
   this->_initList(argv);
-  this->_sortList(this);
+  l_tmp = this->_list;
+  this->_list = _sortList(this->_list);
+  l_end = clock();
+
+  v_start = clock();
+  this->_initVector(argv);
+  v_tmp = this->_vector;
+  this->_vector = _sortVector(this->_vector);
+  v_end = clock();
+
+  std::cout << "Before : ";
+  this->_printList(l_tmp);
+  std::cout << std::endl;
+  std::cout << "After : ";
+  this->_printList(this->_list);
+  std::cout << std::endl;
+  std::cout << "Time used to process " << this->_list.size() << " elements by std::list : " << static_cast<double>(l_end - l_start) / CLOCKS_PER_SEC * 1e6 << " μs" << std::endl;
+  std::cout << "Time used to process " << this->_vector.size() << " elements by std::vector : " << static_cast<double>(v_end - v_start) / CLOCKS_PER_SEC * 1e6 << " μs" << std::endl;
 }
 
 void  PmergeMe::_initList(char **argv)
 {
   std::string str;
   std::istringstream  iss;
-  unsigned int num;
+  long int num;
 
   for (int i = 1; argv[i]; i++)
   {
@@ -68,17 +92,18 @@ void  PmergeMe::_initList(char **argv)
     iss >> num;
     if (iss.fail())
       throw PmergeMe::StringStreamError();
-    this->_list.push_back(num);
+    else if (num < 0)
+      throw PmergeMe::NegativeNumberError();
+    this->_list.push_back(static_cast<unsigned int>(num));
     iss.clear();
   }
-  this->_printList();
 }
 
 void  PmergeMe::_initVector(char **argv)
 {
   std::string str;
   std::istringstream  iss;
-  unsigned int num;
+  long int num;
 
   for (int i = 1; argv[i]; i++)
   {
@@ -87,63 +112,118 @@ void  PmergeMe::_initVector(char **argv)
     iss >> num;
     if (iss.fail())
       throw PmergeMe::StringStreamError();
-    this->_vector.push_back(num);
+    else if (num < 0)
+      throw PmergeMe::NegativeNumberError();
+    this->_vector.push_back(static_cast<unsigned int>(num));
     iss.clear();
   }
-  this->_printVector();
 }
 
-void  PmergeMe::_sortList(PmergeMe* item)
+LIST  PmergeMe::_sortList(LIST lst)
 {
-  std::list<std::pair <unsigned int, unsigned int> >  pairs;
-  std::list<unsigned int> mainChain;
-  unsigned int  last;
+  LIST                         mainChain;
+  LIST                         subChain;
+  LIST_ITERATOR                    next;
+  long int                                         last = -1;
 
-  for (std::list<unsigned int>::iterator it = item->_list.begin(); it != item->_list.end(); ++it)
+  if (lst.size() <= 2)
   {
-    //A GERER !!!!!!!
-    pairs.push_back(std::make_pair(*it, *(++it)));
-    if (it == item->_list.end())
+    if (lst.front() > lst.back())
+      std::swap(lst.front(), lst.back());
+    return (lst);
+  }
+  for (LIST_ITERATOR it = lst.begin(); it != lst.end(); ++it)
+  {
+    next = it;
+    next++;
+    if (next == lst.end())
     {
       last = *it;
-      std::cout << "Last : " << last << std::endl;
       break;
     }
-  }
-  for (std::list<std::pair<unsigned int, unsigned int> >::iterator its = pairs.begin(); its != pairs.end(); ++its)
-  {
-    if (its->first > its->second)
-      mainChain.push_back(its->first);
+    if (*it > *next)
+    {
+      mainChain.push_back(*it);
+      subChain.push_back(*(++it));
+    }
     else
-      mainChain.push_back(its->second);
-    std::cout << its->first << " ";
-    std::cout << its->second << std::endl;
+    {
+      subChain.push_back(*it);
+      mainChain.push_back(*(++it));
+    }
   }
+  mainChain = _sortList(mainChain);
+  for (LIST_ITERATOR it = subChain.begin(); it != subChain.end(); ++it)
+  {
+    mainChain.insert(std::lower_bound(mainChain.begin(), mainChain.end(), *it), *it);
+  }
+  if (last != -1)
+   mainChain.insert(std::lower_bound(mainChain.begin(), mainChain.end(), last), static_cast<unsigned int>(last));
+  return (mainChain);
 }
 
-void  PmergeMe::_sortVector(PmergeMe* item)
+VECTOR  PmergeMe::_sortVector(VECTOR vec)
 {
-  (void)item;
+  VECTOR                         mainChain;
+  VECTOR                         subChain;
+  VECTOR_ITERATOR                    next;
+  long int                                         last = -1;
+
+  if (vec.size() <= 2)
+  {
+    if (vec.front() > vec.back())
+      std::swap(vec.front(), vec.back());
+    return (vec);
+  }
+  for (VECTOR_ITERATOR it = vec.begin(); it != vec.end(); ++it)
+  {
+    next = it;
+    next++;
+    if (next == vec.end())
+    {
+      last = *it;
+      break;
+    }
+    if (*it > *next)
+    {
+      mainChain.push_back(*it);
+      subChain.push_back(*(++it));
+    }
+    else
+    {
+      subChain.push_back(*it);
+      mainChain.push_back(*(++it));
+    }
+  }
+  mainChain = _sortVector(mainChain);
+  for (VECTOR_ITERATOR it = subChain.begin(); it != subChain.end(); ++it)
+  {
+    mainChain.insert(std::lower_bound(mainChain.begin(), mainChain.end(), *it), *it);
+  }
+  if (last != -1)
+   mainChain.insert(std::lower_bound(mainChain.begin(), mainChain.end(), last), static_cast<unsigned int>(last));
+  return (mainChain);
 }
 
   //PRINT
-void  PmergeMe::_printList()
+void  PmergeMe::_printList(LIST lst)
 {
-  std::cout << "List : ";
-  for (std::list<unsigned int>::iterator it = this->_list.begin(); it != this->_list.end(); ++it)
+  for (std::list<unsigned int>::iterator it = lst.begin(); it != lst.end(); ++it)
     std::cout << *it << " ";
-  std::cout << '\n';
 }
 
-void  PmergeMe::_printVector()
+void  PmergeMe::_printVector(VECTOR vec)
 {
-  std::cout << "Vector : ";
-  for (std::vector<unsigned int>::iterator it = this->_vector.begin(); it != this->_vector.end(); ++it)
+  for (std::vector<unsigned int>::iterator it = vec.begin(); it != vec.end(); ++it)
     std::cout << *it << " ";
-  std::cout << '\n';
 }
 
 const char* PmergeMe::StringStreamError::what() const throw()
 {
   return ("String stream extraction failed");
+}
+
+const char* PmergeMe::NegativeNumberError::what() const throw()
+{
+  return ("Negative Number");
 }

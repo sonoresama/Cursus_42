@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 16:40:17 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/08 19:02:21 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/09 17:24:02 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 int main(int argc, char **argv)
 {
-  (void)argc;
+  if (argc <= 2)
+  {
+    std::cout << "Not enough arguments" << std::endl;
+    return (1);
+  }
   try
   {
    PmergeMe  test;
