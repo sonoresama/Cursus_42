@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 17:30:59 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/08 14:32:13 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/19 14:29:01 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ int	RPN::_getResult(std::string operation)
 					this->_stack.push(num2 - num1);
 					break;
 				case '/':
+					if (num1 == 0)
+						throw RPN::ZeroDivError();
 					this->_stack.push(num2 / num1);
 					break;
 				case '*':
@@ -142,4 +144,9 @@ void	RPN::_printStack()
 const char*	RPN::FormatError::what() const throw()
 {
 	return ("Format error");
+}
+
+const char*	RPN::ZeroDivError::what() const throw()
+{
+	return ("Error: divided by 0");
 }

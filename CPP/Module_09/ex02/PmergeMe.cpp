@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 15:37:04 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/09 17:19:32 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/11 18:17:30 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,15 @@ void  PmergeMe::sort(char **argv)
   LIST  l_tmp;
   VECTOR  v_tmp;
 
-  l_start = clock();
   this->_initList(argv);
   l_tmp = this->_list;
+  l_start = clock();
   this->_list = _sortList(this->_list);
   l_end = clock();
 
-  v_start = clock();
   this->_initVector(argv);
   v_tmp = this->_vector;
+  v_start = clock();
   this->_vector = _sortVector(this->_vector);
   v_end = clock();
 

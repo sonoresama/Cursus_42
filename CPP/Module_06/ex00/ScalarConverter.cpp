@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 11:42:36 by eorer             #+#    #+#             */
-/*   Updated: 2023/12/15 18:27:48 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/22 17:25:55 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	ScalarConverter::printInt(std::string literal)
 	double	buffer = strtod(literal.c_str(), NULL);
 	int		out = std::atoi(literal.c_str());
 
-//	std::cout << "PRINT INT" << std::endl;
 	if (out < 0 || out > 255)
 		std::cout << "char : impossible" << std::endl;
 	else if (!std::isprint(out))

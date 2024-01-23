@@ -6,11 +6,12 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 19:31:16 by emileorer         #+#    #+#             */
-/*   Updated: 2023/12/17 19:35:13 by emileorer        ###   ########.fr       */
+/*   Updated: 2024/01/15 12:36:21 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include <stdlib.h>
 
 class	Base
 {
@@ -91,5 +92,6 @@ int	main(void)
 	Base	*base = generate();
 	identify(base);
 	identify(*base);
+	delete (base);
 	return (0);
 }

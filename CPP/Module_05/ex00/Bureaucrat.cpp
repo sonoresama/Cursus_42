@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:53:32 by eorer             #+#    #+#             */
-/*   Updated: 2023/12/14 16:19:04 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/11 16:28:31 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ Bureaucrat::Bureaucrat(const Bureaucrat &cpy) : _name(cpy._getName())
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat &cpy) 
 {
+	if (this == &cpy)
+		return (*this);
 	this->_grade = cpy._getGrade();
 	return (*this);
 }

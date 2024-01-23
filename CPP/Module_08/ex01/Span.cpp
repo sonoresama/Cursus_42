@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:46:28 by emileorer         #+#    #+#             */
-/*   Updated: 2023/12/21 13:33:13 by emileorer        ###   ########.fr       */
+/*   Updated: 2024/01/18 15:34:40 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,22 @@ Span& Span::operator=(const Span &cpy)
 	return (*this);
 }
 
+Span::~Span()
+{
+	std::cout << "Span default destructor called" << std::endl;
+}
+
+
+std::vector<int>::iterator Span::_begin()
+{
+	return (this->_container.begin());
+}
+
+std::vector<int>::iterator Span::_end()
+{
+	return (this->_container.end());
+}
+
 void	Span::addNumber(int n)
 {
 	if (this->_container.size() >= this->_max_size)
@@ -40,9 +56,16 @@ void	Span::addNumber(int n)
 	this->_container.push_back(n);
 }
 
-Span::~Span()
+void	Span::addRange(int _range)
 {
-	std::cout << "Span default destructor called" << std::endl;
+	int	r;
+
+	std::srand(static_cast<unsigned>(std::time(0)));
+	for (int i = 0; i < _range; i++)
+	{
+		r = std::rand() % 1000 + 1;
+		this->addNumber(r);
+	}
 }
 
 int	Span::shortestSpan(void)
@@ -95,4 +118,9 @@ const char* Span::NumberException::what() const throw()
 const char* Span::SpanException::what() const throw()
 {
 	return ("Not enough data to compute span");
+}
+
+const char* Span::OORException::what() const throw()
+{
+	return ("addRange: iterator not in Span container");
 }

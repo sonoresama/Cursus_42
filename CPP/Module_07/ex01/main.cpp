@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:05:53 by eorer             #+#    #+#             */
-/*   Updated: 2023/12/18 14:29:18 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/16 16:58:29 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,22 +79,22 @@ int  main(void)
 //{
 //	std::cout << "---- String array ----" << std::endl;
 //	std::string strArray[2] = {"Hola", "Mundo"};
-//	iter(strArray, sizeof(strArray) / sizeof(std::string), &fn_string);
+//	::iter(strArray, sizeof(strArray) / sizeof(std::string), &fn_string);
 //
 //	std::cout << "---- Int array ----" << std::endl;
 //	int intArray[2] = {1, 2};
-//	iter(intArray, sizeof(intArray) / sizeof(int), &fn_int);
+//	::iter(intArray, sizeof(intArray) / sizeof(int), &fn_int);
 //
 //	std::cout << "---- Float array ----" << std::endl;
 //	float floatArray[2] = { 1.02f, 2.04f };
-//	iter(floatArray, sizeof(floatArray) / sizeof(float), &fn_float);
+//	::iter(floatArray, sizeof(floatArray) / sizeof(float), &fn_float);
 //
 //	std::cout << "---- Double array ----" << std::endl;
 //	double doubleArray[2] = {1.1, 2.2};
-//	iter(doubleArray, sizeof(doubleArray) / sizeof(double), &fn_double);
+//	::iter(doubleArray, sizeof(doubleArray) / sizeof(double), &fn_double);
 //
 //	std::cout << "---- Char array ----" << std::endl;
 //	char charArray[2] = {'a', 'b'};
-//	iter(charArray, sizeof(charArray) / sizeof(char), *fn_char);
+//	::iter(charArray, sizeof(charArray) / sizeof(char), *fn_char);
 //	return (0);
 //}

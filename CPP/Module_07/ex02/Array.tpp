@@ -15,31 +15,30 @@
 #include "Array.hpp"
 
 template <typename T>
-Array<T>::Array()
+Array<T>::Array() : _n(0)
 {
 	std::cout << "Array default constructor called" << std::endl;
-	this->_array = NULL;
+	this->_array = new T[0];
 }
 
 template <typename T>
-Array<T>::Array(unsigned int n) 
+Array<T>::Array(unsigned int n) : _n(n)
 {
 	std::cout << "Array size constructor called" << std::endl;
 	this->_array = new T[n];
-	this->_n = n;
 }
 
 template <typename T>
 Array<T>::Array(const Array &cpy)
 {
-	std::cout << "Array default constructor called" << std::endl;
-	*this = *cpy;
+	std::cout << "Array copy constructor called" << std::endl;
+	*this = cpy;
 }
 
 template <typename T>
 Array<T>& Array<T>::operator=(const Array &cpy)
 {
-	if (cpy == *this)
+	if (&cpy == this)
 		return (*this);
 	this->_array = new T[cpy._n];
 	for (unsigned int i = 0; i < cpy._n; i++)

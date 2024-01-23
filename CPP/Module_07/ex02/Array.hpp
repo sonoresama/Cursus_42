@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:57:43 by eorer             #+#    #+#             */
-/*   Updated: 2023/12/19 12:11:59 by emileorer        ###   ########.fr       */
+/*   Updated: 2024/01/16 13:39:43 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class	Array
 	void	_setValue(unsigned int i, T data);
 	unsigned int	size(void);
 	T& operator[](unsigned int i);
-	class operatorException
+	class operatorException : public std::exception
 	{
 		const char* what() const throw();
 	};

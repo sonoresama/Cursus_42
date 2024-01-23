@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 19:15:29 by emileorer         #+#    #+#             */
-/*   Updated: 2023/12/17 19:28:48 by emileorer        ###   ########.fr       */
+/*   Updated: 2024/01/15 12:44:33 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ Serializer::~Serializer(void)
 	return ;
 }
 
-std::uintptr_t Serializer::serialize(Data *ptr)
+uintptr_t Serializer::serialize(Data *ptr)
 {
-	return (reinterpret_cast<std::uintptr_t>(ptr));
+	return (reinterpret_cast<uintptr_t>(ptr));
 }
 
-Data *Serializer::deserialize(std::uintptr_t raw)
+Data *Serializer::deserialize(uintptr_t raw)
 {
 	return (reinterpret_cast<Data *>(raw));
 }

@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:57:00 by eorer             #+#    #+#             */
-/*   Updated: 2023/12/18 14:26:14 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/16 16:56:10 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 #include <iostream>
 
-template <typename T, typename U>
-
-void	iter(T* ptr, U length, void(*f)(T& data))
+template <typename T, typename U, typename V>
+void	iter(T* ptr, U length, void(*f)(V data))
 {
-  for (int i = 0; i < length; i++)
+  for (U i = 0; i < length; i++)
 	f(ptr[i]);
   return ;
 }

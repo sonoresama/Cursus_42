@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Client.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/08 16:12:53 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/11 16:27:56 by eorer            ###   ########.fr       */
+/*   Created: 2024/01/23 16:18:20 by eorer             #+#    #+#             */
+/*   Updated: 2024/01/23 16:21:14 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bureaucrat.hpp"
+#ifndef CLIENT_HPP
+# define CLIENT_HPP
 
-int	main(void)
+# include "irc.hpp"
+
+class Client
 {
-	try
-	{
-		Bureaucrat a;
-		Bureaucrat b("titi", 160);
-		Bureaucrat c(b);
-		c.decrementGrade();
-		std::cout << c << std::endl;
-	}
-	catch (std::exception &e)
-	{
-		std::cout << RED << e.what() << DEFAULT << std::endl;
-	}
+  public :
+    Client();
+    ~Client();
+    struct  sockaddr_in _address;
+    int _socket;
+    std::string _nickname;
+    std::string _username;
 
-	return (0);
-}
+  private:
+
+};
+
+#endif

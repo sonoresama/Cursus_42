@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:16:30 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/05 16:39:12 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/19 14:19:22 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ BitcoinExchange::BitcoinExchange()
 
 BitcoinExchange::BitcoinExchange(const std::string dataPath)
 {
-	std::cout << "Data constructor called" << std::endl;
 	this->_initialiseExchange(dataPath);
+	std::cout << "Data constructor called" << std::endl;
 }
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& cpy)
@@ -108,7 +108,7 @@ std::pair<std::string, double>	BitcoinExchange::_analyseFormat(std::string line)
 	int	num;
 
 	if (line.empty())
-		throw ("File is empty");
+		throw (static_cast<std::string>("File is empty"));
 	line.erase(std::remove(line.begin(), line.end(), ' '), line.end());
 	if (line.find("|") >= line.length())
 		throw ("bad input => " + line);

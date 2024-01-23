@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   irc.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/08 16:12:53 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/11 16:27:56 by eorer            ###   ########.fr       */
+/*   Created: 2024/01/23 14:47:46 by eorer             #+#    #+#             */
+/*   Updated: 2024/01/23 17:08:50 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bureaucrat.hpp"
+#ifndef IRC_HPP
+# define IRC_HPP
 
-int	main(void)
-{
-	try
-	{
-		Bureaucrat a;
-		Bureaucrat b("titi", 160);
-		Bureaucrat c(b);
-		c.decrementGrade();
-		std::cout << c << std::endl;
-	}
-	catch (std::exception &e)
-	{
-		std::cout << RED << e.what() << DEFAULT << std::endl;
-	}
+# include <sys/socket.h>
+# include <sys/types.h>
+# include <sys/epoll.h>
+# include <netdb.h>
+# include <cstring>
+# include <arpa/inet.h>
+# include <iostream>
+# include <unistd.h>
+# include <stdio.h>
+# include <list>
+# include "Server.hpp"
+# include "Client.hpp"
 
-	return (0);
-}
+# define COUT(x) std::cout << x << std::endl;
+# define CERR(x) std::cerr << x << std::endl;
+
+#endif

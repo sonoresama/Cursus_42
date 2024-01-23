@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 15:11:14 by emileorer         #+#    #+#             */
-/*   Updated: 2023/12/21 13:33:45 by emileorer        ###   ########.fr       */
+/*   Updated: 2024/01/18 15:36:15 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,20 @@ int	main(void)
 	sp.addNumber(11);
 	std::cout << sp.shortestSpan() << std::endl;
 	std::cout << sp.longestSpan() << std::endl;
+ }
+ {
+	try
+	{
+		Span test = Span(50);
+
+		test.addRange(50);
+		std::cout << test.shortestSpan() << std::endl;
+		std::cout << test.longestSpan() << std::endl;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+	}
  }
 return 0;
 }

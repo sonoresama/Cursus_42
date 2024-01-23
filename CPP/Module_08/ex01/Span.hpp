@@ -6,7 +6,7 @@
 /*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:34:00 by emileorer         #+#    #+#             */
-/*   Updated: 2023/12/19 15:13:59 by emileorer        ###   ########.fr       */
+/*   Updated: 2024/01/18 15:33:50 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 #include <iostream>
 #include <vector>
+#include <cstdlib>
+#include <ctime>
 
 class	Span
 {
@@ -24,13 +26,22 @@ class	Span
 		~Span();
 
 		void	addNumber(int n);
+		void	addRange(int _range);
 		int		shortestSpan();
 		int		longestSpan();
+
+		std::vector<int>::iterator _begin();
+		std::vector<int>::iterator _end();
+
 		class NumberException : public std::exception
 		{
 			const char* what() const throw();
 		};
 		class	SpanException : public std::exception
+		{
+			const char* what() const throw();
+		};
+		class	OORException : public std::exception
 		{
 			const char* what() const throw();
 		};
