@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Client.cpp                                         :+:      :+:    :+:   */
+/*   color.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: emileorer <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/23 16:20:51 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/24 19:22:44 by eorer            ###   ########.fr       */
+/*   Created: 2023/12/03 17:25:41 by emileorer         #+#    #+#             */
+/*   Updated: 2023/12/03 17:26:44 by emileorer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Client.hpp"
+#pragma once
 
-Client::Client()
-{
- // CGREEN("A client has been created");
-}
-
-Client::Client(int socket) : _socket(socket)
-{
-//  CGREEN("A client has been created");
-}
-
-Client::~Client()
-{
-//  CGREEN("Client destroyed");
-}
+#define DEFAULT "\033[0m"
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+#define YELLOW "\033[33m"
+#define BLUE "\033[34m"
+#define MAGENTA "\033[35m"
+#define WHITE "\033[37m"

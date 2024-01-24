@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:47:46 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/23 17:08:50 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/24 19:18:24 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,24 @@
 # include <netdb.h>
 # include <cstring>
 # include <arpa/inet.h>
-# include <iostream>
 # include <unistd.h>
 # include <stdio.h>
-# include <list>
+# include <stdlib.h>
+# include <errno.h>
+# include <vector>
+# include <map>
+# include <iostream>
 # include "Server.hpp"
 # include "Client.hpp"
+# include "Channel.hpp"
+# include "color.h"
 
 # define COUT(x) std::cout << x << std::endl;
+# define CYELLOW(x) std::cout << YELLOW << x << DEFAULT << std::endl;
+# define CRED(x) std::cout << RED << x << DEFAULT << std::endl;
+# define CGREEN(x) std::cout << GREEN << x << DEFAULT << std::endl;
+# define CMAGENTA(x) std::cout << MAGENTA << x << DEFAULT << std::endl;
+# define CBLUE(x) std::cout << BLUE << x << DEFAULT << std::endl;
 # define CERR(x) std::cerr << x << std::endl;
 
 #endif
