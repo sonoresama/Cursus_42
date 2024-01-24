@@ -6,11 +6,11 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:59:39 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/24 19:31:11 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/24 19:34:11 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Channel.hpp"
+#include "../include/Channel.hpp"
 
 /*************** Constructors and destructor ****************/
 Channel::Channel(){}

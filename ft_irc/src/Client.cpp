@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 15:21:20 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/24 19:31:46 by eorer            ###   ########.fr       */
+/*   Created: 2024/01/23 16:20:51 by eorer             #+#    #+#             */
+/*   Updated: 2024/01/24 19:34:19 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "irc.hpp"
+#include "../include/Client.hpp"
 
-int main(void)
+Client::Client()
 {
-  try
-  {
-    Server  serv(4243, "");
-    pid_t pid = getpid();
+ // CGREEN("A client has been created");
+}
 
-    std::cout << " --> Process pid : " << pid << std::endl;
-    serv.run();
-  }
-  catch (char const * str)
-  {
-    CERR(str);
-    perror(NULL);
-    return (1);
-  }
-  return (0);
+Client::Client(int socket) : _socket(socket)
+{
+//  CGREEN("A client has been created");
+}
+
+Client::~Client()
+{
+//  CGREEN("Client destroyed");
 }
