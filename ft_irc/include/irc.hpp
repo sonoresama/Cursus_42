@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:47:46 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/24 19:18:24 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/25 16:13:50 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <netdb.h>
 # include <cstring>
 # include <arpa/inet.h>
+# include <netdb.h>
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
