@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:56:19 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/24 19:24:14 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/29 18:28:27 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,17 @@ class Channel
     Channel(std::string name);
     ~Channel();
 
-    void  broadcast(char* message);
-    void  sendMsg(char* message, Client& client);
-    void  addClient(const Client& newClient);
-    std::string _getName();
+    std::string _getName() const;
+    std::string _getTopic() const;
+    std::string _getNicknames();
+
+    void  broadcast(std::string message);
+    void  broadcast(std::string message, Client& client);
+    void  addClient(Client& newClient);
 
   private:
-    std::string _name;
+    std::string         _name;
+    std::string         _topic;
     std::vector<Client> _members;
 };
 

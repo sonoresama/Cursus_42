@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Ping.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 15:21:20 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/26 16:37:40 by eorer            ###   ########.fr       */
+/*   Created: 2024/01/29 13:14:08 by eorer             #+#    #+#             */
+/*   Updated: 2024/01/29 13:38:28 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/irc.hpp"
+#include "../../include/irc.hpp"
 
-int main(void)
+void  ping(Server *serv, struct s_message msg, Client& client)
 {
-  try
-  {
-    Server  serv(6667, "");
-    pid_t pid = getpid();
-
-    std::cout << " --> Process pid : " << pid << std::endl;
-    serv.run();
-  }
-  catch (char const * str)
-  {
-    CERR(str);
-    perror(NULL);
-    return (1);
-  }
-  return (0);
+  if (msg.params.empty())
+    client.reply(ERR_NOORIGIN);
+  client.reply(RPL_PONG(serv->_getHostname(), msg.params[0]));
 }

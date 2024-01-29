@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:18:20 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/25 16:58:16 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/29 17:21:44 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "irc.hpp"
 
-# define HOST_LEN 100
+class Channel;
 
 class Client
 {
@@ -30,18 +30,34 @@ class Client
     std::string _getHostname();
     std::string _getNickname();
     std::string _getUsername();
+    void  set_nickname(std::string nickname);
+    void  set_username(std::string username);
+    void  set_channel(Channel* channel);
 
       /* Public functions */
     void  closeSocket();
+
+    int   is_valid_username(std::string username);
+    int   is_valid_nickname(std::string username);
+    bool  is_fully_registered(void);
     // A passer en prive par la suite
     struct  sockaddr_in _address;
 
+    class InvalidUsernameException : public std::exception {};
+	class InvalidNicknameException : public std::exception {};
+	class NicknameTooLongException : public std::exception {};
+
+    void  reply(std::string reply);
   private:
+    int         _socket;
     std::string _nickname;
     std::string _username;
     std::string _hostname;
-    int _socket;
-
+    std::string _realname;
+    std::string _mode;
+    Channel*    _channel;
+    bool        _fully_registered;
+//    bool  _entered_valid_password;
 };
 
 #endif

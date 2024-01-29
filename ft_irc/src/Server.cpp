@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:33:25 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/25 18:22:12 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/29 19:08:43 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,18 @@ Server::Server(int port, std::string pwd) : _port(port), _pwd(pwd)
   if (getnameinfo(reinterpret_cast<struct sockaddr*>(&_address), sizeof(_address), hostname, 100, NULL, 0, NI_NAMEREQD))
     throw ("Error: getnameinfo");
   _hostname = std::string(hostname);
+
+  _initializeCommands();
   COUT("Server created");;
+}
 
-
-  /* Creating a new test Channel */
-  Channel test("test");
-  _channels[test._getName()] = test;
+void  Server::_initializeCommands()
+{
+  _commands["CAP"] = &cap;
+//  _commands["USER"] = &user;
+  _commands["PING"] = &ping;
+  _commands["JOIN"] = &join;
+  _commands["PRIVMSG"] = &privmsg;
 }
 
 Server::~Server()
@@ -59,7 +65,28 @@ Server::~Server()
   {
     it->closeSocket();
   }
+  for (CH_ITERATOR it = _channels.begin(); it != _channels.end(); ++it)
+  {
+    delete it->second;
+  }
   close(_epfd);
+}
+
+
+/*************** Accessors ****************/
+std::string Server::_getHostname()
+{
+  return (_hostname);
+}
+
+Channel*  Server::_getChannel(std::string name)
+{
+  for (std::map<std::string, Channel*>::iterator it = _channels.begin(); it != _channels.end(); ++it)
+  {
+    if (it->second->_getName() == name)
+      return (it->second);
+  }
+  return (NULL);
 }
 
 
@@ -84,21 +111,18 @@ void  Server::run(void)
   {
     int waitfds;
 
-   // COUT("Waiting...");
+    COUT("Waiting...");
     waitfds = epoll_wait(_epfd, e_recv, maxEvent, -1);
     if (waitfds == -1)
       throw("Error: waiting events on epoll interest list");
-    usleep(500);
+    usleep(500); //Optional
 
     for (int i = 0; i < waitfds; i++)
     {
-                      //Handle errors
       if (e_recv[i].events & EPOLLERR || e_recv[i].events & EPOLLHUP)
         handleDeconnection(e_recv[i].data.fd);
-                    //Handle new connections
       else if (e_recv[i].data.fd == _socket)
         handleNewConnection();
-                  //Handle clients events
       else
       {
         C_ITERATOR it_client = findClient(e_recv[i].data.fd);
@@ -112,12 +136,12 @@ void  Server::run(void)
 
 void  Server::handleNewConnection()
 {
-  int fd;
-  std::string  answer;
-  char  hostname[100];
-  struct  epoll_event event;
-  socklen_t addrLen = sizeof(struct sockaddr_in);
-  struct  sockaddr_in address;
+  int           fd;
+  std::string   answer;
+  char          hostname[100];
+  struct        epoll_event event;
+  socklen_t     addrLen = sizeof(struct sockaddr_in);
+  struct        sockaddr_in address;
   
   fd = accept(_socket, reinterpret_cast<struct sockaddr*>(&address), &addrLen);
   if (fd == -1)
@@ -131,69 +155,29 @@ void  Server::handleNewConnection()
   _clients.push_back(Client(fd, std::string(hostname)));
 
   std::cout << "Connection established with client " << _clients.back()._getHostname() << ". Socket is : " << _clients.back()._getSocket() << std::endl;
-
-  /* Adding client to Channel test */
-  _channels["test"].addClient(_clients.back());
 }
 
 void  Server::handleCommunication(Client& client)
 {
   std::string message;
-  /* std::pair<std::string, std::vector<std::string>> cmd; */
+  struct s_message msg;
 
   try
   {
     message = readRequest(client);
     if (message.empty())
       return ;
-  /* cmd = parseMessage(message);
-   * _execute(cmd.first, cmd.second);*/
+   parseMessage(message, msg);
+   executeCommand(client, msg);
 
-    sendWelcome(client, message);
+   // if (strncmp(message.c_str(), "CAP", 3))
+   //   handleDeconnection(client._getSocket());
+   // sendWelcome(client, message);
   }
   catch (char const * str)
   {
-    CERR(str);
-    perror(NULL);
+    throw(str);
   }
-}
-
-std::string Server::readRequest(Client& client)
-{
-  int         bytesRead;
-  char        buffer[300];
-  std::string message;
-
-  memset(&buffer, 0, sizeof(buffer));
-  bytesRead = recv(client._getSocket(), buffer, sizeof(buffer), MSG_DONTWAIT);
-  if (bytesRead == 0)
-    handleDeconnection(client._getSocket());
-  else if (bytesRead == -1)
-  {
-    if (errno == EAGAIN || errno == EWOULDBLOCK)
-      return ("");
-    else
-      throw ("Error: could not read what the client sent");
-  }
-  else
-  {
-    std::cout << "Read : " << buffer << std::endl;
-    message.append(buffer);
-  }
-  return (message);
-}
-
-void  Server::sendWelcome(Client& client, std::string message)
-{
-  std::string answer;
-  
-  if (strncmp(message.c_str(), "CAP", 3))
-    return;
-  answer = ":" + std::string(_hostname) + " 001 eorer :Welcome on Tito's irc server tito!eorer@" + client._getHostname() + "\n";
-  if (send(client._getSocket(), answer.c_str(), strlen(answer.c_str()), 0) == -1)
-    throw ("Error: sending response for conenction did not work");
-  CMAGENTA("Sent reply to client");
-  std::cout << "  -> " + answer << std::endl;
 }
 
 void  Server::handleDeconnection(int socket)
@@ -210,6 +194,31 @@ void  Server::handleDeconnection(int socket)
   std::cout << "Connection with a client has been lost" << std::endl;
 }
 
+std::string Server::readRequest(Client& client)
+{
+  int         bytesRead;
+  char        buffer[512];
+  std::string message;
+
+  memset(&buffer, 0, sizeof(buffer));
+  bytesRead = recv(client._getSocket(), buffer, sizeof(buffer), MSG_DONTWAIT);
+  if (bytesRead == 0)
+    handleDeconnection(client._getSocket());
+  else if (bytesRead == -1)
+  {
+    if (errno == EAGAIN || errno == EWOULDBLOCK)
+      return ("");
+    else
+      throw ("Error: could not read what the client sent");
+  }
+  else
+  {
+    COUT("Read -> " + std::string(buffer));
+    message.append(buffer);
+  }
+  return (message);
+}
+
 C_ITERATOR  Server::findClient(int socket)
 {
   C_ITERATOR client;
@@ -222,5 +231,70 @@ C_ITERATOR  Server::findClient(int socket)
   return (client);
 }
 
+Client*  Server::findClient(std::string nickname)
+{
+  C_ITERATOR client;
 
+  for (client = _clients.begin(); client != _clients.end(); ++client)
+  {
+    if (client->_getNickname() == nickname)
+      return (&(*client));
+  }
+  return (NULL);
+}
+
+int Server::parseMessage(std::string message, s_message &msg)
+{
+    std::string tmp = message;
+
+    if (message.empty())
+        return (0);
+    if (message[0] == ':') //prefixe
+	{
+		if (message.find(" ") != std::string::npos)
+        {
+            msg.prefix = message.substr(0, message.find(' '));
+			tmp.erase(0, tmp.find_first_of(' ') + 1);
+        }
+	}
+	if (tmp.find(" ") != std::string::npos) //command
+	{
+		for (size_t i = 0; i < tmp.find(" "); ++i) {
+            msg.command += std::toupper(tmp[i]);}
+        tmp.erase(0, tmp.find(" ") + 1);
+    }
+    else
+    {
+        msg.command = tmp;
+        tmp.clear();
+    }
+    if (tmp.size() > 0) //params
+    {
+        std::stringstream ss(tmp);
+        std::string arg;
+
+        while (ss >> arg)
+          msg.params.push_back(arg);
+    }
+    return (1);
+}
+
+void Server::executeCommand(Client &client, s_message msg)
+{
+  commandFunction f;
+
+  f = _commands[msg.command];
+  if (f == 0)
+    client.reply(ERR_UNKNOWNCOMMAND(msg.command));
+  else
+    f(this, msg, client);
+}
+
+Channel*  Server::createChannel(std::string name)
+{
+  Channel* newChannel = new Channel(name);
+
+  _channels[name] = newChannel;
+  return (newChannel);
+}
 /*************** GARBAGE ****************/

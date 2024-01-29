@@ -1,0 +1,5 @@
+Name Characteristics
+
+-> User name : 9
+-> Nick name : 9
+-> Channels : 50; must start with '&', '#', '+', '!'; must NOT contain ' ', ASCII 7 or ','
