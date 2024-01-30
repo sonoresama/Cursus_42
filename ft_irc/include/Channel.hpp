@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:56:19 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/29 18:28:27 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/30 12:17:47 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ class Channel
     void  broadcast(std::string message);
     void  broadcast(std::string message, Client& client);
     void  addClient(Client& newClient);
+    bool  deleteClient(Client& client);
 
   private:
     std::string         _name;

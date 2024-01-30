@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:20:51 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/29 19:05:05 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/30 13:02:36 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ Client::Client()
  // CGREEN("A client has been created");
 }
 
-Client::Client(int socket, std::string hostname) : _socket(socket), _hostname(hostname), _fully_registered(false)
+Client::Client(int socket, std::string hostname) : _socket(socket), _hostname(hostname), _fully_registered(false), _operator(true)
 {
 //  CGREEN("A client has been created");
 }
@@ -34,6 +34,7 @@ Client::Client(const Client& cpy)
   _hostname = cpy._hostname;
   _username = cpy._username;
   _socket = cpy._socket;
+  _operator = cpy._operator;
 }
 
 /*************** Accessors ****************/
@@ -50,6 +51,11 @@ std::string Client::_getNickname()
 std::string Client::_getUsername()
 {
   return (_username);
+}
+
+Channel*	Client::_getChannel()
+{
+	return (_channel);
 }
 
 int Client::_getSocket()
@@ -118,6 +124,11 @@ bool Client::is_fully_registered(void)
 	if (_nickname.empty() || _username.empty())
 		_fully_registered = true;
 	return (_fully_registered);
+}
+
+bool	Client::is_operator(void)
+{
+	return (_operator);
 }
 
 void  Client::closeSocket()

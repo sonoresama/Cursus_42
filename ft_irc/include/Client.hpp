@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:18:20 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/29 17:21:44 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/30 13:02:09 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ class Client
     std::string _getHostname();
     std::string _getNickname();
     std::string _getUsername();
+    Channel*    _getChannel();
     void  set_nickname(std::string nickname);
     void  set_username(std::string username);
     void  set_channel(Channel* channel);
@@ -40,6 +41,7 @@ class Client
     int   is_valid_username(std::string username);
     int   is_valid_nickname(std::string username);
     bool  is_fully_registered(void);
+    bool  is_operator(void);
     // A passer en prive par la suite
     struct  sockaddr_in _address;
 
@@ -57,6 +59,7 @@ class Client
     std::string _mode;
     Channel*    _channel;
     bool        _fully_registered;
+    bool        _operator;
 //    bool  _entered_valid_password;
 };
 

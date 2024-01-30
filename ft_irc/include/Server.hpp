@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 12:18:21 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/29 18:30:37 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/30 10:37:32 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ class Server
     std::vector<Client>                     _clients;
     std::map<std::string, Channel*>         _channels;
     std::map<std::string, commandFunction>  _commands;
+    int test;
 };
 
 #endif

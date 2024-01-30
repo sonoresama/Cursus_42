@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:33:25 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/29 19:08:43 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/30 15:16:43 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ Server::Server(int port, std::string pwd) : _port(port), _pwd(pwd)
   _hostname = std::string(hostname);
 
   _initializeCommands();
+  test = 0;
   COUT("Server created");;
 }
 
@@ -56,6 +57,9 @@ void  Server::_initializeCommands()
   _commands["PING"] = &ping;
   _commands["JOIN"] = &join;
   _commands["PRIVMSG"] = &privmsg;
+  _commands["KICK"] = &kick;
+  _commands["PART"] = &part;
+  _commands["QUIT"] = &quit;
 }
 
 Server::~Server()
@@ -191,6 +195,10 @@ void  Server::handleDeconnection(int socket)
     throw ("Error: failed to del client socket to epoll interest list");
   it_client->closeSocket();
   _clients.erase(it_client);
+  for (CH_ITERATOR it = _channels.begin(); it != _channels.end(); it++)
+  {
+    it->second->deleteClient(*it_client);
+  }
   std::cout << "Connection with a client has been lost" << std::endl;
 }
 
@@ -206,6 +214,7 @@ std::string Server::readRequest(Client& client)
     handleDeconnection(client._getSocket());
   else if (bytesRead == -1)
   {
+    /************************ A RETIRER !!!!!! **********************/
     if (errno == EAGAIN || errno == EWOULDBLOCK)
       return ("");
     else
@@ -272,9 +281,20 @@ int Server::parseMessage(std::string message, s_message &msg)
     {
         std::stringstream ss(tmp);
         std::string arg;
+        std::string sub;
 
         while (ss >> arg)
+        {
+          if (arg[0] == ':')
+          {
+            arg += " ";
+            while (ss >> sub)
+              arg += sub + " ";
+            msg.params.push_back(arg);
+            break;
+          }
           msg.params.push_back(arg);
+        }
     }
     return (1);
 }

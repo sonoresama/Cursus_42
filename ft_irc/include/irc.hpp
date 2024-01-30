@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:47:46 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/29 19:07:35 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/30 15:07:45 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <sys/epoll.h>
 # include <netdb.h>
 # include <cstring>
+# include <cerrno>
 # include <arpa/inet.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -49,5 +50,8 @@ void  ping(Server *serv, struct s_message msg, Client& client);
 void  join(Server *serv, struct s_message msg, Client& client);
 void  privmsg(Server *serv, struct s_message msg, Client& client);
 void  user(Server *serv, struct s_message msg, Client& client);
+void  kick(Server *serv, struct s_message msg, Client& client);
+void  part(Server *serv, struct s_message msg, Client& client);
+void  quit(Server *serv, struct s_message msg, Client& client);
 
 #endif

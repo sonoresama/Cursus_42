@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 13:50:11 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/29 17:32:54 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/30 12:09:10 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void  join(Server *serv, struct s_message msg, Client& client)
   std::stringstream ss(msg.params[0]);
 
   if (msg.params.empty())
+  {
     client.reply(ERR_NEEDMOREPARAMS(msg.command));
+    return ;
+  }
   while (std::getline(ss, tmp, ','))
     channels.push_back(tmp);
   for (std::vector<std::string>::iterator it = channels.begin(); it != channels.end(); ++it)
