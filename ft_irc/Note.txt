@@ -3,3 +3,16 @@ Name Characteristics
 -> User name : 9
 -> Nick name : 9
 -> Channels : 50; must start with '&', '#', '+', '!'; must NOT contain ' ', ASCII 7 or ','
+
+A CHECK:
+
+-> Pour PRIVMSG (de client a client), lorsque je cree une query avec un client et envoie un message avec ce client, il ne se passe rien sur le client du destinataire.
+-> Pour PART, il y a bien un message qui annonce qu'un user est parti, mais sur le client du client en question, la fenetre de la channel ne se ferme pas
+	---> Check si ca a avoir avec le prefix du message (qui pour l'instant est juste le nickname du sender)
+
+
+A FAIRE
+-> OPER
+-> INVITE
+-> MODE (channel)
+-> BONUS ?

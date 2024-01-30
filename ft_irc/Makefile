@@ -6,7 +6,7 @@
 #    By: eorer <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/23 11:51:01 by eorer             #+#    #+#              #
-#    Updated: 2024/01/30 15:10:10 by eorer            ###   ########.fr        #
+#    Updated: 2024/01/30 16:38:38 by eorer            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS = -Wall -Wextra -Werror -g3 -std=c++98
 
 SRC = $(addprefix src/, main.cpp Server.cpp Client.cpp Channel.cpp)
 
-SRC += $(addprefix src/commands/, Cap.cpp Ping.cpp Join.cpp PrivMsg.cpp Kick.cpp Part.cpp Quit.cpp) #User.cpp
+SRC += $(addprefix src/commands/, Cap.cpp Ping.cpp Join.cpp PrivMsg.cpp Kick.cpp Part.cpp Quit.cpp Topic.cpp) #User.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

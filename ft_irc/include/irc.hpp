@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:47:46 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/30 15:07:45 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/30 16:37:05 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ void  user(Server *serv, struct s_message msg, Client& client);
 void  kick(Server *serv, struct s_message msg, Client& client);
 void  part(Server *serv, struct s_message msg, Client& client);
 void  quit(Server *serv, struct s_message msg, Client& client);
+void  topic(Server *serv, struct s_message msg, Client& client);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 14:36:52 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/30 15:00:09 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/30 16:43:59 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void  part(Server *serv, struct s_message msg, Client& client)
   }
   channel = serv->_getChannel(msg.params[0]);
   if (!channel)
-    client.reply(ERR_NOSUCHCHANNEL(client._getNickname(), channel->_getName()));
+    client.reply(ERR_NOSUCHCHANNEL(client._getNickname(), msg.params[0]));
   else
   {
     if (client._getChannel()->_getName() != channel->_getName())

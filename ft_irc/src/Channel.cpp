@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:59:39 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/30 12:39:25 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/30 16:35:39 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*************** Constructors and destructor ****************/
 Channel::Channel(){}
 
-Channel::Channel(std::string name) : _name(name), _topic("default"){}
+Channel::Channel(std::string name) : _name(name){}
 
 Channel::~Channel(){}
 
@@ -38,6 +38,11 @@ std::string Channel::_getNicknames()
   for (C_ITERATOR it = _members.begin(); it != _members.end(); ++it)
     nicknames.append(it->_getNickname() + " ");
   return (nicknames);
+}
+
+void  Channel::_setTopic(std::string topic)
+{
+  _topic = topic;
 }
 
 /*************** Public Functions ****************/

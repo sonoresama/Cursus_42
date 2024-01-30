@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:47:59 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/30 14:42:05 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/30 16:46:57 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void  privmsg(Server *serv, struct s_message msg, Client& client)
   {
     channel = serv->_getChannel(target);
     if (!channel)
-      client.reply(ERR_NOSUCHNICK(target));
+      client.reply(ERR_NOSUCHCHANNEL(client._getNickname(), target));
     else if (!client._getChannel() || client._getChannel()->_getName() != channel->_getName())
       client.reply(ERR_CANNOTSENDTOCHAN(channel->_getName()));
     else

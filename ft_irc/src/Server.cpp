@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:33:25 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/30 15:16:43 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/30 16:36:54 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void  Server::_initializeCommands()
   _commands["KICK"] = &kick;
   _commands["PART"] = &part;
   _commands["QUIT"] = &quit;
+  _commands["TOPIC"] = &topic;
 }
 
 Server::~Server()

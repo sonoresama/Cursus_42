@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 13:50:11 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/30 12:09:10 by eorer            ###   ########.fr       */
+/*   Updated: 2024/01/30 16:18:53 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,11 @@ void  join(Server *serv, struct s_message msg, Client& client)
     else
       channel->addClient(client);
     client.set_channel(channel);
-    client.reply(RPL_TOPIC(channel->_getName(), channel->_getTopic()));
-    client.reply(RPL_NAMREPLY(client._getUsername(), channel->_getName(), channel->_getNicknames()));
-    client.reply(RPL_ENDOFNAMES(client._getUsername(), channel->_getName()));
+    if (channel->_getTopic().empty())
+      client.reply(RPL_NOTOPIC(client._getNickname(), channel->_getName()));
+    else
+      client.reply(RPL_TOPIC(client._getNickname(), channel->_getName(), channel->_getTopic()));
+    client.reply(RPL_NAMREPLY(client._getNickname(), channel->_getName(), channel->_getNicknames()));
+    client.reply(RPL_ENDOFNAMES(client._getNickname(), channel->_getName()));
   }
 }

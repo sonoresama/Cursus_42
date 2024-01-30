@@ -13,9 +13,10 @@
 # define ERR_NOORIGIN "409 :No origin specified"
 
 # define RPL_WELCOME(nick, user, host) "001 " + user + " :Welcome on irc Server <3 " + nick + "!" + user + "@" + host
-# define RPL_TOPIC(channel, topic) "332 " + channel + " :" + topic
-# define RPL_NAMREPLY(user, channel, users) "353 " + user + " = " + channel + " :" + users
-# define RPL_ENDOFNAMES(user, channel) "366 " + user + " " + channel + " :End of /NAMES list"
+# define RPL_TOPIC(nick, channel, topic) "332 " + nick + " " + channel + " :" + topic
+# define RPL_NOTOPIC(nick, channel) "331 " + nick + " " + channel + " :No topic set"
+# define RPL_NAMREPLY(nick, channel, nicks) "353 " + nick + " = " + channel + " :" + nicks
+# define RPL_ENDOFNAMES(nick, channel) "366 " + nick + " " + channel + " :End of /NAMES list"
 
 # define RPL_PONG(prefix, dest) ":" + prefix + " PONG " + dest
 # define RPL_JOIN(prefix, channel) ":" + prefix + " JOIN " + channel
@@ -23,5 +24,6 @@
 # define RPL_KICK(prefix, channel, user, reason) ":" + prefix + " KICK " + channel + " " + user + " :" + reason
 # define RPL_PART(prefix, channel, reason) ":" + prefix + " PART " + channel + " :" + reason
 # define RPL_ERROR(prefix, reason) ":" + prefix + " ERROR :" + reason
+# define CMD_TOPIC(prefix, channel, topic) ":" + prefix + " TOPIC " + channel + " :" + topic
 
 #endif
