@@ -6,16 +6,25 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:59:39 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/30 16:35:39 by eorer            ###   ########.fr       */
+/*   Updated: 2024/02/02 17:20:50 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../include/Server.hpp"
 #include "../include/Channel.hpp"
+#include "../include/irc.hpp"
+#include <limits.h>
 
 /*************** Constructors and destructor ****************/
 Channel::Channel(){}
 
-Channel::Channel(std::string name) : _name(name){}
+Channel::Channel(std::string name) : _name(name), _key(""), _limit(0)
+{
+  _modes['i'] = false;
+  _modes['t'] = false;
+  _modes['k'] = false;
+  _modes['l'] = false;
+}
 
 Channel::~Channel(){}
 
@@ -35,9 +44,44 @@ std::string Channel::_getNicknames()
 {
   std::string nicknames;
 
-  for (C_ITERATOR it = _members.begin(); it != _members.end(); ++it)
-    nicknames.append(it->_getNickname() + " ");
+  for (std::vector<Client *>::iterator it = _members.begin(); it != _members.end(); ++it)
+  {
+    if (is_operator(*it))
+      nicknames.append("@");
+    nicknames.append((*it)->_getNickname() + " ");
+  }
   return (nicknames);
+}
+
+std::string Channel::_getKey()
+{
+  return (_key);
+}
+
+int Channel::_getLimit()
+{
+  return (_limit);
+}
+
+int Channel::_getMode(char mode)
+{
+  bool  value;
+  std::string mode_set = "itkl";
+
+  if (mode_set.find(mode) == std::string::npos)
+    return (-1);
+  value = _modes[mode];
+  return (value ? 1 : 0);
+}
+
+int  Channel::_setMode(char mode, bool value)
+{
+  std::string mode_set = "itkl";
+
+  if (mode_set.find(mode) == std::string::npos)
+    return (-1);
+  _modes[mode] = value;
+  return (0);
 }
 
 void  Channel::_setTopic(std::string topic)
@@ -45,47 +89,89 @@ void  Channel::_setTopic(std::string topic)
   _topic = topic;
 }
 
+void  Channel::_setKey(std::string pwd)
+{
+  _key = pwd;
+}
+
+void  Channel::_setLimit(double limit)
+{
+  if (limit < 0 || limit > INT_MAX)
+    return ;
+  _limit = limit;
+}
+
+
 /*************** Public Functions ****************/
 void  Channel::broadcast(std::string message)
 {
   message += "\r\n";
-  for (C_ITERATOR it = _members.begin(); it != _members.end(); ++it)
+  for (std::vector<Client *>::iterator it = _members.begin(); it != _members.end(); ++it)
   {
-    if (send(it->_getSocket(), message.c_str(), strlen(message.c_str()), 0) == -1)
-      throw ("Error: pb with send()");
+    if (send((*it)->_getSocket(), message.c_str(), strlen(message.c_str()), 0) == -1)
+      throw ("Error: pb with broadcast all");
     CMAGENTA("broadcast -> " + message);
   }
 }
 
-void  Channel::broadcast(std::string message, Client& client)
+void  Channel::broadcast(std::string message, Client* client)
 {
   message += "\r\n";
-  for (C_ITERATOR it = _members.begin(); it != _members.end(); ++it)
+  for (std::vector<Client *>::iterator it = _members.begin(); it != _members.end(); ++it)
   {
-    if (it->_getSocket() == client._getSocket())
+    if ((*it)->_getSocket() == client->_getSocket())
       continue;
-    if (send(it->_getSocket(), message.c_str(), strlen(message.c_str()), 0) == -1)
-      throw ("Error: pb with send()");
+    if (send((*it)->_getSocket(), message.c_str(), strlen(message.c_str()), 0) == -1)
+      throw ("Error: pb with broadcasti from a client");
     CMAGENTA("msgchannel -> " + message);
   }
 }
 
-void  Channel::addClient(Client& newClient)
+void  Channel::addClient(Client* newClient)
 {
   _members.push_back(newClient);
-  broadcast(RPL_JOIN(newClient._getNickname(), _name));
 }
 
-bool  Channel::deleteClient(Client& client)
+void  Channel::addOperator(Client* client)
 {
-  for (std::vector<Client>::iterator it = _members.begin(); it != _members.end(); ++it)
+  _operators.push_back(client);
+}
+
+bool  Channel::deleteClient(Client* client)
+{
+  for (std::vector<Client *>::iterator it = _members.begin(); it != _members.end(); ++it)
   {
-    if (client._getSocket() == it->_getSocket())
+    if (client->_getSocket() == (*it)->_getSocket())
     {
       _members.erase(it);
-      client.set_channel(NULL);
+      client->set_channel(NULL);
       return (true);
     }
+  }
+  return (false);
+}
+
+bool  Channel::deleteOperator(Client* client)
+{
+  for (std::vector<Client *>::iterator it = _operators.begin(); it != _operators.end(); ++it)
+  {
+    if (client->_getSocket() == (*it)->_getSocket())
+    {
+      _operators.erase(it);
+      return (true);
+    }
+  }
+  return (false);
+}
+
+bool  Channel::is_operator(Client* client)
+{
+  std::vector<Client *>::iterator  it;
+
+  for (it = _operators.begin(); it != _operators.end(); ++it)
+  {
+    if ((*it)->_getNickname() == client->_getNickname())
+      return (true);
   }
   return (false);
 }

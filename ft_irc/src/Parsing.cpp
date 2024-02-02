@@ -1,7 +1,8 @@
 #include "../include/Commands.hpp"
+#include "../include/Server.hpp"
 #include "../include/irc.hpp"
 
-int Server::parseMessage(std::string message, s_message &msg)
+int Server::parseMessage(std::string message, t_msg &msg)
 {
     std::string tmp = message;
 
@@ -13,7 +14,7 @@ int Server::parseMessage(std::string message, s_message &msg)
         {
             msg.prefix = message.substr(0, message.find(' '));
 			tmp.erase(0, tmp.find_first_of(' ') + 1);
-            COUT("prefix : " << msg.prefix);    
+            // COUT("prefix : " << msg.prefix);    
         }
 	}
 	if (tmp.find(" ") != std::string::npos) //command
@@ -21,23 +22,48 @@ int Server::parseMessage(std::string message, s_message &msg)
 		for (size_t i = 0; i < tmp.find(" "); ++i) {
             msg.command += std::toupper(tmp[i]);}
         tmp.erase(0, tmp.find(" ") + 1);
-        COUT("command : " << msg.command);
+        // COUT("command : " << msg.command);
     }
     else
     {
-        msg.command = tmp;
+        for (size_t i = 0; i < tmp.size() - 2; ++i) {
+            msg.command += std::toupper(tmp[i]);}
         tmp.clear();
-        COUT("command : " << msg.command);
     }
     if (tmp.size() > 0) //params
     {
-        msg.params = tmp;
-        COUT("params : " << msg.params);
+	    tmp.erase(tmp.find("\n"), tmp.size());
+        std::stringstream ss(tmp);
+        std::string arg;
+        std::string sub;
+
+        while (ss >> arg)
+        {
+        //   arg.erase(std::remove_if(arg.begin(), arg.end(), isNotPrintable), arg.end());
+          if (arg[0] == ':')
+          {
+            arg += " ";
+            while (ss >> sub)
+              arg += sub + " ";
+            msg.params.push_back(arg);
+            break;
+          }
+          else
+            msg.params.push_back(arg);
+        }
+        // size_t i = 0;
+        // while (i < msg.params.size())
+        // {
+        //     COUT("param " << i << " : " << msg.params[i])
+        //     i++;
+        // }
     }
+    else
+        msg.params.push_back("");
     return (1);
 }
 
-void Server::executeCommand(Client &client, s_message msg)
+void Server::executeCommand(Client &client, t_msg msg)
 {
     std::string	valid_cmds[9] = {
         "PASS",
@@ -49,35 +75,49 @@ void Server::executeCommand(Client &client, s_message msg)
         "INVITE",
         "TOPIC",
         "MODE"};
-    int i = 1;
+    int i = 0;
     if (!client.is_fully_registered())
     {
         if (msg.command == "PASS")
-            pass(client, msg);
+        {
+            // COUT("la commande cest bien pass")
+            pass(this, client, msg);
+        }
         if (msg.command == "USER")
+        {
+            // COUT("la commande cest bien user")
             user(client, msg);
+        }
         if (msg.command == "NICK")
-            nick(client, msg);
+        {
+            // COUT("la commande cest bien nick")
+            nick(this, client, msg);
+        }
+        if (client.is_fully_registered())
+            COUT(RPL_WELCOME(client.get_nickname(), client.get_username(), this->_getHostname()))
     }
-    while (i <= 9)
+    else
     {
-        if (msg.command == valid_cmds[i])
-            break;
-        i++;
-    }
-    switch(i)
-    {
-        case 1: pass(client, msg); break;
-        case 2: user(client, msg); break;
-        case 3: nick(client, msg); break;
-        case 4: join(client, msg); break;
-        case 5: privmsg(client, msg); break;
-        case 6: kick(client, msg); break;
-        case 7: invite(client, msg); break;
-        case 8: topic(client, msg); break;
-        case 9: mode(client, msg); break;
-        default:
-            ERR_UNKNOWNCOMMAND(client, msg.command)); //plus complique que ca je pense
+        while (i <= 9)
+        {
+            if (msg.command == valid_cmds[i])
+                break;
+            i++;
+        }
+        switch(i + 1)
+        {
+            case 1: pass(this, client, msg); break;
+            case 2: user(client, msg); break;
+            case 3: nick(this, client, msg); break;
+            // case 4: join(client, msg); break;
+            // case 5: privmsg(client, msg); break;
+            // case 6: kick(client, msg); break;
+            // case 7: invite(client, msg); break;
+            // case 8: topic(client, msg); break;
+            // case 9: mode(client, msg); break;
+            default:
+                COUT(ERR_UNKNOWNCOMMAND(client.get_nickname(), msg.command))
+        }
     }
 }
 

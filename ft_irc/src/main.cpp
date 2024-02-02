@@ -6,10 +6,11 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:21:20 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/30 14:28:27 by eorer            ###   ########.fr       */
+/*   Updated: 2024/02/02 13:49:10 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../include/Server.hpp"
 #include "../include/irc.hpp"
 
 void check_parameter(int argc, char **argv)
@@ -31,7 +32,7 @@ int main(int argc, char** argv)
   try
   {
     check_parameter(argc, argv);
-    Server  serv(6667, "");
+    Server  serv(std::atoi(argv[1]), std::string(argv[2]));
     pid_t pid = getpid();
 
     std::cout << " --> Process pid : " << pid << std::endl;
@@ -43,6 +44,10 @@ int main(int argc, char** argv)
     if (errno)
       perror(NULL);
     return (1);
+  }
+  catch (std::exception &e)
+  {
+    CERR(e.what());
   }
   return (0);
 }

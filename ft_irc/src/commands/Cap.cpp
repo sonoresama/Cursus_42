@@ -12,7 +12,7 @@
 
 #include "../../include/irc.hpp"
 
-void  cap(Server *serv, struct s_message msg, Client& client)
+void  cap(Server *serv, struct s_message msg, Client& client->
 {
   std::string user = "eorer";
   std::string nick = "tito";
@@ -25,22 +25,22 @@ void  cap(Server *serv, struct s_message msg, Client& client)
   if (msg.command != "CAP")
     return;
 //  if (msg.params.empty())
-//    client.reply(ERR_NEEDMOREPARAMS(msg.command));
-//  client.send(RPL_WELCOME(client._getNickname(), client._getUsername(), client._getHostname()));
-  if (client._getSocket() == 5)
+//    client->reply(ERR_NEEDMOREPARAMS(msg.command));
+//  client->send(RPL_WELCOME(client->_getNickname(), client->_getUsername(), client->_getHostname()));
+  if (client->_getSocket() == 5)
   {
-    client.set_username(user);
-    client.set_nickname(nick);
+    client->set_username(user);
+    client->set_nickname(nick);
   }
-  else if (client._getSocket() == 6)
+  else if (client->_getSocket() == 6)
   {
-    client.set_username(User);
-    client.set_nickname(Nick);
+    client->set_username(User);
+    client->set_nickname(Nick);
   }
   else
   {
-    client.set_username(User2);
-    client.set_nickname(Nick2);
+    client->set_username(User2);
+    client->set_nickname(Nick2);
   }
-  client.reply(RPL_WELCOME(client._getNickname(), client._getUsername(), client._getHostname()));
+  client->reply(RPL_WELCOME(client->_getNickname(), client->_getUsername(), client->_getHostname()));
 }

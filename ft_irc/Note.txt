@@ -12,7 +12,10 @@ A CHECK:
 
 
 A FAIRE
--> OPER
+-> Handle commandes separees
 -> INVITE
+-> NOTICE
 -> MODE (channel)
+-> Signaux
+
 -> BONUS ?

@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:47:46 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/30 16:37:05 by eorer            ###   ########.fr       */
+/*   Updated: 2024/02/02 12:54:38 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <map>
 # include <iostream>
 # include <sstream>
+# include <cstdlib>
 # include "Server.hpp"
 # include "Client.hpp"
 # include "Commands.hpp"
@@ -43,16 +44,29 @@
 # define CBLUE(x) std::cout << BLUE << x << DEFAULT << std::endl;
 # define CERR(x) std::cerr << x << std::endl;
 
-typedef void (*commandFunction)(Server*, s_message, Client&);
+class Server;
 
-void  cap(Server *serv, struct s_message msg, Client& client);
-void  ping(Server *serv, struct s_message msg, Client& client);
-void  join(Server *serv, struct s_message msg, Client& client);
-void  privmsg(Server *serv, struct s_message msg, Client& client);
-void  user(Server *serv, struct s_message msg, Client& client);
-void  kick(Server *serv, struct s_message msg, Client& client);
-void  part(Server *serv, struct s_message msg, Client& client);
-void  quit(Server *serv, struct s_message msg, Client& client);
-void  topic(Server *serv, struct s_message msg, Client& client);
+typedef struct s_msg
+{
+	std::string	prefix;
+	std::string	command;
+    std::vector<std::string> params;
+} t_msg;
+
+typedef void (*commandFunction)(Server*, t_msg, Client*);
+
+//void  cap(Server *serv, struct s_message msg, Client& client);
+void  ping(Server *serv, t_msg msg, Client* client);
+void  join(Server *serv, t_msg msg, Client* client);
+void  privmsg(Server *serv, t_msg msg, Client* client);
+void  user(Server *serv, t_msg msg, Client* client);
+void  kick(Server *serv, t_msg msg, Client* client);
+void  part(Server *serv, t_msg msg, Client* client);
+void  quit(Server *serv, t_msg msg, Client* client);
+void  topic(Server *serv, t_msg msg, Client* client);
+void  user(Server* serv, t_msg msg, Client *client);
+void  nick(Server* serv, t_msg msg, Client *client);
+void  pass(Server *serv, t_msg msg, Client *client);
+void  mode(Server *serv, t_msg msg, Client *client);
 
 #endif

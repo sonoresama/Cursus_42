@@ -6,19 +6,21 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:20:51 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/30 13:02:36 by eorer            ###   ########.fr       */
+/*   Updated: 2024/02/02 17:12:07 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../include/Server.hpp"
 #include "../include/Client.hpp"
+#include "../include/irc.hpp"
 
 /*************** Constructors and destructor ****************/
-Client::Client()
+Client::Client() : _socket(-1), _hostname(""), _nickname("*"), _username("*"),  _realname("*"), _mode("*"), _fully_registered(false), _entered_valid_password(false), _welcome(false)
 {
  // CGREEN("A client has been created");
 }
 
-Client::Client(int socket, std::string hostname) : _socket(socket), _hostname(hostname), _fully_registered(false), _operator(true)
+Client::Client(int socket, std::string hostname) : _socket(socket), _hostname(hostname), _nickname("*"), _username("*"),  _realname("*"), _mode("*"), _fully_registered(false), _entered_valid_password(false), _welcome(false)
 {
 //  CGREEN("A client has been created");
 }
@@ -34,25 +36,13 @@ Client::Client(const Client& cpy)
   _hostname = cpy._hostname;
   _username = cpy._username;
   _socket = cpy._socket;
-  _operator = cpy._operator;
+  _mode = cpy._mode;
+  _welcome = cpy._welcome;
+  _entered_valid_password = cpy._entered_valid_password;
 }
 
-/*************** Accessors ****************/
-std::string Client::_getHostname()
-{
-  return (_hostname);
-}
-
-std::string Client::_getNickname()
-{
-  return (_nickname);
-}
-
-std::string Client::_getUsername()
-{
-  return (_username);
-}
-
+/*************** Accessors ***************/
+	//Getters
 Channel*	Client::_getChannel()
 {
 	return (_channel);
@@ -63,72 +53,77 @@ int Client::_getSocket()
   return (_socket);
 }
 
-void Client::set_username( std::string username )
+std::string Client::_getHostname() const
 {
-	if (is_valid_username(username))
-	{
-		_username = username;
-	}
-	else
-		throw InvalidUsernameException();
+  return (_hostname);
+}
+
+std::string Client::_getNickname()
+{
+  return (_nickname);
+}
+
+std::string Client::_getUsername() const
+{
+  return (_username);
+}
+
+std::string Client::_getPrefix()
+{
+  std::string prefix;
+
+  prefix = _nickname + "!" + _username + "@" + _hostname;
+  return (prefix);
+}
+
+	//Setters
+void Client::set_username(std::string username)
+{
+	_username = username;
 }
 
 void Client::set_nickname(std::string nickname)
 {
-	if (is_valid_nickname(nickname))
-	{
-		_nickname = nickname;
-	}
-	else
-		throw InvalidNicknameException();
+	_nickname = nickname;
 }
 
-void	Client::set_channel(Channel *channel)
+void Client::set_hostname(std::string hostname)
+{
+    _hostname = hostname;
+}
+
+void Client::set_realname(std::string realname)
+{
+    _realname = realname;
+}
+
+void Client::set_mode(std::string mode)
+{
+  _mode = mode;
+}
+
+void Client::set_channel(Channel* channel)
 {
 	_channel = channel;
 }
 
-/************** Public Funcitons ****************/
-int Client::is_valid_username( std::string username )
+void Client::set_fully_registered(bool fully_registered)
 {
-	const std::string rejected_chars = "@._";
-
-	if (std::isdigit(username[0]))
-		return (0);
-	for (size_t i = 0; i < username.size(); i++)
-	{
-		if (!std::isalnum(username[i]) && rejected_chars.find(username[0]) != std::string::npos)
-			return (0);
-	}
-	return (1);
+    _fully_registered = fully_registered;
 }
 
-int Client::is_valid_nickname(std::string nickname)
+void Client::set_entered_valid_password(bool entered_valid_password)
 {
-    const std::string special_chars = "_\\^|[]{}`";
-
-    if (!(nickname.size() >= 1 && nickname.size() <= 9))
-        throw NicknameTooLongException();
-    if (!std::isalpha(nickname[0]) && special_chars.find(nickname[0]) == std::string::npos)
-        return (0);
-    for (size_t i = 1; i < nickname.size(); i++)
-    {
-        if (!std::isalnum(nickname[i]) && special_chars.find(nickname[i]) == std::string::npos && nickname[i] != '-')
-            return (0);
-    }
-    return (1);
+    _entered_valid_password = entered_valid_password;
 }
 
-bool Client::is_fully_registered(void)
+/*************** Public Functions ***************/
+bool Client::is_fully_registered()
 {
-	if (_nickname.empty() || _username.empty())
-		_fully_registered = true;
-	return (_fully_registered);
-}
-
-bool	Client::is_operator(void)
-{
-	return (_operator);
+    if (_entered_valid_password && _username != "*" && _nickname != "*")
+        return (true);
+    else
+	    return (false);
 }
 
 void  Client::closeSocket()
@@ -143,4 +138,13 @@ void  Client::reply(std::string reply)
 	if (send(_socket, reply.c_str(), strlen(reply.c_str()), 0) == -1)
 		throw ("Error: sending response for conenction did not work");
 	CMAGENTA("sent -> " + reply);
+}
+
+void	Client::welcome()
+{
+	if (!_welcome)
+	{
+        reply(RPL_WELCOME(std::string("localhost"), _nickname, _username, _hostname));
+		_welcome = true;
+	}
 }

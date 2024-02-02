@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: qrolland <qrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:33:25 by eorer             #+#    #+#             */
-/*   Updated: 2024/01/30 16:36:54 by eorer            ###   ########.fr       */
+/*   Updated: 2024/02/02 17:10:42 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,15 @@ Server::Server(int port, std::string pwd) : _port(port), _pwd(pwd)
   _hostname = std::string(hostname);
 
   _initializeCommands();
-  test = 0;
   COUT("Server created");;
 }
 
 void  Server::_initializeCommands()
 {
-  _commands["CAP"] = &cap;
-//  _commands["USER"] = &user;
+//  _commands["CAP"] = &cap;
+  _commands["USER"] = &user;
+  _commands["NICK"] = &nick;
+  _commands["PASS"] = &pass;
   _commands["PING"] = &ping;
   _commands["JOIN"] = &join;
   _commands["PRIVMSG"] = &privmsg;
@@ -61,6 +62,7 @@ void  Server::_initializeCommands()
   _commands["PART"] = &part;
   _commands["QUIT"] = &quit;
   _commands["TOPIC"] = &topic;
+  _commands["MODE"] = &mode;
 }
 
 Server::~Server()
@@ -68,7 +70,8 @@ Server::~Server()
   close(_socket);
   for (C_ITERATOR it = _clients.begin(); it != _clients.end(); ++it)
   {
-    it->closeSocket();
+    (*it)->closeSocket();
+    delete *it;
   }
   for (CH_ITERATOR it = _channels.begin(); it != _channels.end(); ++it)
   {
@@ -94,6 +97,15 @@ Channel*  Server::_getChannel(std::string name)
   return (NULL);
 }
 
+std::vector<Client *>  Server::_getClients()
+{
+  return (_clients);
+}
+
+std::string Server::_getPwd()
+{
+  return (_pwd);
+}
 
 /*************** Public Functions ****************/
 void  Server::run(void)
@@ -120,7 +132,6 @@ void  Server::run(void)
     waitfds = epoll_wait(_epfd, e_recv, maxEvent, -1);
     if (waitfds == -1)
       throw("Error: waiting events on epoll interest list");
-    usleep(500); //Optional
 
     for (int i = 0; i < waitfds; i++)
     {
@@ -130,10 +141,10 @@ void  Server::run(void)
         handleNewConnection();
       else
       {
-        C_ITERATOR it_client = findClient(e_recv[i].data.fd);
-        if (it_client == _clients.end())
+        Client* client = findClient(e_recv[i].data.fd);
+        if (client == NULL)
           throw ("Error: couldn't find client in database");
-        handleCommunication(*it_client);
+        handleCommunication(client);
       }
     }
   }
@@ -145,8 +156,9 @@ void  Server::handleNewConnection()
   std::string   answer;
   char          hostname[100];
   struct        epoll_event event;
-  socklen_t     addrLen = sizeof(struct sockaddr_in);
   struct        sockaddr_in address;
+  socklen_t     addrLen = sizeof(struct sockaddr_in);
+  Client*       newClient;
   
   fd = accept(_socket, reinterpret_cast<struct sockaddr*>(&address), &addrLen);
   if (fd == -1)
@@ -157,27 +169,31 @@ void  Server::handleNewConnection()
   event.data.fd = fd;
   if (epoll_ctl(_epfd, EPOLL_CTL_ADD, fd, &event) == -1)
     throw ("Error: failed to add client socket to epoll interest list");
-  _clients.push_back(Client(fd, std::string(hostname)));
+  newClient = new Client(fd, std::string(hostname));
+  _clients.push_back(newClient);
 
-  std::cout << "Connection established with client " << _clients.back()._getHostname() << ". Socket is : " << _clients.back()._getSocket() << std::endl;
+  std::cout << "Connection established with client " << _clients.back()->_getHostname() << ". Socket is : " << _clients.back()->_getSocket() << std::endl;
 }
 
-void  Server::handleCommunication(Client& client)
+void  Server::handleCommunication(Client* client)
 {
   std::string message;
-  struct s_message msg;
+  std::string line;
+  t_msg msg;
 
   try
   {
     message = readRequest(client);
     if (message.empty())
       return ;
-   parseMessage(message, msg);
-   executeCommand(client, msg);
 
-   // if (strncmp(message.c_str(), "CAP", 3))
-   //   handleDeconnection(client._getSocket());
-   // sendWelcome(client, message);
+    std::stringstream ss(message);
+    while (std::getline(ss, line))
+    {
+      memset(&msg, 0, sizeof(t_msg));
+      parseMessage(line, msg);
+      executeCommand(client, msg);
+    }
   }
   catch (char const * str)
   {
@@ -187,73 +203,60 @@ void  Server::handleCommunication(Client& client)
 
 void  Server::handleDeconnection(int socket)
 {
-  C_ITERATOR  it_client;
+  Client*  client;
 
-  it_client = findClient(socket);
-  if (it_client == _clients.end())
+  client = findClient(socket);
+  if (client == NULL)
     throw ("Could not find client in database");
-  if (epoll_ctl(_epfd, EPOLL_CTL_DEL, it_client->_getSocket(), NULL) == -1)
+  if (epoll_ctl(_epfd, EPOLL_CTL_DEL, client->_getSocket(), NULL) == -1)
     throw ("Error: failed to del client socket to epoll interest list");
-  it_client->closeSocket();
-  _clients.erase(it_client);
+  client->closeSocket();
   for (CH_ITERATOR it = _channels.begin(); it != _channels.end(); it++)
   {
-    it->second->deleteClient(*it_client);
+    it->second->deleteClient(client);
+  }
+  for (C_ITERATOR it = _clients.begin(); it != _clients.end(); ++it)
+  {
+    if (*it == client)
+    {
+      _clients.erase(it);
+      delete client;
+      break;
+    }
   }
   std::cout << "Connection with a client has been lost" << std::endl;
+  if (_clients.size() == 0)
+    CRED("No client left");
 }
 
-std::string Server::readRequest(Client& client)
+std::string Server::readRequest(Client* client)
 {
   int         bytesRead;
   char        buffer[512];
   std::string message;
 
   memset(&buffer, 0, sizeof(buffer));
-  bytesRead = recv(client._getSocket(), buffer, sizeof(buffer), MSG_DONTWAIT);
-  if (bytesRead == 0)
-    handleDeconnection(client._getSocket());
-  else if (bytesRead == -1)
+  while (!std::strchr(buffer, '\n'))
   {
-    /************************ A RETIRER !!!!!! **********************/
-    if (errno == EAGAIN || errno == EWOULDBLOCK)
+    memset(&buffer, 0, sizeof(buffer));
+    bytesRead = recv(client->_getSocket(), buffer, sizeof(buffer), 0);//MSG_DONTWAIT
+    if (bytesRead == 0)
+    {
+      handleDeconnection(client->_getSocket());
       return ("");
+    }
+    else if (bytesRead == -1)
+        throw ("Error: could not read what the client sent");
     else
-      throw ("Error: could not read what the client sent");
-  }
-  else
-  {
-    COUT("Read -> " + std::string(buffer));
-    message.append(buffer);
+    {
+      std::cout << client->_getSocket() << " Read -> " + std::string(buffer) << std::endl;
+      message.append(buffer);
+    }
   }
   return (message);
 }
 
-C_ITERATOR  Server::findClient(int socket)
-{
-  C_ITERATOR client;
-
-  for (client = _clients.begin(); client != _clients.end(); ++client)
-  {
-    if (client->_getSocket() == socket)
-      return (client);
-  }
-  return (client);
-}
-
-Client*  Server::findClient(std::string nickname)
-{
-  C_ITERATOR client;
-
-  for (client = _clients.begin(); client != _clients.end(); ++client)
-  {
-    if (client->_getNickname() == nickname)
-      return (&(*client));
-  }
-  return (NULL);
-}
-
-int Server::parseMessage(std::string message, s_message &msg)
+int Server::parseMessage(std::string message, t_msg &msg)
 {
     std::string tmp = message;
 
@@ -300,15 +303,65 @@ int Server::parseMessage(std::string message, s_message &msg)
     return (1);
 }
 
-void Server::executeCommand(Client &client, s_message msg)
+void Server::executeCommand(Client *client, t_msg msg)
 {
   commandFunction f;
 
   f = _commands[msg.command];
   if (f == 0)
-    client.reply(ERR_UNKNOWNCOMMAND(msg.command));
+    client->reply(ERR_UNKNOWNCOMMAND(client->_getNickname(), msg.command));
+  else if (!client->is_fully_registered())
+  {
+    if (!(msg.command == "PASS" || msg.command == "USER" || msg.command == "NICK" || msg.command == "QUIT"))
+      client->reply(ERR_NOTREGISTERED(client->_getNickname()));
+    if (msg.command == "PASS")
+      pass(this, msg, client);
+    if (msg.command == "USER")
+      user(this, msg, client);
+    if (msg.command == "NICK")
+      nick(this, msg, client);
+    if (client->is_fully_registered())
+      client->reply(RPL_WELCOME(_hostname, client->_getNickname(), client->_getUsername(), this->_getHostname()));
+    if (msg.command == "QUIT")
+      quit(this, msg, client);
+  }
   else
     f(this, msg, client);
+}
+
+Client*  Server::findClient(int socket)
+{
+  C_ITERATOR client;
+
+  for (client = _clients.begin(); client != _clients.end(); ++client)
+  {
+    if ((*client)->_getSocket() == socket)
+      return (*client);
+  }
+  return (NULL);
+}
+
+Client*  Server::findClient(std::string nickname)
+{
+  C_ITERATOR client;
+
+  for (client = _clients.begin(); client != _clients.end(); ++client)
+  {
+    if ((*client)->_getNickname() == nickname)
+      return (*client);
+  }
+  return (NULL);
+}
+
+bool  Server::nickname_in_use(std::string nickname)
+{
+    C_ITERATOR it;
+    for (it = _clients.begin(); it != _clients.end(); ++it)
+    {
+      if ((*it)->_getNickname() == nickname)
+        return (true);
+    }
+    return (false);
 }
 
 Channel*  Server::createChannel(std::string name)

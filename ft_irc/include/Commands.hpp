@@ -1,21 +1,22 @@
 #ifndef COMMANDS_HPP
 #define COMMANDS_HPP
 
-# include "irc.hpp"
-# include "Server.hpp"
 # include "Client.hpp"
 
-class Server;
-class Client;
-
-struct s_message
-{
-	std::string	prefix;
-	std::string	command;
-	//std::string	params;
-	std::vector<std::string>	params;
-};
-
-void user(Server *serv, struct s_message msg, Client &client);
+//class Client;
+//class Server;
+//
+//typedef struct s_msg
+//{
+//	std::string	prefix;
+//	std::string	command;
+//	// std::string	params;
+//    std::vector<std::string> params;
+//} t_msg;
+//
+//void pass(Server *server, Client &client, t_msg msg);
+//void user(Client &client, t_msg msg);
+//void nick(Server *server, Client &client, t_msg msg);
+//
 
 #endif
