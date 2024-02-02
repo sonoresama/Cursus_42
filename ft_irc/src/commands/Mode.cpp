@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 14:19:44 by eorer             #+#    #+#             */
-/*   Updated: 2024/02/02 17:09:32 by eorer            ###   ########.fr       */
+/*   Updated: 2024/02/02 21:44:50 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,6 @@ void  mode(Server *serv, t_msg msg, Client* client)
   }
   else if (msg.params.size() == 1 || (msg.params[1][0] != '+' && msg.params[1][0] != '-'))
   {
- //   if (msg.params.size() == 1)
- //     CRED("no argument");
- //   else if (msg.params[1][0] != '+')
- //     CRED("no +");
- //   else if (msg.params[1][0] != '-')
- //     CRED("no -");
     mode_string = get_mode_string(channel);
     mode_parameters = get_mode_parameters(channel);
     client->reply(RPL_CHANNELMODEIS(serv->_getHostname(), client->_getPrefix(), channel->_getName(), mode_string, mode_parameters));
@@ -130,6 +124,7 @@ void  mode(Server *serv, t_msg msg, Client* client)
       {
         channel->_setMode('t', oper ? true: false);
         channel->broadcast(RPL_MODE(client->_getPrefix(), channel->_getName(), (oper ? "+t" : "-t"), ""));
+        break;
       }
       default:
         client->reply(ERR_UNKNOWNMODE(client->_getPrefix(), *c, channel->_getName()));

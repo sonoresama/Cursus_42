@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:56:19 by eorer             #+#    #+#             */
-/*   Updated: 2024/02/02 13:03:34 by eorer            ###   ########.fr       */
+/*   Updated: 2024/02/02 21:55:27 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,13 @@ class Channel
     Channel(std::string name);
     ~Channel();
 
-    std::string _getName() const;
-    std::string _getTopic() const;
-    std::string _getNicknames();
-    int         _getMode(char mode);
-    std::string _getKey();
-    int         _getLimit();
+    std::string          _getName() const;
+    std::string          _getTopic() const;
+    std::string          _getNicknames();
+    std::string          _getKey();
+    std::vector<Client*> _getMembers();
+    int                  _getMode(char mode);
+    int                  _getLimit();
 
     void        _setTopic(std::string topic);
     void        _setLimit(double limit);
@@ -42,9 +43,13 @@ class Channel
     void  broadcast(std::string message, Client*client);
     void  addClient(Client* newClient);
     void  addOperator(Client* client);
+    void  addGuest(Client* client);
     bool  deleteClient(Client* client);
     bool  deleteOperator(Client* client);
+    bool  deleteGuest(Client* client);
     bool  is_operator(Client* client);
+    bool  is_guest(Client* client);
+
 
   private:
     std::string           _name;
@@ -53,6 +58,7 @@ class Channel
     int                   _limit;
     std::vector<Client*>  _members;
     std::vector<Client*>  _operators;
+    std::vector<Client*>  _guests;
     std::map<char, bool>  _modes;
 };
 

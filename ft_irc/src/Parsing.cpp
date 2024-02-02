@@ -5,6 +5,7 @@
 int Server::parseMessage(std::string message, t_msg &msg)
 {
     std::string tmp = message;
+    std::string command;
 
     if (message.empty())
         return (0);
@@ -20,14 +21,16 @@ int Server::parseMessage(std::string message, t_msg &msg)
 	if (tmp.find(" ") != std::string::npos) //command
 	{
 		for (size_t i = 0; i < tmp.find(" "); ++i) {
-            msg.command += std::toupper(tmp[i]);}
+            command += std::toupper(tmp[i]);}
+        msg.command = command;
         tmp.erase(0, tmp.find(" ") + 1);
         // COUT("command : " << msg.command);
     }
     else
     {
         for (size_t i = 0; i < tmp.size() - 2; ++i) {
-            msg.command += std::toupper(tmp[i]);}
+            command += std::toupper(tmp[i]);}
+        msg.command = command;
         tmp.clear();
     }
     if (tmp.size() > 0) //params
@@ -63,8 +66,9 @@ int Server::parseMessage(std::string message, t_msg &msg)
     return (1);
 }
 
-void Server::executeCommand(Client &client, t_msg msg)
+void Server::executeCommand(Client &client, std::string message)
 {
+    t_msg msg;
     std::string	valid_cmds[9] = {
         "PASS",
         "USER",
@@ -76,6 +80,9 @@ void Server::executeCommand(Client &client, t_msg msg)
         "TOPIC",
         "MODE"};
     int i = 0;
+
+    if (!parseMessage(message, msg))
+        return;
     if (!client.is_fully_registered())
     {
         if (msg.command == "PASS")

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: qrolland <qrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 12:18:21 by eorer             #+#    #+#             */
-/*   Updated: 2024/02/02 13:57:25 by eorer            ###   ########.fr       */
+/*   Updated: 2024/02/02 17:49:34 by qrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ class Server
     void  handleDeconnection(int socket);
 
     int         parseMessage(std::string message, t_msg &msg);
-    void        executeCommand(Client* client, t_msg msg);
+    // void        executeCommand(Client* client, t_msg msg);
+    void        executeCommand(Client* client, std::string message);
     std::string readRequest(Client* client);
     Client*     findClient(int socket);
     Client*     findClient(std::string nickname);

@@ -6,7 +6,7 @@
 /*   By: qrolland <qrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:33:25 by eorer             #+#    #+#             */
-/*   Updated: 2024/02/02 17:10:42 by eorer            ###   ########.fr       */
+/*   Updated: 2024/02/02 22:14:11 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ Server::Server(int port, std::string pwd) : _port(port), _pwd(pwd)
     throw ("Error: failed to set socket socket as listen");
   if (getnameinfo(reinterpret_cast<struct sockaddr*>(&_address), sizeof(_address), hostname, 100, NULL, 0, NI_NAMEREQD))
     throw ("Error: getnameinfo");
+  signal(SIGINT, signalHandler);
   _hostname = std::string(hostname);
 
   _initializeCommands();
@@ -51,7 +52,7 @@ Server::Server(int port, std::string pwd) : _port(port), _pwd(pwd)
 
 void  Server::_initializeCommands()
 {
-//  _commands["CAP"] = &cap;
+  // _commands["CAP"] = &cap;
   _commands["USER"] = &user;
   _commands["NICK"] = &nick;
   _commands["PASS"] = &pass;
@@ -63,6 +64,7 @@ void  Server::_initializeCommands()
   _commands["QUIT"] = &quit;
   _commands["TOPIC"] = &topic;
   _commands["MODE"] = &mode;
+  _commands["INVITE"] = &invite;
 }
 
 Server::~Server()
@@ -78,6 +80,7 @@ Server::~Server()
     delete it->second;
   }
   close(_epfd);
+  COUT("Server destructed")
 }
 
 
@@ -124,7 +127,7 @@ void  Server::run(void)
     throw ("Error: failed to add socketServer to epoll interest list");
   
         //Main loop
-  while (true)
+  while (!stopServer)
   {
     int waitfds;
 
@@ -132,7 +135,6 @@ void  Server::run(void)
     waitfds = epoll_wait(_epfd, e_recv, maxEvent, -1);
     if (waitfds == -1)
       throw("Error: waiting events on epoll interest list");
-
     for (int i = 0; i < waitfds; i++)
     {
       if (e_recv[i].events & EPOLLERR || e_recv[i].events & EPOLLHUP)
@@ -179,7 +181,7 @@ void  Server::handleCommunication(Client* client)
 {
   std::string message;
   std::string line;
-  t_msg msg;
+  // t_msg msg;
 
   try
   {
@@ -190,9 +192,10 @@ void  Server::handleCommunication(Client* client)
     std::stringstream ss(message);
     while (std::getline(ss, line))
     {
-      memset(&msg, 0, sizeof(t_msg));
-      parseMessage(line, msg);
-      executeCommand(client, msg);
+      // memset(&msg, 0, sizeof(t_msg));
+      // parseMessage(line, msg);
+      // executeCommand(client, msg);
+      executeCommand(client, line);
     }
   }
   catch (char const * str)
@@ -259,6 +262,7 @@ std::string Server::readRequest(Client* client)
 int Server::parseMessage(std::string message, t_msg &msg)
 {
     std::string tmp = message;
+    std::string command;
 
     if (message.empty())
         return (0);
@@ -278,9 +282,11 @@ int Server::parseMessage(std::string message, t_msg &msg)
     }
     else
     {
-        msg.command = tmp;
+        for (size_t i = 0; i < tmp.size() - 2; ++i) {
+            msg.command += std::toupper(tmp[i]);}
         tmp.clear();
     }
+    
     if (tmp.size() > 0) //params
     {
         std::stringstream ss(tmp);
@@ -303,10 +309,13 @@ int Server::parseMessage(std::string message, t_msg &msg)
     return (1);
 }
 
-void Server::executeCommand(Client *client, t_msg msg)
+void Server::executeCommand(Client *client, std::string message)
 {
   commandFunction f;
-
+  t_msg msg;
+  
+  if (!parseMessage(message, msg))
+    return;
   f = _commands[msg.command];
   if (f == 0)
     client->reply(ERR_UNKNOWNCOMMAND(client->_getNickname(), msg.command));

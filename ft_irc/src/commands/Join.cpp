@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 13:50:11 by eorer             #+#    #+#             */
-/*   Updated: 2024/02/02 17:20:33 by eorer            ###   ########.fr       */
+/*   Updated: 2024/02/02 22:12:54 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 void  join(Server *serv, t_msg msg, Client* client)
 {
   std::string tmp;
+  int         arg = 0;
   std::vector<std::string>  channels;
+  std::vector<std::string>  keys;
   std::stringstream ss(msg.params[0]);
 
   if (msg.params.empty())
@@ -26,22 +28,43 @@ void  join(Server *serv, t_msg msg, Client* client)
   }
   while (std::getline(ss, tmp, ','))
     channels.push_back(tmp);
+  if (msg.params.size() > 1)
+  {
+    std::stringstream st(msg.params[1]);
+    while (std::getline(st, tmp, ','))
+      keys.push_back(tmp);
+  }
   for (std::vector<std::string>::iterator it = channels.begin(); it != channels.end(); ++it)
   {
     Channel* channel = serv->_getChannel(*it);
-   // if (*it->begin() != '#' || *it->begin() != '&')
-   // {
-   //   COUT("JIUGGFUJFKVKU");
-   //   continue;
-   // }
+
     if (!channel)
     {
       channel = serv->createChannel(*it);
-      channel->addClient(client);
+      if (msg.params.size() > 1)
+      {
+        channel->_setKey(keys[arg++]);
+        channel->_setMode('k', true);
+      }
       channel->addOperator(client);
     }
-    else
-      channel->addClient(client);
+    else if (channel->_getMode('k') && (msg.params.size() < 2 || channel->_getKey().compare(keys[arg++]) != 0))
+    {
+      client->reply(ERR_BADCHANNELKEY(client->_getNickname(), channel->_getName()));
+      return ;
+    }
+    else if (channel->_getMode('l') && static_cast<int>(channel->_getMembers().size()) >= channel->_getLimit())
+    {
+      client->reply(ERR_CHANNELISFULL(client->_getNickname(), channel->_getName()));
+      return ;
+    }
+    else if (channel->_getMode('i') && !channel->is_guest(client))
+    {
+      client->reply(ERR_INVITEONLYCHAN(client->_getNickname(), channel->_getName()));
+      return ;
+    }
+
+    channel->addClient(client);
     client->set_channel(channel);
     if (channel->_getTopic().empty())
       client->reply(RPL_NOTOPIC(serv->_getHostname(), client->_getNickname(), channel->_getName()));

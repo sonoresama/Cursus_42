@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:59:39 by eorer             #+#    #+#             */
-/*   Updated: 2024/02/02 17:20:50 by eorer            ###   ########.fr       */
+/*   Updated: 2024/02/02 22:13:17 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ Channel::~Channel(){}
 
 
 /*************** Accessors ****************/
+  //Getters
 std::string Channel::_getName() const
 {
   return (this->_name);
@@ -74,6 +75,12 @@ int Channel::_getMode(char mode)
   return (value ? 1 : 0);
 }
 
+std::vector<Client *> Channel::_getMembers()
+{
+  return (_members);
+}
+
+  //Setters
 int  Channel::_setMode(char mode, bool value)
 {
   std::string mode_set = "itkl";
@@ -137,6 +144,11 @@ void  Channel::addOperator(Client* client)
   _operators.push_back(client);
 }
 
+void  Channel::addGuest(Client* client)
+{
+  _guests.push_back(client);
+}
+
 bool  Channel::deleteClient(Client* client)
 {
   for (std::vector<Client *>::iterator it = _members.begin(); it != _members.end(); ++it)
@@ -144,6 +156,7 @@ bool  Channel::deleteClient(Client* client)
     if (client->_getSocket() == (*it)->_getSocket())
     {
       _members.erase(it);
+      deleteGuest(client);
       client->set_channel(NULL);
       return (true);
     }
@@ -164,11 +177,36 @@ bool  Channel::deleteOperator(Client* client)
   return (false);
 }
 
+bool  Channel::deleteGuest(Client* client)
+{
+  for (std::vector<Client *>::iterator it = _guests.begin(); it != _guests.end(); ++it)
+  {
+    if (client->_getSocket() == (*it)->_getSocket())
+    {
+      _guests.erase(it);
+      return (true);
+    }
+  }
+  return (false);
+}
+
 bool  Channel::is_operator(Client* client)
 {
   std::vector<Client *>::iterator  it;
 
   for (it = _operators.begin(); it != _operators.end(); ++it)
+  {
+    if ((*it)->_getNickname() == client->_getNickname())
+      return (true);
+  }
+  return (false);
+}
+
+bool  Channel::is_guest(Client* client)
+{
+  std::vector<Client *>::iterator  it;
+
+  for (it = _guests.begin(); it != _guests.end(); ++it)
   {
     if ((*it)->_getNickname() == client->_getNickname())
       return (true);

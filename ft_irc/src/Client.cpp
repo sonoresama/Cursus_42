@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: qrolland <qrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:20:51 by eorer             #+#    #+#             */
-/*   Updated: 2024/02/02 17:12:07 by eorer            ###   ########.fr       */
+/*   Updated: 2024/02/02 18:05:41 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 #include "../include/irc.hpp"
 
 /*************** Constructors and destructor ****************/
-Client::Client() : _socket(-1), _hostname(""), _nickname("*"), _username("*"),  _realname("*"), _mode("*"), _fully_registered(false), _entered_valid_password(false), _welcome(false)
+Client::Client() : _socket(-1), _hostname(""), _nickname("*"), _username("*"),  _realname("*"), _mode("*"), _channel(NULL), _fully_registered(false), _entered_valid_password(false), _welcome(false)
 {
  // CGREEN("A client has been created");
 }
 
-Client::Client(int socket, std::string hostname) : _socket(socket), _hostname(hostname), _nickname("*"), _username("*"),  _realname("*"), _mode("*"), _fully_registered(false), _entered_valid_password(false), _welcome(false)
+Client::Client(int socket, std::string hostname) : _socket(socket), _hostname(hostname), _nickname("*"), _username("*"),  _realname("*"), _mode("*"), _channel(NULL), _fully_registered(false), _entered_valid_password(false), _welcome(false)
 {
 //  CGREEN("A client has been created");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   irc.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: qrolland <qrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:47:46 by eorer             #+#    #+#             */
-/*   Updated: 2024/02/02 12:54:38 by eorer            ###   ########.fr       */
+/*   Updated: 2024/02/02 22:14:22 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <iostream>
 # include <sstream>
 # include <cstdlib>
+# include <csignal>
 # include "Server.hpp"
 # include "Client.hpp"
 # include "Commands.hpp"
@@ -51,6 +52,9 @@ typedef struct s_msg
 	std::string	prefix;
 	std::string	command;
     std::vector<std::string> params;
+	 ~s_msg() {
+        // Libérer la mémoire pour chaque vecteur dans params
+        for (std::vector<std::string>::iterator it = params.begin(); it != params.end(); ++it) {}}
 } t_msg;
 
 typedef void (*commandFunction)(Server*, t_msg, Client*);
@@ -68,5 +72,9 @@ void  user(Server* serv, t_msg msg, Client *client);
 void  nick(Server* serv, t_msg msg, Client *client);
 void  pass(Server *serv, t_msg msg, Client *client);
 void  mode(Server *serv, t_msg msg, Client *client);
+void  invite(Server *serv, t_msg msg, Client *client);
+
+extern bool stopServer;
+void signalHandler(int signum);
 
 #endif

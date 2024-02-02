@@ -6,7 +6,7 @@
 /*   By: qrolland <qrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:47:06 by eorer             #+#    #+#             */
-/*   Updated: 2024/02/02 14:49:30 by eorer            ###   ########.fr       */
+/*   Updated: 2024/02/02 18:08:20 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,9 @@ static int is_valid_nickname(std::string nickname)
     return (1);
 }
 
-//static bool nickname_in_use(Server *server, std::string nickname)
-//{
-//    C_ITERATOR it;
-//    std::vector<Client *>   clients = server->_getClients();
-//    for (it = server->_getClients().begin(); it != server->_getClients().end(); ++it)
-//    {
-//        if ((*it)->_getNickname().compare(nickname) == 0)
-//            return (true);
-//    }
-//    return (false);
-//}
-
 void  nick(Server* serv, t_msg msg, Client *client)
 {
     C_ITERATOR it;
-    
     if (msg.params.size() == 0)
     {
         client->reply(ERR_NEEDMOREPARAMS(client->_getPrefix(), msg.command));
@@ -63,6 +50,7 @@ void  nick(Server* serv, t_msg msg, Client *client)
         {
             Channel *channel = client->_getChannel();
             std::string old_nickname = client->_getNickname();
+
             client->set_nickname(nickname);
             COUT(old_nickname + " changed his nickname to " + client->_getNickname());
             if (channel != NULL)

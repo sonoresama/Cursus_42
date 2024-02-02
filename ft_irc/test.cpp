@@ -1,10 +1,20 @@
 #include <iostream>
-#include <map>
+#include <sstream>
+#include <vector>
 
 int main(void)
 {
-  std::map<char, bool>  modes;
+  std::stringstream ss("hello ca va ou quoi");
+  std::string str = "Wsh tito c comment";
+  std::vector<std::string> test;
+  std::string tmp;
 
-  modes['i'] = true;
-  modes['j'] = false;
+//  while (std::getline(ss, tmp, ' '))
+//  {
+//    test.push_back(tmp);
+//  }
+  ss.str(str);
+  std::cout << str << std::endl;
+  return (0);
+
 }

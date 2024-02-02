@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: qrolland <qrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:21:20 by eorer             #+#    #+#             */
-/*   Updated: 2024/02/02 13:49:10 by eorer            ###   ########.fr       */
+/*   Updated: 2024/02/02 16:09:58 by qrolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int main(int argc, char** argv)
   }
   catch (char const * str)
   {
+    // CERR("exception str")
     CERR(str);
     if (errno)
       perror(NULL);
@@ -47,6 +48,7 @@ int main(int argc, char** argv)
   }
   catch (std::exception &e)
   {
+    // CERR("exception")
     CERR(e.what());
   }
   return (0);
