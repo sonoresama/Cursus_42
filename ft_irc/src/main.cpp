@@ -6,7 +6,7 @@
 /*   By: qrolland <qrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:21:20 by eorer             #+#    #+#             */
-/*   Updated: 2024/02/02 16:09:58 by qrolland         ###   ########.fr       */
+/*   Updated: 2024/02/05 18:39:49 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,11 @@ int main(int argc, char** argv)
   {
     check_parameter(argc, argv);
     Server  serv(std::atoi(argv[1]), std::string(argv[2]));
-    pid_t pid = getpid();
 
-    std::cout << " --> Process pid : " << pid << std::endl;
     serv.run();
   }
   catch (char const * str)
   {
-    // CERR("exception str")
     CERR(str);
     if (errno)
       perror(NULL);
@@ -48,7 +45,6 @@ int main(int argc, char** argv)
   }
   catch (std::exception &e)
   {
-    // CERR("exception")
     CERR(e.what());
   }
   return (0);

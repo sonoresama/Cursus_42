@@ -6,7 +6,7 @@
 /*   By: qrolland <qrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:47:46 by eorer             #+#    #+#             */
-/*   Updated: 2024/02/02 22:14:22 by eorer            ###   ########.fr       */
+/*   Updated: 2024/02/05 16:13:03 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 # include <csignal>
 # include "Server.hpp"
 # include "Client.hpp"
-# include "Commands.hpp"
 # include "Channel.hpp"
 # include "color.h"
 # include "Numeric_replies.hpp"
@@ -59,7 +58,6 @@ typedef struct s_msg
 
 typedef void (*commandFunction)(Server*, t_msg, Client*);
 
-//void  cap(Server *serv, struct s_message msg, Client& client);
 void  ping(Server *serv, t_msg msg, Client* client);
 void  join(Server *serv, t_msg msg, Client* client);
 void  privmsg(Server *serv, t_msg msg, Client* client);
@@ -73,6 +71,7 @@ void  nick(Server* serv, t_msg msg, Client *client);
 void  pass(Server *serv, t_msg msg, Client *client);
 void  mode(Server *serv, t_msg msg, Client *client);
 void  invite(Server *serv, t_msg msg, Client *client);
+void  notice(Server *serv, t_msg msg, Client *client);
 
 extern bool stopServer;
 void signalHandler(int signum);

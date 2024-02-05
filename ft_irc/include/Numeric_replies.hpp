@@ -1,14 +1,6 @@
 #ifndef NUMERICAL_REPLIES_HPP
 #define NUMERICAL_REPLIES_HPP
 
-////parisng
-//# define ERR_UNKNOWNCOMMAND(client, command) (std::string(":localhost 421 ") + client + " " + command + " :Unknown command")
-////user
-//# define ERR_NEEDMOREPARAMS(client, command) (std::string(":localhost 461 ") + client + " " + command + " :Not enough parameters.")
-////nick
-////welcome
-//# define RPL_WELCOME(nick, user, host) (std::string(":localhost 001 ") + user + " :Welcome on irc Server <3 " + nick + "!" + user + "@" + host)
-
   //Numeric errors
 # define ERR_ALREADYREGISTERED(client) (std::string(":localhost 462 ") + client + " :You may not reregister.")
 # define ERR_NICKNAMEINUSE(client, nickname) (std::string(":localhost 433 ") + client + " " + nickname + " :Nickname is already in use.")
@@ -44,6 +36,7 @@
 # define RPL_PONG(prefix, dest) ":" + prefix + " PONG " + dest
 # define RPL_JOIN(prefix, channel) ":" + prefix + " JOIN " + channel
 # define RPL_PRIVMSG(prefix, target, message) ":" + prefix + " PRIVMSG " + target + " :" + message
+# define RPL_NOTICE(prefix, target, message) ":" + prefix + " NOTICE " + target + " :" + message
 # define RPL_KICK(prefix, channel, user, reason) ":" + prefix + " KICK " + channel + " " + user + " :" + reason
 # define RPL_PART(prefix, channel, reason) ":" + prefix + " PART " + channel + " :" + reason
 # define RPL_ERROR(prefix, reason) ":" + prefix + " ERROR :" + reason

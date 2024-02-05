@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:59:39 by eorer             #+#    #+#             */
-/*   Updated: 2024/02/02 22:13:17 by eorer            ###   ########.fr       */
+/*   Updated: 2024/02/05 16:23:56 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,8 +155,8 @@ bool  Channel::deleteClient(Client* client)
   {
     if (client->_getSocket() == (*it)->_getSocket())
     {
-      _members.erase(it);
       deleteGuest(client);
+      _members.erase(it);
       client->set_channel(NULL);
       return (true);
     }

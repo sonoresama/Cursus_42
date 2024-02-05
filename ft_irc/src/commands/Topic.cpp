@@ -37,14 +37,6 @@ void  topic(Server *serv, t_msg msg, Client* client)
   {
     if (!channel->_getMode('t') && !channel->is_operator(client))
     {
-      if (!channel->_getMode('t'))
-      {
-        CRED("No t mode");
-      }
-      if (!channel->is_operator(client))
-      {
-        CRED("No op for client");
-      }
       client->reply(ERR_CHANOPRIVSNEEDED(client->_getPrefix(), channel->_getName()));
       return;
     }

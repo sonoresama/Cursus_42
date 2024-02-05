@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 13:50:11 by eorer             #+#    #+#             */
-/*   Updated: 2024/02/02 22:12:54 by eorer            ###   ########.fr       */
+/*   Updated: 2024/02/05 18:57:37 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void  join(Server *serv, t_msg msg, Client* client)
 
     if (!channel)
     {
+      if ((*it)[0] != '#' && (*it)[0] != '&')
+        return ;
       channel = serv->createChannel(*it);
       if (msg.params.size() > 1)
       {

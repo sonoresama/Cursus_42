@@ -6,7 +6,7 @@
 /*   By: eorer <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:58:51 by eorer             #+#    #+#             */
-/*   Updated: 2024/02/02 17:43:44 by eorer            ###   ########.fr       */
+/*   Updated: 2024/02/05 18:38:36 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void  kick(Server *serv, t_msg msg, Client* client)
     return;
   }
 
-  std::string reason = msg.params[2].substr(1).empty() ? msg.params[2].substr(1) : "No reason";
+  std::string reason = msg.params[2].substr(1).empty() ? "No reason" : msg.params[2].substr(1);
   channel = serv->_getChannel(msg.params[0]);
   if (!channel)
     client->reply(ERR_NOSUCHCHANNEL(client->_getNickname(), msg.params[0]));

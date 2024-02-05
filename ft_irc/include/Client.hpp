@@ -49,8 +49,8 @@ class Client
     void  welcome();
 
     class InvalidUsernameException : public std::exception {};
-	class InvalidNicknameException : public std::exception {};
-	class NicknameTooLongException : public std::exception {};
+	  class InvalidNicknameException : public std::exception {};
+	  class NicknameTooLongException : public std::exception {};
 
   private:
     int         _socket;

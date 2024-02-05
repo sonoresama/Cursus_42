@@ -6,7 +6,7 @@
 /*   By: qrolland <qrolland@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:33:25 by eorer             #+#    #+#             */
-/*   Updated: 2024/02/02 22:14:11 by eorer            ###   ########.fr       */
+/*   Updated: 2024/02/05 18:43:30 by eorer            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,11 @@ Server::Server(int port, std::string pwd) : _port(port), _pwd(pwd)
   _hostname = std::string(hostname);
 
   _initializeCommands();
-  COUT("Server created");;
+  CGREEN("*********** Server created ***********")
 }
 
 void  Server::_initializeCommands()
 {
-  // _commands["CAP"] = &cap;
   _commands["USER"] = &user;
   _commands["NICK"] = &nick;
   _commands["PASS"] = &pass;
@@ -65,6 +64,7 @@ void  Server::_initializeCommands()
   _commands["TOPIC"] = &topic;
   _commands["MODE"] = &mode;
   _commands["INVITE"] = &invite;
+  _commands["NOTICE"] = &notice;
 }
 
 Server::~Server()
@@ -80,7 +80,7 @@ Server::~Server()
     delete it->second;
   }
   close(_epfd);
-  COUT("Server destructed")
+  CRED("\n*********** Server destructed ***********")
 }
 
 
@@ -131,7 +131,7 @@ void  Server::run(void)
   {
     int waitfds;
 
-    COUT("Waiting...");
+    CGREEN("Waiting...");
     waitfds = epoll_wait(_epfd, e_recv, maxEvent, -1);
     if (waitfds == -1)
       throw("Error: waiting events on epoll interest list");
@@ -181,7 +181,6 @@ void  Server::handleCommunication(Client* client)
 {
   std::string message;
   std::string line;
-  // t_msg msg;
 
   try
   {
@@ -192,9 +191,6 @@ void  Server::handleCommunication(Client* client)
     std::stringstream ss(message);
     while (std::getline(ss, line))
     {
-      // memset(&msg, 0, sizeof(t_msg));
-      // parseMessage(line, msg);
-      // executeCommand(client, msg);
       executeCommand(client, line);
     }
   }
@@ -217,6 +213,7 @@ void  Server::handleDeconnection(int socket)
   for (CH_ITERATOR it = _channels.begin(); it != _channels.end(); it++)
   {
     it->second->deleteClient(client);
+    it->second->deleteOperator(client);
   }
   for (C_ITERATOR it = _clients.begin(); it != _clients.end(); ++it)
   {
@@ -228,8 +225,6 @@ void  Server::handleDeconnection(int socket)
     }
   }
   std::cout << "Connection with a client has been lost" << std::endl;
-  if (_clients.size() == 0)
-    CRED("No client left");
 }
 
 std::string Server::readRequest(Client* client)
@@ -282,7 +277,7 @@ int Server::parseMessage(std::string message, t_msg &msg)
     }
     else
     {
-        for (size_t i = 0; i < tmp.size() - 2; ++i) {
+        for (size_t i = 0; i < tmp.size(); ++i) {
             msg.command += std::toupper(tmp[i]);}
         tmp.clear();
     }
@@ -380,4 +375,3 @@ Channel*  Server::createChannel(std::string name)
   _channels[name] = newChannel;
   return (newChannel);
 }
-/*************** GARBAGE ****************/

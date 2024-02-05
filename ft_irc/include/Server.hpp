@@ -32,19 +32,18 @@ class Server
     std::vector<Client*>  _getClients();
     Channel*              _getChannel(std::string name);
 
-    void  run();
-    void  handleCommunication(Client* client);
-    void  handleNewConnection();
-    void  handleDeconnection(int socket);
+    void                  run();
+    void                  handleCommunication(Client* client);
+    void                  handleNewConnection();
+    void                  handleDeconnection(int socket);
 
-    int         parseMessage(std::string message, t_msg &msg);
-    // void        executeCommand(Client* client, t_msg msg);
-    void        executeCommand(Client* client, std::string message);
-    std::string readRequest(Client* client);
-    Client*     findClient(int socket);
-    Client*     findClient(std::string nickname);
-    Channel*    createChannel(std::string name);
-    bool        nickname_in_use(std::string nickname);
+    int                   parseMessage(std::string message, t_msg &msg);
+    void                  executeCommand(Client* client, std::string message);
+    std::string           readRequest(Client* client);
+    Client*               findClient(int socket);
+    Client*               findClient(std::string nickname);
+    Channel*              createChannel(std::string name);
+    bool                  nickname_in_use(std::string nickname);
 
   private:
     
