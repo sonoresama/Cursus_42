@@ -1,0 +1,60 @@
+version: "3.8"
+
+volumes:
+ mariadb_vol:
+  driver: local
+  driver_opts:
+   type: 'none'
+   o: 'bind'
+   device: /home/eorer/data/mariadb_vol
+ wordpress_vol:
+  driver: local
+  driver_opts:
+   type: 'none'
+   o: 'bind'
+   device: /home/eorer/data/wordpress_vol
+ 
+networks:
+ my_network:
+  driver: bridge
+
+services:
+ nginx:
+  container_name: nginx
+  volumes:
+   - wordpress_vol:/var/www/wordpress
+  networks:
+   - my_network
+  depends_on:
+   - wordpress
+  build: ./requirements/nginx
+  env_file: .env
+  ports:
+   - "443:443"
+  restart: on-failure
+
+ wordpress:
+  container_name: wordpress
+  env_file: .env
+  volumes:
+   - wordpress_vol:/var/www/wordpress
+  networks:
+   - my_network
+  build: ./requirements/wordpress
+  depends_on:
+   - mariadb
+  restart: on-failure
+  expose:
+   - "9000"
+
+ mariadb:
+  container_name: mariadb
+  networks:
+   - my_network
+  build: ./requirements/mariadb
+  env_file: .env
+  volumes:
+   - mariadb_vol:/var/lib/mysql
+  restart: unless-stopped
+  expose:
+   - "3306"
