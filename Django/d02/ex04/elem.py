@@ -20,6 +20,7 @@ class Elem:
     Elem will permit us to represent our HTML elements.
     """
     [...]
+    exception
 
     def __init__(self, tag='div', attr={}, content=None, tag_type='double'):
         """
@@ -27,7 +28,10 @@ class Elem:
 
         Obviously.
         """
-        [...]
+        self.tag = tag
+        self.attr = attr
+        self.content = content
+        self.tag_type = tag_type
 
     def __str__(self):
         """
@@ -37,9 +41,9 @@ class Elem:
         elements...).
         """
         if self.tag_type == 'double':
-            [...]
+            result = f"<{self.tag} {self.__make_attr()}>\n {self.__make_content()}\n</{tag}>"
         elif self.tag_type == 'simple':
-            [...]
+            result = f"<{self.tag} {self.__make_attr()}/>"
         return result
 
     def __make_attr(self):
@@ -60,7 +64,7 @@ class Elem:
             return ''
         result = '\n'
         for elem in self.content:
-            result += [...]
+            result += result.join([" " + line for line in elem])
         return result
 
     def add_content(self, content):
@@ -84,4 +88,7 @@ class Elem:
 
 
 if __name__ == '__main__':
-    [...]
+    title = Elem('title', {}, 'Hello World', 'double')
+    head = Elem('head', {}, title, 'double')
+    html = Elem('html', {}, head, 'double')
+    print(html)

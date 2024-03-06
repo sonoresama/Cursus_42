@@ -1,0 +1,42 @@
+html {
+}
+
+body {
+  color:  blue;
+  margin: 0;
+}
+
+header {
+  background-color: grey;
+  margin: 0px;
+  overflow: hidden;
+}
+
+main {
+  margin: 8px;
+}
+
+nav {
+  margin: 10px;
+  padding: 0px;
+  border-color: red;
+  border: 1px solid;
+  border-radius: 10px;
+}
+
+ol {
+  gap: 1rem;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+li {
+  border: 1px solid;
+  padding: 50px;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.7rem;
+}
