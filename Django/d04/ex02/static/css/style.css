@@ -1,0 +1,22 @@
+.container{
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.form {
+  position: relative;
+}
+
+.display {
+  border: 1px solid;
+  border-radius: 5px;
+}
+
+input[type="submit"] {
+  position: absolute;
+  background-color: pink;
+  bottom: 0;
+  width: 100%;
+}

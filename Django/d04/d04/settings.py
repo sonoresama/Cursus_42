@@ -10,11 +10,43 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Creating log_file for ex02
+LOG_PATH = os.path.join(BASE_DIR, 'ex02/history.log')
+if not os.path.exists(LOG_PATH):
+    with open(LOG_PATH, 'w'):
+        pass
+
+LOGGING = {
+    'version':1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'history_format':{
+            'format': '[{asctime}] {message}',
+            'style': '{',
+        },
+    },
+    'handlers':{
+        'history_handler':{
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': LOG_PATH,
+            'formatter': 'history_format',
+                },
+            },
+    'loggers':{
+        'history': {
+            'handlers': ['history_handler'],
+            'level': 'INFO',
+            'propagate': True,
+            },
+     },
+}
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -39,6 +71,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ex00.apps.Ex00Config',
     'ex01.apps.Ex01Config',
+    'ex02.apps.Ex02Config',
+    'ex03.apps.Ex03Config',
 ]
 
 MIDDLEWARE = [

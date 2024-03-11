@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset='UTF-8'>
+    <title> Ex03 </title>
+    <style>
+      th {
+        border: 1px black solid;
+      }
+
+      td {
+        border: 1px black solid;
+        color: white;
+      }
+
+    </style>
+  </head>
+  <body style="display: flex; flex-direction: column; justify-content: center;">
+	<div style="text-align: center;"> COUCOU </div>
+    <table style="border: 1px pink solid;">
+      <tr>
+        <th> Black </th>
+        <th> Red </th>
+        <th> Green </th>
+        <th> Blue </th>
+      </tr>
+      {% for i in range %}
+        <tr>
+          <td style="background-color: #{{i}}{{i}}{{i}};"> {{i}} </td>
+          <td style="background-color: #{{i}}0000;"> {{i}}</td>
+          <td style="background-color: #00{{i}}00;"> {{i}}</td>
+          <td style="background-color: #0000{{i}};"> {{i}}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset='UTF-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Home</title>
+    <link rel='stylesheet' type='text/css' href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    <div class='nav'>
+      {% include './nav.html' %}
+    </div>
+    {% block header %}{% endblock %}
+    <div class='main'>
+      {% block content_music %}{% endblock %}
+      {% block content_image %}{% endblock %}
+      {% block content_document %}{% endblock %}
+    </div>
+    {% block script %}{% endblock %}
+  </body>
+</html>
