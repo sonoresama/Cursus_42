@@ -8,14 +8,14 @@
 {% endblock %}
 
 {% block content_music %}
-      <div class='container active' id='music-container'>
+      <div class='container' id='music-container'>
         <div class='header-bar'>
           <h2 onclick="toggle_list('music-container')"> MUSIC </h2>
-          <button class="download-button" onclick="download()"></button>
+          <a class="download-button" href="{% url 'download_zip' directory='music' %}" ></a>
         </div>
         <ol id='music-list'>
           {% for file in music %}
-          <li><a href="{% static 'music/' %}{{ file }}">{{ file }}</a></li>
+            <li><a href="{% static 'music/' %}{{ file }}" download >{{ file }}</a></li>
           {% endfor %}
         </ol>
       </div>
@@ -25,11 +25,11 @@
       <div class='container' id='image-container'>
         <div class='header-bar'>
           <h2 onclick="toggle_list('image-container')"> IMAGE </h2>
-          <button class="download-button" onclick="download()"></button>
+          <a class="download-button" href="{% url 'download_zip' directory='image' %}" download></a>
         </div>
         <ol id='image-list'>
           {% for file in image %}
-          <li><a href="{% static 'image/' %}{{ file }}">{{ file }}</a></li>
+            <li><a href="{% static 'image/' %}{{ file }}">{{ file }}</a></li>
           {% endfor %}
         </ol>
       </div>
@@ -39,25 +39,12 @@
       <div class='container' id='document-container'>
         <div class='header-bar'>
           <h2 onclick="toggle_list('document-container')"> DOCUMENT </h2>
-          <button class="download-button" onclick="download()"></button>
+          <a class="download-button" href="{% url 'download_zip' directory='document' %}" download></a>
         </div>
         <ol id='document-list'>
           {% for file in document %}
-          <li><a href="{% static 'document/' %}{{ file }}">{{ file }}</a></li>
+            <li><a href="{% static 'document/' %}{{ file }}">{{ file }}</a></li>
           {% endfor %}
         </ol>
       </div>
-{% endblock %}
-
-{% block script%}
-  <script>
-    function toggle_list(id){
-      var container = document.getElementById(id);
-      container.classList.toggle("active");
-    }
-
-    function download(){
-      console.log('download');
-    }
-  </script>
 {% endblock %}

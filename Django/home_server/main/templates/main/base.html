@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Home</title>
     <link rel='stylesheet' type='text/css' href="{% static 'css/style.css' %}">
+    <script type='text/javascript' src="{% static 'js/front.js' %}"></script>
   </head>
   <body>
     <div class='nav'>
@@ -17,6 +18,5 @@
       {% block content_image %}{% endblock %}
       {% block content_document %}{% endblock %}
     </div>
-    {% block script %}{% endblock %}
   </body>
 </html>
