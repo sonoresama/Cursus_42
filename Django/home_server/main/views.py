@@ -4,17 +4,20 @@ import os
 import zipfile
 
 def index(request):
-    m_content = 'main/static/music'
-    i_content = 'main/static/image'
-    d_content = 'main/static/document'
+    m_content = 'main/static/media/music'
+    i_content = 'main/static/media/image'
+    d_content = 'main/static/media/document'
     music = os.listdir(m_content)
     image = os.listdir(i_content)
     document = os.listdir(d_content)
-    print(music)
+        #Gerer les retours d'erreur
+
+    text = "\"Mets toi en valeur, mais n’oublie pas tes valeurs.\""
     context = {
         'document' : document,
         'music' : music,
         'image' : image,
+        'banner_text' : text,
     }
     return render(request, 'main/index.html', context)
 

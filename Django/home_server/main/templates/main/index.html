@@ -1,6 +1,15 @@
 {% extends './base.html' %}
 {% load static %}
 
+<!-- Variables: music, image, document, banner_text -->
+{% block banner %}
+  <div class="banner">
+    <div class="banner-text">
+      <p> {{ banner_text }} </p>
+    </div>
+  </div>
+{% endblock %}
+
 {% block header %}
   <div class="header">
     <h1 id="welcome-header"> Welcome on Tito's server </h1>
@@ -29,7 +38,7 @@
         </div>
         <ol id='image-list'>
           {% for file in image %}
-            <li><a href="{% static 'image/' %}{{ file }}">{{ file }}</a></li>
+            <li><a href="{% static 'image/' %}{{ file }}" download >{{ file }}</a></li>
           {% endfor %}
         </ol>
       </div>
@@ -43,7 +52,7 @@
         </div>
         <ol id='document-list'>
           {% for file in document %}
-            <li><a href="{% static 'document/' %}{{ file }}">{{ file }}</a></li>
+            <li><a href="{% static 'document/' %}{{ file }}" download >{{ file }}</a></li>
           {% endfor %}
         </ol>
       </div>
